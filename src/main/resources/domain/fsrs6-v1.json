@@ -1,0 +1,55 @@
+{
+  "profileId": "leximeet.fsrs6/1",
+  "algorithm": "FSRS-6",
+  "referenceImplementation": "fsrs-6/java-fsrs-1.0.0",
+  "sourceRevision": "c561ee6c56239b621a0a45b16a6c2e688441eae5",
+  "desiredRetention": 0.9,
+  "maximumIntervalDays": 36500,
+  "enableFuzzing": false,
+  "learningStepsMinutes": [
+    1,
+    10
+  ],
+  "relearningStepsMinutes": [
+    10
+  ],
+  "parameters": [
+    0.2172,
+    1.1771,
+    3.2602,
+    16.1507,
+    7.0114,
+    0.57,
+    2.0966,
+    0.0069,
+    1.5261,
+    0.112,
+    1.0178,
+    1.849,
+    0.1133,
+    0.3127,
+    2.2934,
+    0.2191,
+    3.0004,
+    0.7536,
+    0.3332,
+    0.1437,
+    0.2
+  ],
+  "initial": {
+    "state": "learning",
+    "step": 0,
+    "stability": null,
+    "difficulty": null,
+    "lastReviewAt": null
+  },
+  "timestampPrecision": "milliseconds",
+  "timestampNormalization": "对每次输出的 Instant 截断到毫秒，再作为后续状态输入",
+  "order": [
+    "occurredAt",
+    "eventId"
+  ],
+  "numericTolerance": 1e-06,
+  "timestampToleranceMs": 0,
+  "provenance": "固定 Java 参考实现的八组内存轨迹；消费端需要运行实际调度器比对，不构成现有浏览器实现兼容证明"
+}

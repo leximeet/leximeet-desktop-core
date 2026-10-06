@@ -1,0 +1,8 @@
+flowchart TD
+  Select[选择学习目标] --> Plan[设置新学与复习额度]
+  Plan --> Preview[只读预览计划]
+  Preview --> Revision(规划版本仍一致):::decision
+  Revision -- 是 --> Commit[原子保存目标与计划]
+  Revision -- 否 --> Keep[返回冲突并保留输入]
+  Commit --> Queue[按学习日投影今日任务]
+  Queue --> Practice[用户主动练习或等待提醒]

@@ -1,0 +1,7 @@
+flowchart LR
+  U[Desktop 界面] --> M[Electron Main]
+  P[Browser 读卡与采集] --> H[Native Host]
+  H --> M
+  M --> C[Java Core：校验、判题、事务]
+  C --> D[(个人 SQLite)]
+  C --> R[(Dictionary 0.0.3：只读)]

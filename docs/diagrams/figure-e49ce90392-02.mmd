@@ -1,0 +1,13 @@
+sequenceDiagram
+  participant Browser
+  participant Main
+  participant Core
+  Browser->>Core: hello（契约摘要、必需能力）
+  Main->>Core: 创建指定已发现客户端的 120 秒邀请
+  Browser->>Browser: 真实用户确认、持久保存票据并封存 A
+  Browser->>Core: pair（真实来源、实例、连接和秘密邀请票据）
+  Core-->>Browser: 持久 pairing + 24 小时 session
+  Browser->>Core: getWord / recordEncounter
+  Core-->>Browser: 桌面 B 的查询或原子回执
+  Browser->>Core: disconnect
+  Core-->>Browser: 持久 disconnected，结束全部会话及 grant，保留 pairing

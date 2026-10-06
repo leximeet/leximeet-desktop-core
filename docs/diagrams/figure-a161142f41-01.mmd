@@ -1,0 +1,5 @@
+flowchart LR
+  B[独立 Browser] <-->|LMSP：用户显式同步| C[账号云空间]
+  D[Desktop] <-->|LMSP：用户显式同步| C
+  P[连接插件] <-->|LMCP：只读与采集| D
+  A[(插件独立资料 A)] -.连接期间封存.-> P

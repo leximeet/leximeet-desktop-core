@@ -1,0 +1,16 @@
+name: 功能建议
+description: 从具体使用场景说明问题和期望
+body:
+  - type: textarea
+    id: scenario
+    attributes:
+      label: 使用场景与当前困难
+    validations:
+      required: true
+  - type: textarea
+    id: expectation
+    attributes:
+      label: 期望行为、替代办法与涉及层次
+      description: Core / Desktop / Browser / LMCP / 未来云同步，说明为什么属于该层。
+    validations:
+      required: true

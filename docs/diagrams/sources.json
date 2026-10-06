@@ -1,0 +1,140 @@
+{
+  "format": 1,
+  "diagrams": [
+    {
+      "id": "figure-b335630551-01",
+      "page": "README.md",
+      "source": "docs/diagrams/figure-b335630551-01.mmd",
+      "sourceSha256": "94b9dcdcbe9590697fe3662accb670a4651862057ce887dce8c8cd768c494d0e",
+      "origin": "README.md",
+      "originDiagram": 1,
+      "originDiagramSha256": "030ad187cb0d478fadd0f3c1b417d6a9509ab349e697c840ae5ba9a4417ef875"
+    },
+    {
+      "id": "figure-e49ce90392-01",
+      "page": "docs/1.0.0核心职责.md",
+      "source": "docs/diagrams/figure-e49ce90392-01.mmd",
+      "sourceSha256": "d2c22925e1fef9cd75ef9989cbd7e5dd5c52ec758796f9c5e41e2b04111a6021",
+      "origin": "docs/1.0.0核心职责.md",
+      "originDiagram": 1,
+      "originDiagramSha256": "d5d406493cc677fdfb31874a0d4f7bfe14a075a0760c2986454373b98584e9a8"
+    },
+    {
+      "id": "figure-e49ce90392-02",
+      "page": "docs/1.0.0核心职责.md",
+      "source": "docs/diagrams/figure-e49ce90392-02.mmd",
+      "sourceSha256": "d4b5f3df0e5d97d48b470c75cecca06b9a182951668637b2db28bcb2717fc325",
+      "origin": "docs/1.0.0核心职责.md",
+      "originDiagram": 2,
+      "originDiagramSha256": "aa140983c601e31e4b3f7d9087221bd68a9422eadf659980311402e664b1468d"
+    },
+    {
+      "id": "figure-e49ce90392-03",
+      "page": "docs/1.0.0核心职责.md",
+      "source": "docs/diagrams/figure-e49ce90392-03.mmd",
+      "sourceSha256": "827679d02b3c38ac040188152afb90ccda3edfd04f7d1f0205ffacaaee1db8de",
+      "origin": "docs/1.0.0核心职责.md",
+      "originDiagram": 3,
+      "originDiagramSha256": "7b865406b47e99e837e8997d78e53028a032cdcbaaf39d4ea1864979c18fa215"
+    },
+    {
+      "id": "figure-229791f7fc-01",
+      "page": "docs/FSRS档案与重放.md",
+      "source": "docs/diagrams/figure-229791f7fc-01.mmd",
+      "sourceSha256": "f1933acf5a73b82da4b49408cc4d6f192abb0974a2752e27a96a2befc3ef6a90",
+      "origin": "docs/FSRS档案与重放.md",
+      "originDiagram": 1,
+      "originDiagramSha256": "48f1f8b555ae0da5a77ad54c038ec3acbf3f2755d9c39a28a320cfde1cd2b7d1"
+    },
+    {
+      "id": "figure-93a1929f6a-01",
+      "page": "docs/功能设计.md",
+      "source": "docs/diagrams/figure-93a1929f6a-01.mmd",
+      "sourceSha256": "ec5c3cbd7f60afd272533536e6e6eee5d3b9f6ce62861245e33522df7e97d662",
+      "origin": "docs/功能设计.md",
+      "originDiagram": 1,
+      "originDiagramSha256": "1137329c3257929dfad35660c7a8aada990c70973a7567a9824fca9229208d0b"
+    },
+    {
+      "id": "figure-93a1929f6a-02",
+      "page": "docs/功能设计.md",
+      "source": "docs/diagrams/figure-93a1929f6a-02.mmd",
+      "sourceSha256": "77394a0ef71bf936668e0778018665d2c24389217367b288411b90148daa2ec8",
+      "origin": "docs/功能设计.md",
+      "originDiagram": 2,
+      "originDiagramSha256": "8d97c62c3218bee81fe71523b2074503dc6d1d4f116c1f7aacf6f3c083cf616b"
+    },
+    {
+      "id": "figure-93a1929f6a-03",
+      "page": "docs/功能设计.md",
+      "source": "docs/diagrams/figure-93a1929f6a-03.mmd",
+      "sourceSha256": "87a2420b1170082758291cb0163e2817243aa3cc029594d256eeea26f4d89cb1",
+      "origin": "docs/功能设计.md",
+      "originDiagram": 3,
+      "originDiagramSha256": "9c96ea11d5767152eba86939f52c70a3262151a4e619bc3d30b01131c5b73f25"
+    },
+    {
+      "id": "figure-b2f3651da3-01",
+      "page": "docs/数据模型与备份.md",
+      "source": "docs/diagrams/figure-b2f3651da3-01.mmd",
+      "sourceSha256": "2c0c5d019f40a9e66a5ef12d99393bfd0eadc5805055277c40ab71139343f02e",
+      "origin": "docs/数据模型与备份.md",
+      "originDiagram": 1,
+      "originDiagramSha256": "428d81049b193a3113f1f865b2e7a3022926c4ae6fef3a5f51d06e798b6b3f02"
+    },
+    {
+      "id": "figure-75a9c50a16-01",
+      "page": "docs/架构设计.md",
+      "source": "docs/diagrams/figure-75a9c50a16-01.mmd",
+      "sourceSha256": "96ea137eb5d2db385c3c0d2a9307a84dc88a0b122a0d4eb73570964227661f9f",
+      "origin": "docs/架构设计.md",
+      "originDiagram": 1,
+      "originDiagramSha256": "21b07a5da42b8e8d3979b45a68b22f32f53411f3829f1b312bee1882f2fe8bd7"
+    },
+    {
+      "id": "figure-75a9c50a16-02",
+      "page": "docs/架构设计.md",
+      "source": "docs/diagrams/figure-75a9c50a16-02.mmd",
+      "sourceSha256": "5fae2db3c672f551013637ec78cf7dc40d7ee742710f091c0fb71ab9f474155d",
+      "origin": "docs/架构设计.md",
+      "originDiagram": 2,
+      "originDiagramSha256": "5713a658fe66cea652faf0876ee52c1c9b6fc9fd882f358040b37c099141100b"
+    },
+    {
+      "id": "figure-75a9c50a16-03",
+      "page": "docs/架构设计.md",
+      "source": "docs/diagrams/figure-75a9c50a16-03.mmd",
+      "sourceSha256": "1850125629d2bb68fe3db123e7d7b852d999cb5b42757d93d34a1e6be4bed53f",
+      "origin": "docs/架构设计.md",
+      "originDiagram": 3,
+      "originDiagramSha256": "f2a29e56e65b6d3c057a1ef3bc305943d526564415b8a8270b587561f0cff18b"
+    },
+    {
+      "id": "figure-931af725f7-01",
+      "page": "docs/统一学习规则.md",
+      "source": "docs/diagrams/figure-931af725f7-01.mmd",
+      "sourceSha256": "8be3e0935d33733e8bd80e7ceb396c3c248d977de7b5a6a1ee75c75da90c26a2",
+      "origin": "docs/统一学习规则.md",
+      "originDiagram": 1,
+      "originDiagramSha256": "813a3cac62932745fdc72cd54403473040728e7499d85a45eeb95e21a41f78e2"
+    },
+    {
+      "id": "figure-a161142f41-01",
+      "page": "docs/路线与任务.md",
+      "source": "docs/diagrams/figure-a161142f41-01.mmd",
+      "sourceSha256": "2b8f5c323101052c2cd5ae0266906166ecbc983a30743ce6c4df1ac3bed26832",
+      "origin": "docs/路线与任务.md",
+      "originDiagram": 1,
+      "originDiagramSha256": "8a22883a491ed1a920bcc8bacbcabc29e905158ca125e7175fb6eb7e1938b913"
+    },
+    {
+      "id": "figure-75f9589bc4-01",
+      "page": "docs/采集安全与重复语境.md",
+      "source": "docs/diagrams/figure-75f9589bc4-01.mmd",
+      "sourceSha256": "87b77d6838864a6b941bfb1165e7e28a3ba1ca61167f8388e4201c6b06f41ade",
+      "origin": "docs/采集安全与重复语境.md",
+      "originDiagram": 1,
+      "originDiagramSha256": "151abea970abfb751b64a02c25e1c089707928190984348e1de41db8fd51029f"
+    }
+  ]
+}

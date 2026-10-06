@@ -1,0 +1,3585 @@
+[
+  {
+    "name": "hello-request",
+    "schema": "Request",
+    "valid": true,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "hello",
+      "params": {
+        "apiMajor": 1,
+        "minApiVersion": "1.0.0",
+        "connectionId": "11111111-1111-4111-8111-111111111111",
+        "contractVersion": "1.0.0",
+        "contractDigest": "61a44cc2f7f73fef81b007c844e1f2fa4deb955bf21a69236ee7b4f713808c49",
+        "clientKind": "browser",
+        "requiredCapabilities": [
+          "lmcp.connection/1",
+          "desktop.reading/1",
+          "desktop.capture/1",
+          "desktop.navigation/1"
+        ],
+        "clientInstanceId": "11111111-1111-4111-8111-111111111111",
+        "displayName": "x"
+      }
+    }
+  },
+  {
+    "name": "hello-response",
+    "schema": "Response",
+    "valid": true,
+    "value": {
+      "apiVersion": "1.0.0",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "hello",
+      "ok": true,
+      "result": {
+        "apiVersion": "1.0.0",
+        "desktopInstanceId": "11111111-1111-4111-8111-111111111111",
+        "methods": [
+          "hello",
+          "requestConnection",
+          "getConnectionStatus",
+          "pair",
+          "resumeSession",
+          "renewSession",
+          "revokePairing",
+          "disconnect",
+          "getWorkspace",
+          "matchWords",
+          "getWord",
+          "getPublicEntry",
+          "recordEncounter",
+          "getChanges",
+          "getOperation",
+          "openInDesktop",
+          "listNotebooks",
+          "listEncounters",
+          "registerHost"
+        ],
+        "maxFrameBytes": 1,
+        "capabilities": [
+          "lmcp.connection/1",
+          "desktop.reading/1",
+          "desktop.capture/1",
+          "desktop.navigation/1",
+          "desktop.notebooks/1",
+          "desktop.encounters/1",
+          "host.registration/1"
+        ],
+        "connectionId": "11111111-1111-4111-8111-111111111111",
+        "contractVersion": "1.0.0",
+        "contractDigest": "61a44cc2f7f73fef81b007c844e1f2fa4deb955bf21a69236ee7b4f713808c49",
+        "displayName": "词遇 Desktop"
+      }
+    }
+  },
+  {
+    "name": "hello-reject-unknown-input",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "hello",
+      "params": {
+        "apiMajor": 1,
+        "minApiVersion": "1.0.0",
+        "connectionId": "11111111-1111-4111-8111-111111111111",
+        "contractVersion": "1.0.0",
+        "contractDigest": "61a44cc2f7f73fef81b007c844e1f2fa4deb955bf21a69236ee7b4f713808c49",
+        "clientKind": "browser",
+        "requiredCapabilities": [
+          "lmcp.connection/1",
+          "desktop.reading/1",
+          "desktop.capture/1",
+          "desktop.navigation/1"
+        ],
+        "unexpectedField": true,
+        "clientInstanceId": "11111111-1111-4111-8111-111111111111",
+        "displayName": "x"
+      }
+    }
+  },
+  {
+    "name": "pair-request",
+    "schema": "Request",
+    "valid": true,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "pair",
+      "params": {
+        "clientInstanceId": "11111111-1111-4111-8111-111111111111",
+        "invitationId": "11111111-1111-4111-8111-111111111111",
+        "invitationToken": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    }
+  },
+  {
+    "name": "pair-response",
+    "schema": "Response",
+    "valid": true,
+    "value": {
+      "apiVersion": "1.0.0",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "pair",
+      "ok": true,
+      "result": {
+        "authorization": {
+          "sessionId": "11111111-1111-4111-8111-111111111111",
+          "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "workspaceId": "11111111-1111-4111-8111-111111111111",
+          "generation": "11111111-1111-4111-8111-111111111111",
+          "authorizationEpoch": "1"
+        },
+        "expiresAt": "2026-10-04T00:00:00.000Z",
+        "readLeaseUntil": "2026-10-03T00:00:30.000Z",
+        "scopes": [
+          "library:read",
+          "capture:write",
+          "navigation:open",
+          "host:register"
+        ],
+        "pairingId": "11111111-1111-4111-8111-111111111111",
+        "pairingCredential": {
+          "pairingId": "11111111-1111-4111-8111-111111111111",
+          "desktopInstanceId": "11111111-1111-4111-8111-111111111111",
+          "clientInstanceId": "11111111-1111-4111-8111-111111111111",
+          "workspaceId": "11111111-1111-4111-8111-111111111111",
+          "generation": "11111111-1111-4111-8111-111111111111",
+          "authorizationEpoch": "1",
+          "pairingToken": "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
+        },
+        "owner": {
+          "pairingId": "11111111-1111-4111-8111-111111111111",
+          "desktopInstanceId": "11111111-1111-4111-8111-111111111111",
+          "clientInstanceId": "11111111-1111-4111-8111-111111111111",
+          "workspaceId": "11111111-1111-4111-8111-111111111111",
+          "generation": "11111111-1111-4111-8111-111111111111",
+          "authorizationEpoch": "1"
+        }
+      }
+    }
+  },
+  {
+    "name": "pair-reject-unknown-input",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "pair",
+      "params": {
+        "clientInstanceId": "11111111-1111-4111-8111-111111111111",
+        "unexpectedField": true,
+        "invitationId": "11111111-1111-4111-8111-111111111111",
+        "invitationToken": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    }
+  },
+  {
+    "name": "resumeSession-request",
+    "schema": "Request",
+    "valid": true,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "resumeSession",
+      "params": {
+        "pairingId": "11111111-1111-4111-8111-111111111111",
+        "desktopInstanceId": "11111111-1111-4111-8111-111111111111",
+        "clientInstanceId": "11111111-1111-4111-8111-111111111111",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "1",
+        "pairingToken": "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
+      }
+    }
+  },
+  {
+    "name": "resumeSession-response",
+    "schema": "Response",
+    "valid": true,
+    "value": {
+      "apiVersion": "1.0.0",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "resumeSession",
+      "ok": true,
+      "result": {
+        "authorization": {
+          "sessionId": "11111111-1111-4111-8111-111111111111",
+          "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "workspaceId": "11111111-1111-4111-8111-111111111111",
+          "generation": "11111111-1111-4111-8111-111111111111",
+          "authorizationEpoch": "1"
+        },
+        "expiresAt": "2026-10-04T00:00:00.000Z",
+        "readLeaseUntil": "2026-10-03T00:00:30.000Z",
+        "scopes": [
+          "library:read",
+          "capture:write",
+          "navigation:open",
+          "host:register"
+        ],
+        "pairingId": "11111111-1111-4111-8111-111111111111",
+        "owner": {
+          "pairingId": "11111111-1111-4111-8111-111111111111",
+          "desktopInstanceId": "11111111-1111-4111-8111-111111111111",
+          "clientInstanceId": "11111111-1111-4111-8111-111111111111",
+          "workspaceId": "11111111-1111-4111-8111-111111111111",
+          "generation": "11111111-1111-4111-8111-111111111111",
+          "authorizationEpoch": "1"
+        }
+      }
+    }
+  },
+  {
+    "name": "resumeSession-reject-unknown-input",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "resumeSession",
+      "params": {
+        "pairingId": "11111111-1111-4111-8111-111111111111",
+        "desktopInstanceId": "11111111-1111-4111-8111-111111111111",
+        "clientInstanceId": "11111111-1111-4111-8111-111111111111",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "1",
+        "pairingToken": "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+        "unexpectedField": true
+      }
+    }
+  },
+  {
+    "name": "renewSession-request",
+    "schema": "Request",
+    "valid": true,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "renewSession",
+      "params": {},
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "renewSession-response",
+    "schema": "Response",
+    "valid": true,
+    "value": {
+      "apiVersion": "1.0.0",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "renewSession",
+      "ok": true,
+      "result": {
+        "authorization": {
+          "sessionId": "11111111-1111-4111-8111-111111111111",
+          "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "workspaceId": "11111111-1111-4111-8111-111111111111",
+          "generation": "11111111-1111-4111-8111-111111111111",
+          "authorizationEpoch": "1"
+        },
+        "expiresAt": "2026-10-04T00:00:00.000Z",
+        "readLeaseUntil": "2026-10-03T00:00:30.000Z",
+        "scopes": [
+          "library:read",
+          "capture:write",
+          "navigation:open",
+          "host:register"
+        ],
+        "pairingId": "11111111-1111-4111-8111-111111111111",
+        "owner": {
+          "pairingId": "11111111-1111-4111-8111-111111111111",
+          "desktopInstanceId": "11111111-1111-4111-8111-111111111111",
+          "clientInstanceId": "11111111-1111-4111-8111-111111111111",
+          "workspaceId": "11111111-1111-4111-8111-111111111111",
+          "generation": "11111111-1111-4111-8111-111111111111",
+          "authorizationEpoch": "1"
+        }
+      }
+    }
+  },
+  {
+    "name": "renewSession-reject-unknown-input",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "renewSession",
+      "params": {
+        "unexpectedField": true
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "renewSession-requires-authorization",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "renewSession",
+      "params": {}
+    }
+  },
+  {
+    "name": "revokePairing-request",
+    "schema": "Request",
+    "valid": true,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "revokePairing",
+      "params": {
+        "pairingId": "11111111-1111-4111-8111-111111111111"
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "1"
+      }
+    }
+  },
+  {
+    "name": "revokePairing-response",
+    "schema": "Response",
+    "valid": true,
+    "value": {
+      "apiVersion": "1.0.0",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "revokePairing",
+      "ok": true,
+      "result": {
+        "pairingId": "11111111-1111-4111-8111-111111111111",
+        "revoked": true
+      }
+    }
+  },
+  {
+    "name": "revokePairing-reject-unknown-input",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "revokePairing",
+      "params": {
+        "pairingId": "11111111-1111-4111-8111-111111111111",
+        "unexpectedField": true
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "1"
+      }
+    }
+  },
+  {
+    "name": "revokePairing-requires-authorization",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "revokePairing",
+      "params": {
+        "pairingId": "11111111-1111-4111-8111-111111111111"
+      }
+    }
+  },
+  {
+    "name": "disconnect-request",
+    "schema": "Request",
+    "valid": true,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "disconnect",
+      "params": {},
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "disconnect-response",
+    "schema": "Response",
+    "valid": true,
+    "value": {
+      "apiVersion": "1.0.0",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "disconnect",
+      "ok": true,
+      "result": {
+        "disconnected": true,
+        "pairingRetained": true
+      }
+    }
+  },
+  {
+    "name": "disconnect-reject-unknown-input",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "disconnect",
+      "params": {
+        "unexpectedField": true
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "disconnect-requires-authorization",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "disconnect",
+      "params": {}
+    }
+  },
+  {
+    "name": "getWorkspace-request",
+    "schema": "Request",
+    "valid": true,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getWorkspace",
+      "params": {},
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "getWorkspace-response",
+    "schema": "Response",
+    "valid": true,
+    "value": {
+      "apiVersion": "1.0.0",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getWorkspace",
+      "ok": true,
+      "result": {
+        "owner": {
+          "pairingId": "11111111-1111-4111-8111-111111111111",
+          "desktopInstanceId": "11111111-1111-4111-8111-111111111111",
+          "clientInstanceId": "11111111-1111-4111-8111-111111111111",
+          "workspaceId": "11111111-1111-4111-8111-111111111111",
+          "generation": "11111111-1111-4111-8111-111111111111",
+          "authorizationEpoch": "1"
+        },
+        "revision": "1",
+        "dictionaryRelease": "0.0.3",
+        "dictionaryEdition": "core-text",
+        "account": {
+          "status": "unavailable",
+          "source": "desktop"
+        },
+        "cloudSync": "disabled",
+        "readLeaseUntil": "2026-10-03T00:00:30.000Z"
+      }
+    }
+  },
+  {
+    "name": "getWorkspace-reject-unknown-input",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getWorkspace",
+      "params": {
+        "unexpectedField": true
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "getWorkspace-requires-authorization",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getWorkspace",
+      "params": {}
+    }
+  },
+  {
+    "name": "matchWords-request",
+    "schema": "Request",
+    "valid": true,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "matchWords",
+      "params": {
+        "kind": "ids",
+        "words": [
+          {
+            "kind": "dictionary",
+            "entryId": "7fb01ea7-0fab-5cc5-8723-d902d6a16c99",
+            "release": "0.0.3",
+            "entrySchema": "leximeet.entry.v2"
+          }
+        ]
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "matchWords-response",
+    "schema": "Response",
+    "valid": true,
+    "value": {
+      "apiVersion": "1.0.0",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "matchWords",
+      "ok": true,
+      "result": {
+        "results": [
+          {
+            "inputIndex": 0,
+            "matches": [
+              {
+                "word": {
+                  "kind": "dictionary",
+                  "entryId": "7fb01ea7-0fab-5cc5-8723-d902d6a16c99",
+                  "release": "0.0.3",
+                  "entrySchema": "leximeet.entry.v2"
+                },
+                "headword": "photosynthesis",
+                "inTarget": true,
+                "collected": false,
+                "learningStatus": "new",
+                "score": 10
+              }
+            ],
+            "complete": true
+          }
+        ],
+        "workspaceRevision": "0",
+        "asOf": "2026-10-03T00:00:00.000Z",
+        "refreshAfterMs": 30000
+      }
+    }
+  },
+  {
+    "name": "matchWords-reject-unknown-input",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "matchWords",
+      "params": {
+        "kind": "ids",
+        "words": [
+          {
+            "kind": "dictionary",
+            "entryId": "11111111-1111-4111-8111-111111111111",
+            "release": "0.0.3",
+            "entrySchema": "leximeet.entry.v2"
+          }
+        ],
+        "unexpectedField": true
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "matchWords-requires-authorization",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "matchWords",
+      "params": {
+        "kind": "ids",
+        "words": [
+          {
+            "kind": "dictionary",
+            "entryId": "11111111-1111-4111-8111-111111111111",
+            "release": "0.0.3",
+            "entrySchema": "leximeet.entry.v2"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "getWord-request",
+    "schema": "Request",
+    "valid": true,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getWord",
+      "params": {
+        "word": {
+          "kind": "dictionary",
+          "entryId": "7fb01ea7-0fab-5cc5-8723-d902d6a16c99",
+          "release": "0.0.3",
+          "entrySchema": "leximeet.entry.v2"
+        }
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "getWord-response",
+    "schema": "Response",
+    "valid": true,
+    "value": {
+      "apiVersion": "1.0.0",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getWord",
+      "ok": true,
+      "result": {
+        "word": {
+          "kind": "dictionary",
+          "entryId": "7fb01ea7-0fab-5cc5-8723-d902d6a16c99",
+          "release": "0.0.3",
+          "entrySchema": "leximeet.entry.v2"
+        },
+        "headword": "photosynthesis",
+        "collected": false,
+        "inTarget": true,
+        "resourceStatus": "available",
+        "personal": null,
+        "learning": {
+          "status": "new",
+          "score": 10,
+          "asOf": "2026-10-03T00:00:00.000Z"
+        },
+        "refreshAfterMs": 30000
+      }
+    }
+  },
+  {
+    "name": "getWord-reject-unknown-input",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getWord",
+      "params": {
+        "word": {
+          "kind": "dictionary",
+          "entryId": "11111111-1111-4111-8111-111111111111",
+          "release": "0.0.3",
+          "entrySchema": "leximeet.entry.v2"
+        },
+        "unexpectedField": true
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "getWord-requires-authorization",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getWord",
+      "params": {
+        "word": {
+          "kind": "dictionary",
+          "entryId": "11111111-1111-4111-8111-111111111111",
+          "release": "0.0.3",
+          "entrySchema": "leximeet.entry.v2"
+        }
+      }
+    }
+  },
+  {
+    "name": "getPublicEntry-request",
+    "schema": "Request",
+    "valid": true,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getPublicEntry",
+      "params": {
+        "entryId": "7fb01ea7-0fab-5cc5-8723-d902d6a16c99",
+        "release": "0.0.3"
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "getPublicEntry-response",
+    "schema": "Response",
+    "valid": true,
+    "value": {
+      "apiVersion": "1.0.0",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getPublicEntry",
+      "ok": true,
+      "result": {
+        "release": "0.0.3",
+        "entry": {
+          "audio_ids": [],
+          "audit_status": "aligned",
+          "base_entry_schema": "leximeet.entry.v1",
+          "definition_language": "zh-Hans",
+          "ecdict": {
+            "en_fallback": "n. synthesis of compounds with the aid of radiant energy (especially in plants)",
+            "exam_tags": [
+              {
+                "code": "toefl",
+                "scope": "entry",
+                "source": "ecdict:bc015ed2",
+                "status": "source-asserted"
+              },
+              {
+                "code": "gre",
+                "scope": "entry",
+                "source": "ecdict:bc015ed2",
+                "status": "source-asserted"
+              }
+            ],
+            "frequency_ranks": {
+              "bnc": 17561,
+              "frq": 17755
+            },
+            "legacy_phonetic": ".fәutәu'sinθәsis",
+            "source_fields": {},
+            "zh_fallback": "n. 光合作用\\n[化] 光合作用"
+          },
+          "entry_id": "7fb01ea7-0fab-5cc5-8723-d902d6a16c99",
+          "forms": [
+            {
+              "source": "open-dictionary:v2.0",
+              "tags": [
+                "plural"
+              ],
+              "text": "photosyntheses"
+            }
+          ],
+          "headword": "photosynthesis",
+          "headword_language": "en",
+          "headword_summary_zh": "光合作用：植物和其他能利用光能的生物把光能转化为化学能，并通常用来合成有机物的过程。",
+          "learning": {
+            "audio": {
+              "alternate_candidates": [],
+              "offline_index_entry_id": "7fb01ea7-0fab-5cc5-8723-d902d6a16c99"
+            },
+            "collections": [
+              {
+                "catalog_id": "book:qwerty:GMAT_3_T",
+                "category": "exam",
+                "position": 1389,
+                "sense_ids": [],
+                "source": "qwerty-learner:122acd9:GMAT_3_T",
+                "source_payload": {
+                  "glosses_zh": [
+                    "光合作用"
+                  ],
+                  "pronunciations": [
+                    {
+                      "raw_text": ",foto'sɪnθəsɪs",
+                      "region": "en-US"
+                    },
+                    {
+                      "raw_text": "ˌfoutou'sɪnθəsɪs",
+                      "region": "en-GB"
+                    }
+                  ],
+                  "source_record_id": null,
+                  "source_word": "photosynthesis"
+                }
+              },
+              {
+                "catalog_id": "book:qwerty:GRE_3_T",
+                "category": "exam",
+                "position": 2356,
+                "sense_ids": [],
+                "source": "qwerty-learner:122acd9:GRE_3_T",
+                "source_payload": {
+                  "glosses_zh": [
+                    "光合作用"
+                  ],
+                  "pronunciations": [
+                    {
+                      "raw_text": ",foto'sɪnθəsɪs",
+                      "region": "en-US"
+                    },
+                    {
+                      "raw_text": "ˌfoutou'sɪnθəsɪs",
+                      "region": "en-GB"
+                    }
+                  ],
+                  "source_record_id": null,
+                  "source_word": "photosynthesis"
+                }
+              },
+              {
+                "catalog_id": "book:qwerty:SAT_3_T",
+                "category": "exam",
+                "position": 3251,
+                "sense_ids": [],
+                "source": "qwerty-learner:122acd9:SAT_3_T",
+                "source_payload": {
+                  "glosses_zh": [
+                    "光合作用"
+                  ],
+                  "pronunciations": [
+                    {
+                      "raw_text": ",foto'sɪnθəsɪs",
+                      "region": "en-US"
+                    },
+                    {
+                      "raw_text": "ˌfəutəu'sinθəsis",
+                      "region": "en-GB"
+                    }
+                  ],
+                  "source_record_id": null,
+                  "source_word": "photosynthesis"
+                }
+              },
+              {
+                "catalog_id": "book:qwerty:TOEFL_3_T",
+                "category": "exam",
+                "position": 3100,
+                "sense_ids": [],
+                "source": "qwerty-learner:122acd9:TOEFL_3_T",
+                "source_payload": {
+                  "glosses_zh": [
+                    "光合作用"
+                  ],
+                  "pronunciations": [
+                    {
+                      "raw_text": ",foto'sɪnθəsɪs",
+                      "region": "en-US"
+                    },
+                    {
+                      "raw_text": "ˌfoutou'sɪnθəsɪs",
+                      "region": "en-GB"
+                    }
+                  ],
+                  "source_record_id": null,
+                  "source_word": "photosynthesis"
+                }
+              },
+              {
+                "catalog_id": "exam:ecdict:gre",
+                "category": "exam",
+                "position": 4555,
+                "sense_ids": [],
+                "source": "ecdict:bc015ed2",
+                "source_payload": {}
+              },
+              {
+                "catalog_id": "exam:ecdict:toefl",
+                "category": "exam",
+                "position": 5742,
+                "sense_ids": [],
+                "source": "ecdict:bc015ed2",
+                "source_payload": {}
+              },
+              {
+                "catalog_id": "subject:topic:biology",
+                "category": "subject",
+                "position": 901,
+                "sense_ids": [
+                  "b9ceed6e-5efd-568b-84a8-f6325da61a6f"
+                ],
+                "source": "open-dictionary:v2.0",
+                "source_payload": {}
+              }
+            ],
+            "illustrations": [],
+            "lexical": {
+              "antonyms": [],
+              "phrases": [],
+              "related_words": [],
+              "synonyms": []
+            },
+            "mnemonics": [
+              {
+                "content": "把植物想成一座靠阳光供电的工厂：它先接收光能，再把这种能量“存”进化学物质中，于是光能转成化学能，这整个过程就是光合作用。",
+                "format": "plain",
+                "kind": "memory-hook",
+                "provenance": {
+                  "source_entry_id": "9df0e7f2-2ce3-57c8-b649-1374219fefa9",
+                  "source_field": "memory_hook_zh"
+                },
+                "review_status": "source-published",
+                "source": "open-dictionary:v2.0"
+              }
+            ],
+            "practice": {
+              "attested_examples": [],
+              "questions": []
+            },
+            "schema_version": "leximeet.learning-card.v1",
+            "source_signals": []
+          },
+          "lookup_key": "photosynthesis",
+          "memory_hook_zh": "把植物想成一座靠阳光供电的工厂：它先接收光能，再把这种能量“存”进化学物质中，于是光能转成化学能，这整个过程就是光合作用。",
+          "origin": "curated",
+          "pronunciations": [
+            {
+              "etymology_id": "et1",
+              "notation": "IPA",
+              "pos": "noun",
+              "region": "en-US",
+              "source": "open-dictionary:v2.0",
+              "tags": [
+                "US"
+              ],
+              "text": "/ˌfoʊ.toʊˈsɪn.θə.sɪs/"
+            },
+            {
+              "etymology_id": "et1",
+              "notation": "IPA",
+              "pos": "noun",
+              "region": "en-GB",
+              "source": "open-dictionary:v2.0",
+              "tags": [
+                "UK"
+              ],
+              "text": "/ˌfəʊ.təʊˈsɪn.θə.sɪs/"
+            },
+            {
+              "etymology_id": "et1",
+              "notation": "IPA",
+              "pos": "noun",
+              "region": "en-GB",
+              "source": "open-dictionary:v2.0:audit:wiktionary:2025-10-23",
+              "tags": [
+                "UK"
+              ],
+              "text": "[ˌfəʊ.tʰəʊˈsɪn̪.θə.sɪs]"
+            },
+            {
+              "etymology_id": "et1",
+              "notation": "IPA",
+              "pos": "noun",
+              "region": "en-US",
+              "source": "open-dictionary:v2.0:audit:wiktionary:2025-10-23",
+              "tags": [
+                "US"
+              ],
+              "text": "[ˌfŏʊ.ɾoʊˈsɪn̪.θə.sɪs]"
+            },
+            {
+              "etymology_id": null,
+              "notation": "ARPABET",
+              "pos": null,
+              "region": "en-US",
+              "source": "cmudict:74790861",
+              "tags": [],
+              "text": "F OW2 T OW0 S IH1 N TH AH0 S IH0 S"
+            }
+          ],
+          "schema_version": "leximeet.entry.v2",
+          "senses": [
+            {
+              "display_order": 0,
+              "english_gloss": "Any process by which plants and other photoautotrophs convert light energy into chemical energy.",
+              "english_gloss_source": "open-dictionary:v2.0:audit:wiktionary:2025-10-23",
+              "etymology_id": "et1",
+              "examples": [
+                {
+                  "source": "open-dictionary:v2.0",
+                  "text": "Plants use sunlight for photosynthesis.",
+                  "translation": "植物利用阳光进行光合作用。"
+                },
+                {
+                  "source": "open-dictionary:v2.0",
+                  "text": "Photosynthesis converts light energy into chemical energy.",
+                  "translation": "光合作用把光能转化为化学能。"
+                }
+              ],
+              "labels": [
+                {
+                  "code": "uncountable",
+                  "scope": "sense",
+                  "source": "open-dictionary:v2.0"
+                },
+                {
+                  "code": "usually",
+                  "scope": "sense",
+                  "source": "open-dictionary:v2.0"
+                }
+              ],
+              "learner_explanation_zh": "植物和其他能利用光能的生物把光能转化为化学能的过程。可以把它想成植物用阳光给自己“充能”，并把能量存进有机物中。",
+              "pos": "noun",
+              "priority": "core",
+              "sense_id": "b9ceed6e-5efd-568b-84a8-f6325da61a6f",
+              "short_gloss": "光能转化为化学能的过程",
+              "source_ref": {
+                "entry_id": "9df0e7f2-2ce3-57c8-b649-1374219fefa9",
+                "etymology_id": "et1",
+                "group_index": 0,
+                "pos": "noun",
+                "sense_id": "s1",
+                "source": "open-dictionary:v2.0"
+              },
+              "topics": [
+                {
+                  "code": "biochemistry",
+                  "scope": "sense",
+                  "source": "open-dictionary:v2.0"
+                },
+                {
+                  "code": "biology",
+                  "scope": "sense",
+                  "source": "open-dictionary:v2.0"
+                },
+                {
+                  "code": "chemistry",
+                  "scope": "sense",
+                  "source": "open-dictionary:v2.0"
+                },
+                {
+                  "code": "microbiology",
+                  "scope": "sense",
+                  "source": "open-dictionary:v2.0"
+                },
+                {
+                  "code": "natural-sciences",
+                  "scope": "sense",
+                  "source": "open-dictionary:v2.0"
+                },
+                {
+                  "code": "organic-chemistry",
+                  "scope": "sense",
+                  "source": "open-dictionary:v2.0"
+                },
+                {
+                  "code": "physical-sciences",
+                  "scope": "sense",
+                  "source": "open-dictionary:v2.0"
+                }
+              ],
+              "usage_note_zh": "常用“植物进行光合作用”“通过光合作用制造……”“光合作用需要……”。它通常指一个过程，作不可数名词使用，不要随意加复数词尾。说明具体机制时，常把光、水、二氧化碳、氧气或糖放在它前后作搭配。"
+            }
+          ],
+          "source_entry_id": "9df0e7f2-2ce3-57c8-b649-1374219fefa9",
+          "study_notes_zh": [
+            "先记住“阳光驱动的能量储存”这一核心画面，再补充二氧化碳、水、糖和氧气等具体内容。不要把光合作用误解成植物的“呼吸”；呼吸作用是另一种能量过程。"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "name": "getPublicEntry-reject-unknown-input",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getPublicEntry",
+      "params": {
+        "entryId": "11111111-1111-4111-8111-111111111111",
+        "release": "0.0.3",
+        "unexpectedField": true
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "getPublicEntry-requires-authorization",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getPublicEntry",
+      "params": {
+        "entryId": "11111111-1111-4111-8111-111111111111",
+        "release": "0.0.3"
+      }
+    }
+  },
+  {
+    "name": "recordEncounter-request",
+    "schema": "Request",
+    "valid": true,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "recordEncounter",
+      "params": {
+        "eventId": "11111111-1111-4111-8111-111111111111",
+        "data": {
+          "word": {
+            "kind": "dictionary",
+            "entryId": "7fb01ea7-0fab-5cc5-8723-d902d6a16c99",
+            "release": "0.0.3",
+            "entrySchema": "leximeet.entry.v2"
+          },
+          "surface": "photosynthesis",
+          "originalSentence": "Plants use photosynthesis.",
+          "savedExcerpt": "Plants use photosynthesis.",
+          "occurrenceRanges": [
+            {
+              "start": 11,
+              "end": 25
+            }
+          ],
+          "excerptRanges": [
+            {
+              "start": 11,
+              "end": 25
+            }
+          ],
+          "annotation": {
+            "note": "在文章中采集的真实语境"
+          },
+          "source": {
+            "kind": "web",
+            "title": "示例文章",
+            "url": "https://example.invalid/article"
+          },
+          "collectionIntent": "collect"
+        },
+        "notebookId": null,
+        "mutationId": "11111111-1111-4111-8111-111111111111"
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "recordEncounter-response",
+    "schema": "Response",
+    "valid": true,
+    "value": {
+      "apiVersion": "1.0.0",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "recordEncounter",
+      "ok": true,
+      "result": {
+        "entity": {
+          "entityType": "encounter",
+          "entityId": "11111111-1111-4111-8111-111111111111",
+          "revision": "1",
+          "deletedAt": null,
+          "data": {
+            "word": {
+              "kind": "dictionary",
+              "entryId": "7fb01ea7-0fab-5cc5-8723-d902d6a16c99",
+              "release": "0.0.3",
+              "entrySchema": "leximeet.entry.v2"
+            },
+            "surface": "photosynthesis",
+            "originalSentence": "Plants use photosynthesis.",
+            "savedExcerpt": "Plants use photosynthesis.",
+            "occurrenceRanges": [
+              {
+                "start": 11,
+                "end": 25
+              }
+            ],
+            "excerptRanges": [
+              {
+                "start": 11,
+                "end": 25
+              }
+            ],
+            "annotation": {
+              "note": "在文章中采集的真实语境"
+            },
+            "source": {
+              "kind": "web",
+              "title": "示例文章",
+              "url": "https://example.invalid/article"
+            },
+            "collectionIntent": "collect",
+            "timeZone": "Asia/Shanghai",
+            "occurredAt": "2026-10-03T00:00:00.000Z",
+            "origin": {
+              "deviceId": "22222222-2222-4222-8222-222222222222",
+              "clientKind": "desktop"
+            }
+          }
+        },
+        "workspaceRevision": "1"
+      }
+    }
+  },
+  {
+    "name": "recordEncounter-reject-unknown-input",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "recordEncounter",
+      "params": {
+        "eventId": "11111111-1111-4111-8111-111111111111",
+        "data": {
+          "word": {
+            "kind": "dictionary",
+            "entryId": "11111111-1111-4111-8111-111111111111",
+            "release": "0.0.3",
+            "entrySchema": "leximeet.entry.v2"
+          },
+          "surface": "x",
+          "originalSentence": "x",
+          "savedExcerpt": "x",
+          "occurrenceRanges": [
+            {
+              "start": 0,
+              "end": 1
+            }
+          ],
+          "excerptRanges": [
+            {
+              "start": 0,
+              "end": 1
+            }
+          ],
+          "annotation": {
+            "note": "x"
+          },
+          "source": {
+            "kind": "web",
+            "title": "x",
+            "url": "https://example.invalid/article"
+          },
+          "collectionIntent": "collect"
+        },
+        "notebookId": null,
+        "mutationId": "11111111-1111-4111-8111-111111111111",
+        "unexpectedField": true
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "recordEncounter-requires-authorization",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "recordEncounter",
+      "params": {
+        "eventId": "11111111-1111-4111-8111-111111111111",
+        "data": {
+          "word": {
+            "kind": "dictionary",
+            "entryId": "11111111-1111-4111-8111-111111111111",
+            "release": "0.0.3",
+            "entrySchema": "leximeet.entry.v2"
+          },
+          "surface": "x",
+          "originalSentence": "x",
+          "savedExcerpt": "x",
+          "occurrenceRanges": [
+            {
+              "start": 0,
+              "end": 1
+            }
+          ],
+          "excerptRanges": [
+            {
+              "start": 0,
+              "end": 1
+            }
+          ],
+          "annotation": {
+            "note": "x"
+          },
+          "source": {
+            "kind": "web",
+            "title": "x",
+            "url": "https://example.invalid/article"
+          },
+          "collectionIntent": "collect"
+        },
+        "notebookId": null,
+        "mutationId": "11111111-1111-4111-8111-111111111111"
+      }
+    }
+  },
+  {
+    "name": "getChanges-request",
+    "schema": "Request",
+    "valid": true,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getChanges",
+      "params": {
+        "sinceRevision": "0"
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "getChanges-response",
+    "schema": "Response",
+    "valid": true,
+    "value": {
+      "apiVersion": "1.0.0",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getChanges",
+      "ok": true,
+      "result": {
+        "revision": "1",
+        "changed": true,
+        "readLeaseUntil": "2026-10-03T00:00:30.000Z"
+      }
+    }
+  },
+  {
+    "name": "getChanges-reject-unknown-input",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getChanges",
+      "params": {
+        "sinceRevision": "0",
+        "unexpectedField": true
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "getChanges-requires-authorization",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getChanges",
+      "params": {
+        "sinceRevision": "0"
+      }
+    }
+  },
+  {
+    "name": "getOperation-request",
+    "schema": "Request",
+    "valid": true,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getOperation",
+      "params": {
+        "mutationId": "11111111-1111-4111-8111-111111111111"
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "getOperation-response",
+    "schema": "Response",
+    "valid": true,
+    "value": {
+      "apiVersion": "1.0.0",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getOperation",
+      "ok": true,
+      "result": {
+        "mutationId": "11111111-1111-4111-8111-111111111111",
+        "status": "applied",
+        "method": "recordEncounter",
+        "result": {
+          "entity": {
+            "entityType": "encounter",
+            "entityId": "11111111-1111-4111-8111-111111111111",
+            "revision": "1",
+            "deletedAt": null,
+            "data": {
+              "word": {
+                "kind": "dictionary",
+                "entryId": "7fb01ea7-0fab-5cc5-8723-d902d6a16c99",
+                "release": "0.0.3",
+                "entrySchema": "leximeet.entry.v2"
+              },
+              "surface": "photosynthesis",
+              "originalSentence": "Plants use photosynthesis.",
+              "savedExcerpt": "Plants use photosynthesis.",
+              "occurrenceRanges": [
+                {
+                  "start": 11,
+                  "end": 25
+                }
+              ],
+              "excerptRanges": [
+                {
+                  "start": 11,
+                  "end": 25
+                }
+              ],
+              "annotation": {
+                "note": "在文章中采集的真实语境"
+              },
+              "source": {
+                "kind": "web",
+                "title": "示例文章",
+                "url": "https://example.invalid/article"
+              },
+              "collectionIntent": "collect",
+              "timeZone": "Asia/Shanghai",
+              "occurredAt": "2026-10-03T00:00:00.000Z",
+              "origin": {
+                "deviceId": "22222222-2222-4222-8222-222222222222",
+                "clientKind": "desktop"
+              }
+            }
+          },
+          "workspaceRevision": "1"
+        }
+      }
+    }
+  },
+  {
+    "name": "getOperation-reject-unknown-input",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getOperation",
+      "params": {
+        "mutationId": "11111111-1111-4111-8111-111111111111",
+        "unexpectedField": true
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "getOperation-requires-authorization",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getOperation",
+      "params": {
+        "mutationId": "11111111-1111-4111-8111-111111111111"
+      }
+    }
+  },
+  {
+    "name": "openInDesktop-request",
+    "schema": "Request",
+    "valid": true,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "openInDesktop",
+      "params": {
+        "target": "library",
+        "mutationId": "11111111-1111-4111-8111-111111111111"
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "openInDesktop-response",
+    "schema": "Response",
+    "valid": true,
+    "value": {
+      "apiVersion": "1.0.0",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "openInDesktop",
+      "ok": true,
+      "result": {
+        "opened": true
+      }
+    }
+  },
+  {
+    "name": "openInDesktop-reject-unknown-input",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "openInDesktop",
+      "params": {
+        "target": "library",
+        "mutationId": "11111111-1111-4111-8111-111111111111",
+        "unexpectedField": true
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "openInDesktop-requires-authorization",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "openInDesktop",
+      "params": {
+        "target": "library",
+        "mutationId": "11111111-1111-4111-8111-111111111111"
+      }
+    }
+  },
+  {
+    "name": "listNotebooks-request",
+    "schema": "Request",
+    "valid": true,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "listNotebooks",
+      "params": {},
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "listNotebooks-response",
+    "schema": "Response",
+    "valid": true,
+    "value": {
+      "apiVersion": "1.0.0",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "listNotebooks",
+      "ok": true,
+      "result": {
+        "items": [],
+        "nextCursor": null,
+        "complete": true,
+        "revision": "0"
+      }
+    }
+  },
+  {
+    "name": "listNotebooks-reject-unknown-input",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "listNotebooks",
+      "params": {
+        "unexpectedField": true
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "listNotebooks-requires-authorization",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "listNotebooks",
+      "params": {}
+    }
+  },
+  {
+    "name": "listEncounters-request",
+    "schema": "Request",
+    "valid": true,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "listEncounters",
+      "params": {
+        "word": {
+          "kind": "dictionary",
+          "entryId": "7fb01ea7-0fab-5cc5-8723-d902d6a16c99",
+          "release": "0.0.3",
+          "entrySchema": "leximeet.entry.v2"
+        }
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "listEncounters-response",
+    "schema": "Response",
+    "valid": true,
+    "value": {
+      "apiVersion": "1.0.0",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "listEncounters",
+      "ok": true,
+      "result": {
+        "items": [],
+        "nextCursor": null,
+        "complete": true,
+        "revision": "0"
+      }
+    }
+  },
+  {
+    "name": "listEncounters-reject-unknown-input",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "listEncounters",
+      "params": {
+        "word": {
+          "kind": "dictionary",
+          "entryId": "11111111-1111-4111-8111-111111111111",
+          "release": "0.0.3",
+          "entrySchema": "leximeet.entry.v2"
+        },
+        "unexpectedField": true
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "listEncounters-requires-authorization",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "listEncounters",
+      "params": {
+        "word": {
+          "kind": "dictionary",
+          "entryId": "11111111-1111-4111-8111-111111111111",
+          "release": "0.0.3",
+          "entrySchema": "leximeet.entry.v2"
+        }
+      }
+    }
+  },
+  {
+    "name": "registerHost-request",
+    "schema": "Request",
+    "valid": true,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "registerHost",
+      "params": {
+        "capabilities": [
+          "browser.context/1"
+        ],
+        "extensionId": "browser/1"
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "registerHost-response",
+    "schema": "Response",
+    "valid": true,
+    "value": {
+      "apiVersion": "1.0.0",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "registerHost",
+      "ok": true,
+      "result": {
+        "grantId": "11111111-1111-4111-8111-111111111111",
+        "grantToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "expiresAt": "2026-10-03T00:10:00.000Z",
+        "capabilities": [
+          "browser.context/1"
+        ],
+        "owner": {
+          "pairingId": "11111111-1111-4111-8111-111111111111",
+          "desktopInstanceId": "11111111-1111-4111-8111-111111111111",
+          "clientInstanceId": "11111111-1111-4111-8111-111111111111",
+          "workspaceId": "11111111-1111-4111-8111-111111111111",
+          "generation": "11111111-1111-4111-8111-111111111111",
+          "authorizationEpoch": "1"
+        },
+        "extensionId": "browser/1"
+      }
+    }
+  },
+  {
+    "name": "registerHost-reject-unknown-input",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "registerHost",
+      "params": {
+        "capabilities": [
+          "browser.context/1"
+        ],
+        "extensionId": "browser/1",
+        "unexpectedField": true
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "registerHost-requires-authorization",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "registerHost",
+      "params": {
+        "capabilities": [
+          "browser.context/1"
+        ],
+        "extensionId": "browser/1"
+      }
+    }
+  },
+  {
+    "name": "browser.getContext 请求",
+    "schema": "HostRequest",
+    "value": {
+      "apiMajor": 1,
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "invocationId": "11111111-1111-4111-8111-111111111111",
+      "method": "browser.getContext",
+      "kind": "host-request",
+      "grantId": "11111111-1111-4111-8111-111111111111",
+      "grantToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "workspace": {
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111"
+      },
+      "deadlineAt": "2026-10-02T00:00:00.000Z",
+      "params": {}
+    },
+    "valid": true
+  },
+  {
+    "name": "browser.getContext 响应",
+    "schema": "HostResponse",
+    "value": {
+      "apiMajor": 1,
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "invocationId": "11111111-1111-4111-8111-111111111111",
+      "method": "browser.getContext",
+      "kind": "host-response",
+      "ok": true,
+      "result": {
+        "page": null
+      }
+    },
+    "valid": true
+  },
+  {
+    "name": "browser.getContext 拒绝未知参数",
+    "schema": "HostRequest",
+    "value": {
+      "apiMajor": 1,
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "invocationId": "11111111-1111-4111-8111-111111111111",
+      "method": "browser.getContext",
+      "kind": "host-request",
+      "grantId": "11111111-1111-4111-8111-111111111111",
+      "grantToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "workspace": {
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111"
+      },
+      "deadlineAt": "2026-10-02T00:00:00.000Z",
+      "params": {
+        "unexpected": true
+      }
+    },
+    "valid": false
+  },
+  {
+    "name": "browser.readSelection 请求",
+    "schema": "HostRequest",
+    "value": {
+      "apiMajor": 1,
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "invocationId": "11111111-1111-4111-8111-111111111111",
+      "method": "browser.readSelection",
+      "kind": "host-request",
+      "grantId": "11111111-1111-4111-8111-111111111111",
+      "grantToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "workspace": {
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111"
+      },
+      "deadlineAt": "2026-10-02T00:00:00.000Z",
+      "params": {
+        "pageHandle": "11111111-1111-4111-8111-111111111111",
+        "documentRevision": "11111111-1111-4111-8111-111111111111"
+      }
+    },
+    "valid": true
+  },
+  {
+    "name": "browser.readSelection 响应",
+    "schema": "HostResponse",
+    "value": {
+      "apiMajor": 1,
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "invocationId": "11111111-1111-4111-8111-111111111111",
+      "method": "browser.readSelection",
+      "kind": "host-response",
+      "ok": true,
+      "result": {
+        "page": {
+          "pageHandle": "11111111-1111-4111-8111-111111111111",
+          "documentRevision": "11111111-1111-4111-8111-111111111111",
+          "url": "https://example.invalid/article",
+          "title": "x"
+        },
+        "text": "x",
+        "ranges": []
+      }
+    },
+    "valid": true
+  },
+  {
+    "name": "browser.readSelection 拒绝未知参数",
+    "schema": "HostRequest",
+    "value": {
+      "apiMajor": 1,
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "invocationId": "11111111-1111-4111-8111-111111111111",
+      "method": "browser.readSelection",
+      "kind": "host-request",
+      "grantId": "11111111-1111-4111-8111-111111111111",
+      "grantToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "workspace": {
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111"
+      },
+      "deadlineAt": "2026-10-02T00:00:00.000Z",
+      "params": {
+        "pageHandle": "11111111-1111-4111-8111-111111111111",
+        "documentRevision": "11111111-1111-4111-8111-111111111111",
+        "unexpected": true
+      }
+    },
+    "valid": false
+  },
+  {
+    "name": "browser.highlight 请求",
+    "schema": "HostRequest",
+    "value": {
+      "apiMajor": 1,
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "invocationId": "11111111-1111-4111-8111-111111111111",
+      "method": "browser.highlight",
+      "kind": "host-request",
+      "grantId": "11111111-1111-4111-8111-111111111111",
+      "grantToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "workspace": {
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111"
+      },
+      "deadlineAt": "2026-10-02T00:00:00.000Z",
+      "params": {
+        "pageHandle": "11111111-1111-4111-8111-111111111111",
+        "documentRevision": "11111111-1111-4111-8111-111111111111",
+        "exact": "x",
+        "prefix": "x",
+        "suffix": "x"
+      }
+    },
+    "valid": true
+  },
+  {
+    "name": "browser.highlight 响应",
+    "schema": "HostResponse",
+    "value": {
+      "apiMajor": 1,
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "invocationId": "11111111-1111-4111-8111-111111111111",
+      "method": "browser.highlight",
+      "kind": "host-response",
+      "ok": true,
+      "result": {
+        "matched": 0,
+        "highlighted": true
+      }
+    },
+    "valid": true
+  },
+  {
+    "name": "browser.highlight 拒绝未知参数",
+    "schema": "HostRequest",
+    "value": {
+      "apiMajor": 1,
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "invocationId": "11111111-1111-4111-8111-111111111111",
+      "method": "browser.highlight",
+      "kind": "host-request",
+      "grantId": "11111111-1111-4111-8111-111111111111",
+      "grantToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "workspace": {
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111"
+      },
+      "deadlineAt": "2026-10-02T00:00:00.000Z",
+      "params": {
+        "pageHandle": "11111111-1111-4111-8111-111111111111",
+        "documentRevision": "11111111-1111-4111-8111-111111111111",
+        "exact": "x",
+        "prefix": "x",
+        "suffix": "x",
+        "unexpected": true
+      }
+    },
+    "valid": false
+  },
+  {
+    "name": "browser.openSource 请求",
+    "schema": "HostRequest",
+    "value": {
+      "apiMajor": 1,
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "invocationId": "11111111-1111-4111-8111-111111111111",
+      "method": "browser.openSource",
+      "kind": "host-request",
+      "grantId": "11111111-1111-4111-8111-111111111111",
+      "grantToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "workspace": {
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111"
+      },
+      "deadlineAt": "2026-10-02T00:00:00.000Z",
+      "params": {
+        "url": "https://example.invalid/article"
+      }
+    },
+    "valid": true
+  },
+  {
+    "name": "browser.openSource 响应",
+    "schema": "HostResponse",
+    "value": {
+      "apiMajor": 1,
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "invocationId": "11111111-1111-4111-8111-111111111111",
+      "method": "browser.openSource",
+      "kind": "host-response",
+      "ok": true,
+      "result": {
+        "status": "opened",
+        "actionId": null
+      }
+    },
+    "valid": true
+  },
+  {
+    "name": "browser.openSource 拒绝未知参数",
+    "schema": "HostRequest",
+    "value": {
+      "apiMajor": 1,
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "invocationId": "11111111-1111-4111-8111-111111111111",
+      "method": "browser.openSource",
+      "kind": "host-request",
+      "grantId": "11111111-1111-4111-8111-111111111111",
+      "grantToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "workspace": {
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111"
+      },
+      "deadlineAt": "2026-10-02T00:00:00.000Z",
+      "params": {
+        "url": "https://example.invalid/article",
+        "unexpected": true
+      }
+    },
+    "valid": false
+  },
+  {
+    "name": "browser.requestSidePanel 请求",
+    "schema": "HostRequest",
+    "value": {
+      "apiMajor": 1,
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "invocationId": "11111111-1111-4111-8111-111111111111",
+      "method": "browser.requestSidePanel",
+      "kind": "host-request",
+      "grantId": "11111111-1111-4111-8111-111111111111",
+      "grantToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "workspace": {
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111"
+      },
+      "deadlineAt": "2026-10-02T00:00:00.000Z",
+      "params": {
+        "pageHandle": "11111111-1111-4111-8111-111111111111"
+      }
+    },
+    "valid": true
+  },
+  {
+    "name": "browser.requestSidePanel 响应",
+    "schema": "HostResponse",
+    "value": {
+      "apiMajor": 1,
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "invocationId": "11111111-1111-4111-8111-111111111111",
+      "method": "browser.requestSidePanel",
+      "kind": "host-response",
+      "ok": true,
+      "result": {
+        "status": "opened",
+        "actionId": null
+      }
+    },
+    "valid": true
+  },
+  {
+    "name": "browser.requestSidePanel 拒绝未知参数",
+    "schema": "HostRequest",
+    "value": {
+      "apiMajor": 1,
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "invocationId": "11111111-1111-4111-8111-111111111111",
+      "method": "browser.requestSidePanel",
+      "kind": "host-request",
+      "grantId": "11111111-1111-4111-8111-111111111111",
+      "grantToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "workspace": {
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111"
+      },
+      "deadlineAt": "2026-10-02T00:00:00.000Z",
+      "params": {
+        "pageHandle": "11111111-1111-4111-8111-111111111111",
+        "unexpected": true
+      }
+    },
+    "valid": false
+  },
+  {
+    "name": "browser.getOperation 请求",
+    "schema": "HostRequest",
+    "value": {
+      "apiMajor": 1,
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "invocationId": "11111111-1111-4111-8111-111111111111",
+      "method": "browser.getOperation",
+      "kind": "host-request",
+      "grantId": "11111111-1111-4111-8111-111111111111",
+      "grantToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "workspace": {
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111"
+      },
+      "deadlineAt": "2026-10-02T00:00:00.000Z",
+      "params": {
+        "invocationId": "11111111-1111-4111-8111-111111111111",
+        "sourceGrantId": "11111111-1111-4111-8111-111111111111"
+      }
+    },
+    "valid": true
+  },
+  {
+    "name": "browser.getOperation 响应",
+    "schema": "HostResponse",
+    "value": {
+      "apiMajor": 1,
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "invocationId": "11111111-1111-4111-8111-111111111111",
+      "method": "browser.getOperation",
+      "kind": "host-response",
+      "ok": true,
+      "result": {
+        "invocationId": "11111111-1111-4111-8111-111111111111",
+        "status": "unknown",
+        "resultDigest": null,
+        "sourceGrantId": "11111111-1111-4111-8111-111111111111",
+        "receipt": null,
+        "contentStatus": "not-applicable"
+      }
+    },
+    "valid": true
+  },
+  {
+    "name": "browser.getOperation 拒绝未知参数",
+    "schema": "HostRequest",
+    "value": {
+      "apiMajor": 1,
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "invocationId": "11111111-1111-4111-8111-111111111111",
+      "method": "browser.getOperation",
+      "kind": "host-request",
+      "grantId": "11111111-1111-4111-8111-111111111111",
+      "grantToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "workspace": {
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111"
+      },
+      "deadlineAt": "2026-10-02T00:00:00.000Z",
+      "params": {
+        "invocationId": "11111111-1111-4111-8111-111111111111",
+        "unexpected": true,
+        "sourceGrantId": "11111111-1111-4111-8111-111111111111"
+      }
+    },
+    "valid": false
+  },
+  {
+    "name": "browser.cancelOperation 请求",
+    "schema": "HostRequest",
+    "value": {
+      "apiMajor": 1,
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "invocationId": "11111111-1111-4111-8111-111111111111",
+      "method": "browser.cancelOperation",
+      "kind": "host-request",
+      "grantId": "11111111-1111-4111-8111-111111111111",
+      "grantToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "workspace": {
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111"
+      },
+      "deadlineAt": "2026-10-02T00:00:00.000Z",
+      "params": {
+        "invocationId": "11111111-1111-4111-8111-111111111111"
+      }
+    },
+    "valid": true
+  },
+  {
+    "name": "browser.cancelOperation 响应",
+    "schema": "HostResponse",
+    "value": {
+      "apiMajor": 1,
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "invocationId": "11111111-1111-4111-8111-111111111111",
+      "method": "browser.cancelOperation",
+      "kind": "host-response",
+      "ok": true,
+      "result": {
+        "status": "cancelled"
+      }
+    },
+    "valid": true
+  },
+  {
+    "name": "browser.cancelOperation 拒绝未知参数",
+    "schema": "HostRequest",
+    "value": {
+      "apiMajor": 1,
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "invocationId": "11111111-1111-4111-8111-111111111111",
+      "method": "browser.cancelOperation",
+      "kind": "host-request",
+      "grantId": "11111111-1111-4111-8111-111111111111",
+      "grantToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "workspace": {
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111"
+      },
+      "deadlineAt": "2026-10-02T00:00:00.000Z",
+      "params": {
+        "invocationId": "11111111-1111-4111-8111-111111111111",
+        "unexpected": true
+      }
+    },
+    "valid": false
+  },
+  {
+    "name": "禁止任意脚本",
+    "schema": "HostRequest",
+    "value": {
+      "apiMajor": 1,
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "invocationId": "11111111-1111-4111-8111-111111111111",
+      "method": "browser.getContext",
+      "kind": "host-request",
+      "grantId": "11111111-1111-4111-8111-111111111111",
+      "grantToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "workspace": {
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111"
+      },
+      "deadlineAt": "2026-10-02T00:00:00.000Z",
+      "params": {
+        "script": "alert(1)"
+      }
+    },
+    "valid": false
+  },
+  {
+    "name": "恢复回执缺来源 grant 拒绝",
+    "schema": "HostRequest",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "invocationId": "11111111-1111-4111-8111-111111111111",
+      "method": "browser.getOperation",
+      "kind": "host-request",
+      "grantId": "11111111-1111-4111-8111-111111111111",
+      "grantToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "workspace": {
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111"
+      },
+      "deadlineAt": "2026-10-02T00:00:00.000Z",
+      "params": {
+        "invocationId": "11111111-1111-4111-8111-111111111111"
+      }
+    }
+  },
+  {
+    "name": "跨 grant 恢复原完整来源结果",
+    "schema": "HostResponse",
+    "valid": true,
+    "value": {
+      "apiMajor": 1,
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "invocationId": "11111111-1111-4111-8111-111111111111",
+      "method": "browser.getOperation",
+      "kind": "host-response",
+      "ok": true,
+      "result": {
+        "sourceGrantId": "11111111-1111-4111-8111-111111111111",
+        "invocationId": "11111111-1111-4111-8111-111111111111",
+        "status": "applied",
+        "resultDigest": "0000000000000000000000000000000000000000000000000000000000000000",
+        "receipt": {
+          "method": "browser.openSource",
+          "ok": true,
+          "result": {
+            "status": "opened",
+            "actionId": null
+          }
+        },
+        "contentStatus": "available"
+      }
+    }
+  },
+  {
+    "name": "恢复回执方法与结果错配拒绝",
+    "schema": "HostResponse",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "invocationId": "11111111-1111-4111-8111-111111111111",
+      "method": "browser.getOperation",
+      "kind": "host-response",
+      "ok": true,
+      "result": {
+        "sourceGrantId": "11111111-1111-4111-8111-111111111111",
+        "invocationId": "11111111-1111-4111-8111-111111111111",
+        "status": "applied",
+        "resultDigest": "0000000000000000000000000000000000000000000000000000000000000000",
+        "receipt": {
+          "method": "browser.getContext",
+          "ok": true,
+          "result": {
+            "status": "opened",
+            "actionId": null
+          }
+        },
+        "contentStatus": "available"
+      }
+    }
+  },
+  {
+    "name": "权限收窄仅恢复终态摘要",
+    "schema": "HostResponse",
+    "valid": true,
+    "value": {
+      "apiMajor": 1,
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "invocationId": "11111111-1111-4111-8111-111111111111",
+      "method": "browser.getOperation",
+      "kind": "host-response",
+      "ok": true,
+      "result": {
+        "sourceGrantId": "11111111-1111-4111-8111-111111111111",
+        "invocationId": "11111111-1111-4111-8111-111111111111",
+        "status": "applied",
+        "resultDigest": "0000000000000000000000000000000000000000000000000000000000000000",
+        "receipt": null,
+        "contentStatus": "not-authorized"
+      }
+    }
+  },
+  {
+    "name": "未知终态不能夹带原结果",
+    "schema": "HostResponse",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "invocationId": "11111111-1111-4111-8111-111111111111",
+      "method": "browser.getOperation",
+      "kind": "host-response",
+      "ok": true,
+      "result": {
+        "sourceGrantId": "11111111-1111-4111-8111-111111111111",
+        "invocationId": "11111111-1111-4111-8111-111111111111",
+        "status": "unknown",
+        "resultDigest": "0000000000000000000000000000000000000000000000000000000000000000",
+        "receipt": {
+          "method": "browser.openSource",
+          "ok": true,
+          "result": {
+            "status": "opened",
+            "actionId": null
+          }
+        },
+        "contentStatus": "available"
+      }
+    }
+  },
+  {
+    "name": "available不能缺完整回执",
+    "schema": "HostResponse",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "invocationId": "11111111-1111-4111-8111-111111111111",
+      "method": "browser.getOperation",
+      "kind": "host-response",
+      "ok": true,
+      "result": {
+        "sourceGrantId": "11111111-1111-4111-8111-111111111111",
+        "invocationId": "11111111-1111-4111-8111-111111111111",
+        "status": "applied",
+        "resultDigest": "0000000000000000000000000000000000000000000000000000000000000000",
+        "receipt": null,
+        "contentStatus": "available"
+      }
+    }
+  },
+  {
+    "name": "removed-beginAttachment",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "beginAttachment",
+      "params": {},
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "removed-commitAttachment",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "commitAttachment",
+      "params": {},
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "removed-getStudyPlan",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getStudyPlan",
+      "params": {},
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "removed-submitPracticeFeedback",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "submitPracticeFeedback",
+      "params": {},
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "removed-saveDraft",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "saveDraft",
+      "params": {},
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "removed-registerBrowserHost",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "registerBrowserHost",
+      "params": {},
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "removed-detach",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "detach",
+      "params": {},
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "hello-no-learning-profiles",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "hello",
+      "params": {
+        "apiMajor": 1,
+        "minApiVersion": "1.0.0",
+        "connectionId": "11111111-1111-4111-8111-111111111111",
+        "contractVersion": "1.0.0",
+        "contractDigest": "61a44cc2f7f73fef81b007c844e1f2fa4deb955bf21a69236ee7b4f713808c49",
+        "clientKind": "browser",
+        "requiredCapabilities": [
+          "lmcp.connection/1",
+          "desktop.reading/1",
+          "desktop.capture/1",
+          "desktop.navigation/1"
+        ],
+        "supportedProfiles": {},
+        "clientInstanceId": "11111111-1111-4111-8111-111111111111",
+        "displayName": "x"
+      }
+    }
+  },
+  {
+    "name": "forward-compatible-word-card",
+    "schema": "Response",
+    "valid": true,
+    "value": {
+      "apiVersion": "1.0.0",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getWord",
+      "ok": true,
+      "result": {
+        "word": {
+          "kind": "dictionary",
+          "entryId": "7fb01ea7-0fab-5cc5-8723-d902d6a16c99",
+          "release": "0.0.3",
+          "entrySchema": "leximeet.entry.v2"
+        },
+        "headword": "photosynthesis",
+        "collected": false,
+        "inTarget": true,
+        "resourceStatus": "available",
+        "personal": null,
+        "learning": {
+          "status": "new",
+          "score": 10,
+          "asOf": "2026-10-03T00:00:00.000Z"
+        },
+        "refreshAfterMs": 30000,
+        "futureOptionalDisplay": "example"
+      }
+    }
+  },
+  {
+    "name": "capture-cannot-set-score",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "recordEncounter",
+      "params": {
+        "eventId": "11111111-1111-4111-8111-111111111111",
+        "data": {
+          "word": {
+            "kind": "dictionary",
+            "entryId": "11111111-1111-4111-8111-111111111111",
+            "release": "0.0.3",
+            "entrySchema": "leximeet.entry.v2"
+          },
+          "surface": "x",
+          "originalSentence": "x",
+          "savedExcerpt": "x",
+          "occurrenceRanges": [
+            {
+              "start": 0,
+              "end": 1
+            }
+          ],
+          "excerptRanges": [
+            {
+              "start": 0,
+              "end": 1
+            }
+          ],
+          "annotation": {
+            "note": "x"
+          },
+          "source": {
+            "kind": "web",
+            "title": "x",
+            "url": "https://example.invalid/article"
+          },
+          "collectionIntent": "collect",
+          "score": 30
+        },
+        "notebookId": null,
+        "mutationId": "11111111-1111-4111-8111-111111111111"
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "capture-cannot-impersonate-device",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "recordEncounter",
+      "params": {
+        "eventId": "11111111-1111-4111-8111-111111111111",
+        "data": {
+          "word": {
+            "kind": "dictionary",
+            "entryId": "11111111-1111-4111-8111-111111111111",
+            "release": "0.0.3",
+            "entrySchema": "leximeet.entry.v2"
+          },
+          "surface": "x",
+          "originalSentence": "x",
+          "savedExcerpt": "x",
+          "occurrenceRanges": [
+            {
+              "start": 0,
+              "end": 1
+            }
+          ],
+          "excerptRanges": [
+            {
+              "start": 0,
+              "end": 1
+            }
+          ],
+          "annotation": {
+            "note": "x"
+          },
+          "source": {
+            "kind": "web",
+            "title": "x",
+            "url": "https://example.invalid/article"
+          },
+          "collectionIntent": "collect",
+          "origin": {
+            "deviceId": "11111111-1111-4111-8111-111111111111"
+          }
+        },
+        "notebookId": null,
+        "mutationId": "11111111-1111-4111-8111-111111111111"
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "capture-cannot-use-clipboard-policy",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "recordEncounter",
+      "params": {
+        "eventId": "11111111-1111-4111-8111-111111111111",
+        "data": {
+          "word": {
+            "kind": "dictionary",
+            "entryId": "11111111-1111-4111-8111-111111111111",
+            "release": "0.0.3",
+            "entrySchema": "leximeet.entry.v2"
+          },
+          "surface": "x",
+          "originalSentence": "x",
+          "savedExcerpt": "x",
+          "occurrenceRanges": [
+            {
+              "start": 0,
+              "end": 1
+            }
+          ],
+          "excerptRanges": [
+            {
+              "start": 0,
+              "end": 1
+            }
+          ],
+          "annotation": {
+            "note": "x"
+          },
+          "source": {
+            "kind": "clipboard",
+            "title": "x",
+            "url": "https://example.invalid/article"
+          },
+          "collectionIntent": "collect"
+        },
+        "notebookId": null,
+        "mutationId": "11111111-1111-4111-8111-111111111111"
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "missing-capture-mutation",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "recordEncounter",
+      "params": {
+        "eventId": "11111111-1111-4111-8111-111111111111",
+        "data": {
+          "word": {
+            "kind": "dictionary",
+            "entryId": "11111111-1111-4111-8111-111111111111",
+            "release": "0.0.3",
+            "entrySchema": "leximeet.entry.v2"
+          },
+          "surface": "x",
+          "originalSentence": "x",
+          "savedExcerpt": "x",
+          "occurrenceRanges": [
+            {
+              "start": 0,
+              "end": 1
+            }
+          ],
+          "excerptRanges": [
+            {
+              "start": 0,
+              "end": 1
+            }
+          ],
+          "annotation": {
+            "note": "x"
+          },
+          "source": {
+            "kind": "web",
+            "title": "x",
+            "url": "https://example.invalid/article"
+          },
+          "collectionIntent": "collect"
+        },
+        "notebookId": null
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "match-too-many-tokens",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "matchWords",
+      "params": {
+        "kind": "tokens",
+        "tokens": [
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple",
+          "apple"
+        ]
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "navigation-no-arbitrary-path",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "openInDesktop",
+      "params": {
+        "target": "file:///tmp",
+        "mutationId": "11111111-1111-4111-8111-111111111111"
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "word-navigation-needs-word",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "openInDesktop",
+      "params": {
+        "target": "word",
+        "mutationId": "11111111-1111-4111-8111-111111111111"
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "operation-unknown-is-explicit",
+    "schema": "Response",
+    "valid": true,
+    "value": {
+      "apiVersion": "1.0.0",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getOperation",
+      "ok": true,
+      "result": {
+        "mutationId": "11111111-1111-4111-8111-111111111111",
+        "status": "unknown"
+      }
+    }
+  },
+  {
+    "name": "signed-in-desktop-context",
+    "schema": "Response",
+    "valid": true,
+    "value": {
+      "apiVersion": "1.0.0",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getWorkspace",
+      "ok": true,
+      "result": {
+        "owner": {
+          "pairingId": "11111111-1111-4111-8111-111111111111",
+          "desktopInstanceId": "11111111-1111-4111-8111-111111111111",
+          "clientInstanceId": "11111111-1111-4111-8111-111111111111",
+          "workspaceId": "11111111-1111-4111-8111-111111111111",
+          "generation": "11111111-1111-4111-8111-111111111111",
+          "authorizationEpoch": "1"
+        },
+        "revision": "1",
+        "dictionaryRelease": "0.0.3",
+        "dictionaryEdition": "core-text",
+        "account": {
+          "status": "signed-in",
+          "account": {
+            "id": "example-account",
+            "displayName": "示例用户"
+          },
+          "source": "desktop"
+        },
+        "cloudSync": "disabled",
+        "readLeaseUntil": "2026-10-03T00:00:30.000Z"
+      }
+    }
+  },
+  {
+    "name": "error-response",
+    "schema": "Response",
+    "valid": true,
+    "value": {
+      "apiVersion": "1.0.0",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getWorkspace",
+      "ok": false,
+      "error": {
+        "code": "GENERATION_MISMATCH",
+        "message": "桌面工作区已改变",
+        "retryable": false
+      }
+    }
+  },
+  {
+    "name": "desktop-account-source-required",
+    "schema": "Response",
+    "valid": false,
+    "value": {
+      "apiVersion": "1.0.0",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getWorkspace",
+      "ok": true,
+      "result": {
+        "owner": {
+          "pairingId": "11111111-1111-4111-8111-111111111111",
+          "desktopInstanceId": "11111111-1111-4111-8111-111111111111",
+          "clientInstanceId": "11111111-1111-4111-8111-111111111111",
+          "workspaceId": "11111111-1111-4111-8111-111111111111",
+          "generation": "11111111-1111-4111-8111-111111111111",
+          "authorizationEpoch": "1"
+        },
+        "revision": "1",
+        "dictionaryRelease": "0.0.3",
+        "dictionaryEdition": "core-text",
+        "account": {
+          "status": "unavailable"
+        },
+        "cloudSync": "disabled",
+        "readLeaseUntil": "2026-10-03T00:00:30.000Z"
+      }
+    }
+  },
+  {
+    "name": "operation-pending",
+    "schema": "Response",
+    "valid": true,
+    "value": {
+      "apiVersion": "1.0.0",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getOperation",
+      "ok": true,
+      "result": {
+        "mutationId": "11111111-1111-4111-8111-111111111111",
+        "status": "pending",
+        "method": "recordEncounter"
+      }
+    }
+  },
+  {
+    "name": "operation-rejected",
+    "schema": "Response",
+    "valid": true,
+    "value": {
+      "apiVersion": "1.0.0",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getOperation",
+      "ok": true,
+      "result": {
+        "mutationId": "11111111-1111-4111-8111-111111111111",
+        "status": "rejected",
+        "method": "recordEncounter",
+        "error": {
+          "code": "ENTITY_DELETED",
+          "message": "词条已回收",
+          "retryable": false
+        }
+      }
+    }
+  },
+  {
+    "name": "operation-navigation",
+    "schema": "Response",
+    "valid": true,
+    "value": {
+      "apiVersion": "1.0.0",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getOperation",
+      "ok": true,
+      "result": {
+        "mutationId": "11111111-1111-4111-8111-111111111111",
+        "status": "applied",
+        "method": "openInDesktop",
+        "result": {
+          "opened": true
+        }
+      }
+    }
+  },
+  {
+    "name": "requestConnection-request",
+    "schema": "Request",
+    "valid": true,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "requestConnection",
+      "params": {
+        "clientInstanceId": "11111111-1111-4111-8111-111111111111",
+        "action": "request"
+      }
+    }
+  },
+  {
+    "name": "requestConnection-response",
+    "schema": "Response",
+    "valid": true,
+    "value": {
+      "apiVersion": "1.0.0",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "requestConnection",
+      "ok": true,
+      "result": {
+        "desktopInstanceId": "11111111-1111-4111-8111-111111111111",
+        "displayName": "词遇 Desktop",
+        "connectionState": "unpaired",
+        "invitationState": "pending",
+        "invitation": {
+          "invitationId": "11111111-1111-4111-8111-111111111111",
+          "invitationToken": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "requestedBy": "plugin",
+          "expiresAt": "2026-10-03T00:02:00.000Z"
+        }
+      }
+    }
+  },
+  {
+    "name": "requestConnection-reject-unknown-input",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "requestConnection",
+      "params": {
+        "clientInstanceId": "11111111-1111-4111-8111-111111111111",
+        "action": "request",
+        "unexpectedField": true
+      }
+    }
+  },
+  {
+    "name": "getConnectionStatus-request",
+    "schema": "Request",
+    "valid": true,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getConnectionStatus",
+      "params": {
+        "clientInstanceId": "11111111-1111-4111-8111-111111111111"
+      }
+    }
+  },
+  {
+    "name": "getConnectionStatus-response",
+    "schema": "Response",
+    "valid": true,
+    "value": {
+      "apiVersion": "1.0.0",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getConnectionStatus",
+      "ok": true,
+      "result": {
+        "desktopInstanceId": "11111111-1111-4111-8111-111111111111",
+        "displayName": "词遇 Desktop",
+        "connectionState": "unpaired",
+        "invitationState": "pending",
+        "invitation": {
+          "invitationId": "11111111-1111-4111-8111-111111111111",
+          "invitationToken": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "requestedBy": "plugin",
+          "expiresAt": "2026-10-03T00:02:00.000Z"
+        }
+      }
+    }
+  },
+  {
+    "name": "getConnectionStatus-reject-unknown-input",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getConnectionStatus",
+      "params": {
+        "clientInstanceId": "11111111-1111-4111-8111-111111111111",
+        "unexpectedField": true
+      }
+    }
+  },
+  {
+    "name": "requestConnection-cancel-request",
+    "schema": "Request",
+    "valid": true,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "requestConnection",
+      "params": {
+        "clientInstanceId": "11111111-1111-4111-8111-111111111111",
+        "action": "cancel",
+        "invitationId": "11111111-1111-4111-8111-111111111111"
+      }
+    }
+  },
+  {
+    "name": "pair-no-manual-code",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "pair",
+      "params": {
+        "pairingCode": "123456",
+        "clientInstanceId": "11111111-1111-4111-8111-111111111111",
+        "displayName": "x"
+      }
+    }
+  },
+  {
+    "name": "capture-rejects-removed-meaning-supplement",
+    "schema": "Request",
+    "valid": false,
+    "value": {
+      "apiMajor": 1,
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "recordEncounter",
+      "params": {
+        "eventId": "11111111-1111-4111-8111-111111111111",
+        "data": {
+          "word": {
+            "kind": "dictionary",
+            "entryId": "7fb01ea7-0fab-5cc5-8723-d902d6a16c99",
+            "release": "0.0.3",
+            "entrySchema": "leximeet.entry.v2"
+          },
+          "surface": "photosynthesis",
+          "originalSentence": "Plants use photosynthesis.",
+          "savedExcerpt": "Plants use photosynthesis.",
+          "occurrenceRanges": [
+            {
+              "start": 11,
+              "end": 25
+            }
+          ],
+          "excerptRanges": [
+            {
+              "start": 11,
+              "end": 25
+            }
+          ],
+          "annotation": {
+            "note": "在文章中采集的真实语境",
+            "meaningSupplement": "个人释义"
+          },
+          "source": {
+            "kind": "web",
+            "title": "示例文章",
+            "url": "https://example.invalid/article"
+          },
+          "collectionIntent": "collect"
+        },
+        "notebookId": null,
+        "mutationId": "11111111-1111-4111-8111-111111111111"
+      },
+      "authorization": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "sessionToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "workspaceId": "11111111-1111-4111-8111-111111111111",
+        "generation": "11111111-1111-4111-8111-111111111111",
+        "authorizationEpoch": "0"
+      }
+    }
+  },
+  {
+    "name": "getWord-note-only-personal",
+    "schema": "Response",
+    "valid": true,
+    "value": {
+      "apiVersion": "1.0.0",
+      "requestId": "11111111-1111-4111-8111-111111111111",
+      "connectionId": "11111111-1111-4111-8111-111111111111",
+      "method": "getWord",
+      "ok": true,
+      "result": {
+        "word": {
+          "kind": "dictionary",
+          "entryId": "7fb01ea7-0fab-5cc5-8723-d902d6a16c99",
+          "release": "0.0.3",
+          "entrySchema": "leximeet.entry.v2"
+        },
+        "headword": "photosynthesis",
+        "collected": false,
+        "inTarget": true,
+        "resourceStatus": "available",
+        "personal": {
+          "note": "用户笔记"
+        },
+        "learning": {
+          "status": "new",
+          "score": 10,
+          "asOf": "2026-10-03T00:00:00.000Z"
+        },
+        "refreshAfterMs": 30000
+      }
+    }
+  }
+]

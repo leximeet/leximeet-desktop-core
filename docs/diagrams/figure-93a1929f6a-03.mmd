@@ -1,0 +1,10 @@
+flowchart LR
+  Event[实际练习事件] --> Score[分数与学习阶段]
+  Event --> Independent(有效独立回忆):::decision
+  Independent -- 是 --> FSRS[FSRS 记忆投影]
+  Score --> Eligible[自动复习资格]
+  Eligible --> Queue[到期与额度过滤]
+  FSRS --> Queue
+  Queue --> Notice[宿主投递一题通知]
+  Notice --> Answer[用户实际作答]
+  Answer --> Event

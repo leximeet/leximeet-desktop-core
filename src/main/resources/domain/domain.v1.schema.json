@@ -1,0 +1,2709 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://leximeet.github.io/contracts/domain.v1.schema.json",
+  "title": "词遇个人业务模型 1.0.0 设计合同",
+  "$defs": {
+    "Uuid": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    },
+    "Revision": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)$",
+      "maxLength": 40
+    },
+    "Version": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$",
+      "maxLength": 40
+    },
+    "Timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "\\.[0-9]{3}Z$",
+      "maxLength": 24
+    },
+    "Day": {
+      "type": "string",
+      "format": "date",
+      "maxLength": 10
+    },
+    "TimeZone": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "Cursor": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1024,
+      "pattern": "^[A-Za-z0-9._~-]+$"
+    },
+    "Sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "WordKey": {
+      "type": "string",
+      "pattern": "^(dict|custom):[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    },
+    "WordRef": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "dictionary"
+            },
+            "entryId": {
+              "$ref": "#/$defs/Uuid"
+            },
+            "release": {
+              "$ref": "#/$defs/Version"
+            },
+            "entrySchema": {
+              "const": "leximeet.entry.v2"
+            }
+          },
+          "required": [
+            "kind",
+            "entryId",
+            "release",
+            "entrySchema"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "custom"
+            },
+            "customId": {
+              "$ref": "#/$defs/Uuid"
+            },
+            "headword": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120
+            },
+            "language": {
+              "const": "en"
+            }
+          },
+          "required": [
+            "kind",
+            "customId",
+            "headword",
+            "language"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "Origin": {
+      "type": "object",
+      "properties": {
+        "deviceId": {
+          "$ref": "#/$defs/Uuid"
+        },
+        "clientKind": {
+          "type": "string",
+          "enum": [
+            "desktop",
+            "browser"
+          ]
+        }
+      },
+      "required": [
+        "deviceId",
+        "clientKind"
+      ],
+      "additionalProperties": false
+    },
+    "Goal": {
+      "anyOf": [
+        {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "catalog"
+                },
+                "catalogId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120
+                },
+                "release": {
+                  "$ref": "#/$defs/Version"
+                }
+              },
+              "required": [
+                "kind",
+                "catalogId",
+                "release"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "dictionary"
+                },
+                "edition": {
+                  "type": "string",
+                  "enum": [
+                    "lite-text",
+                    "core-text",
+                    "full-text"
+                  ]
+                },
+                "release": {
+                  "$ref": "#/$defs/Version"
+                }
+              },
+              "required": [
+                "kind",
+                "edition",
+                "release"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "WordData": {
+      "type": "object",
+      "properties": {
+        "word": {
+          "$ref": "#/$defs/WordRef"
+        },
+        "note": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 20000
+        },
+        "collected": {
+          "type": "boolean"
+        },
+        "notebookIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Uuid"
+          },
+          "minItems": 0,
+          "maxItems": 100,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "word",
+        "note",
+        "collected",
+        "notebookIds"
+      ],
+      "additionalProperties": false
+    },
+    "NotebookData": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "color": {
+          "type": "string",
+          "pattern": "^#[0-9A-Fa-f]{6}$"
+        },
+        "position": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2000
+        }
+      },
+      "required": [
+        "name",
+        "color",
+        "position"
+      ],
+      "additionalProperties": false
+    },
+    "StudyPlanData": {
+      "type": "object",
+      "properties": {
+        "planId": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "goal": {
+          "$ref": "#/$defs/Goal"
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "dailyNew": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50
+        },
+        "dailyReview": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 500
+        },
+        "startedOn": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Day"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "timeZone": {
+          "$ref": "#/$defs/TimeZone"
+        }
+      },
+      "required": [
+        "planId",
+        "goal",
+        "active",
+        "dailyNew",
+        "dailyReview",
+        "startedOn",
+        "timeZone"
+      ],
+      "additionalProperties": false
+    },
+    "Range": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 40000
+        },
+        "end": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 40000
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "additionalProperties": false
+    },
+    "EncounterData": {
+      "type": "object",
+      "properties": {
+        "word": {
+          "$ref": "#/$defs/WordRef"
+        },
+        "surface": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "originalSentence": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 20000
+        },
+        "savedExcerpt": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 20000
+        },
+        "occurrenceRanges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Range"
+          },
+          "minItems": 1,
+          "maxItems": 100,
+          "uniqueItems": false
+        },
+        "excerptRanges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Range"
+          },
+          "minItems": 1,
+          "maxItems": 100,
+          "uniqueItems": false
+        },
+        "annotation": {
+          "type": "object",
+          "properties": {
+            "note": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 20000
+            }
+          },
+          "required": [
+            "note"
+          ],
+          "additionalProperties": false
+        },
+        "source": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "enum": [
+                "web",
+                "manual",
+                "clipboard"
+              ]
+            },
+            "title": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 300
+            },
+            "url": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 2000
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "title",
+            "url"
+          ],
+          "additionalProperties": false
+        },
+        "timeZone": {
+          "$ref": "#/$defs/TimeZone"
+        },
+        "occurredAt": {
+          "$ref": "#/$defs/Timestamp"
+        },
+        "origin": {
+          "$ref": "#/$defs/Origin"
+        },
+        "collectionIntent": {
+          "type": "string",
+          "enum": [
+            "collect",
+            "context-only"
+          ]
+        }
+      },
+      "required": [
+        "word",
+        "surface",
+        "originalSentence",
+        "savedExcerpt",
+        "occurrenceRanges",
+        "excerptRanges",
+        "annotation",
+        "source",
+        "timeZone",
+        "occurredAt",
+        "origin",
+        "collectionIntent"
+      ],
+      "additionalProperties": false
+    },
+    "PracticeMode": {
+      "type": "string",
+      "enum": [
+        "word-list",
+        "meaning-choice",
+        "copy",
+        "recall",
+        "listening",
+        "cloze"
+      ]
+    },
+    "PracticeData": {
+      "type": "object",
+      "properties": {
+        "word": {
+          "$ref": "#/$defs/WordRef"
+        },
+        "attemptId": {
+          "$ref": "#/$defs/Uuid"
+        },
+        "questionId": {
+          "$ref": "#/$defs/Uuid"
+        },
+        "mode": {
+          "$ref": "#/$defs/PracticeMode"
+        },
+        "signal": {
+          "type": "string",
+          "enum": [
+            "answer",
+            "familiar",
+            "unfamiliar",
+            "reveal"
+          ]
+        },
+        "correct": {
+          "type": "boolean"
+        },
+        "assisted": {
+          "type": "boolean"
+        },
+        "ruleVersion": {
+          "const": "leximeet.learning/2"
+        },
+        "algorithmProfileId": {
+          "const": "leximeet.fsrs6/1"
+        },
+        "mergeProfileId": {
+          "const": "leximeet.learning-sync/1"
+        },
+        "deviceSeq": {
+          "$ref": "#/$defs/Revision"
+        },
+        "logicalClock": {
+          "$ref": "#/$defs/Revision"
+        },
+        "timeZone": {
+          "$ref": "#/$defs/TimeZone"
+        },
+        "studyDay": {
+          "$ref": "#/$defs/Day"
+        },
+        "occurredAt": {
+          "$ref": "#/$defs/Timestamp"
+        },
+        "initialDueAt": {
+          "$ref": "#/$defs/Timestamp"
+        },
+        "origin": {
+          "$ref": "#/$defs/Origin"
+        },
+        "source": {
+          "type": "string",
+          "enum": [
+            "practice",
+            "notification"
+          ]
+        },
+        "durationMs": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3600000
+        },
+        "evidence": {
+          "type": "object",
+          "properties": {
+            "questionDigest": {
+              "$ref": "#/$defs/Sha256"
+            },
+            "answerDigest": {
+              "$ref": "#/$defs/Sha256"
+            },
+            "judgeVersion": {
+              "const": "leximeet.judge/1"
+            }
+          },
+          "required": [
+            "questionDigest",
+            "answerDigest",
+            "judgeVersion"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "word",
+        "attemptId",
+        "questionId",
+        "mode",
+        "signal",
+        "correct",
+        "assisted",
+        "ruleVersion",
+        "algorithmProfileId",
+        "mergeProfileId",
+        "deviceSeq",
+        "logicalClock",
+        "timeZone",
+        "studyDay",
+        "occurredAt",
+        "initialDueAt",
+        "origin",
+        "source",
+        "durationMs",
+        "evidence"
+      ],
+      "additionalProperties": false,
+      "description": "entityId 即稳定 submissionId；correct/assisted 由可信本地学习服务产生，不接受 UI 自报。云同步传输事实，不能上传最终分数/FSRS 卡片。"
+    },
+    "RetractionData": {
+      "type": "object",
+      "properties": {
+        "targetType": {
+          "type": "string",
+          "enum": [
+            "encounter",
+            "practice"
+          ]
+        },
+        "targetId": {
+          "$ref": "#/$defs/Uuid"
+        },
+        "occurredAt": {
+          "$ref": "#/$defs/Timestamp"
+        },
+        "origin": {
+          "$ref": "#/$defs/Origin"
+        }
+      },
+      "required": [
+        "targetType",
+        "targetId",
+        "occurredAt",
+        "origin"
+      ],
+      "additionalProperties": false
+    },
+    "WordPatch": {
+      "type": "object",
+      "properties": {
+        "note": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 20000
+        },
+        "collected": {
+          "type": "boolean"
+        },
+        "notebookIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Uuid"
+          },
+          "minItems": 0,
+          "maxItems": 100,
+          "uniqueItems": true
+        }
+      },
+      "required": [],
+      "additionalProperties": false,
+      "minProperties": 1
+    },
+    "NotebookPatch": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "color": {
+          "type": "string",
+          "pattern": "^#[0-9A-Fa-f]{6}$"
+        },
+        "position": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2000
+        }
+      },
+      "required": [],
+      "additionalProperties": false,
+      "minProperties": 1
+    },
+    "StudyPlanPatch": {
+      "type": "object",
+      "properties": {
+        "planId": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "goal": {
+          "$ref": "#/$defs/Goal"
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "dailyNew": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50
+        },
+        "dailyReview": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 500
+        },
+        "startedOn": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Day"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "timeZone": {
+          "$ref": "#/$defs/TimeZone"
+        }
+      },
+      "required": [],
+      "additionalProperties": false,
+      "minProperties": 1
+    },
+    "EntityRef": {
+      "type": "object",
+      "properties": {
+        "entityType": {
+          "type": "string",
+          "enum": [
+            "word",
+            "notebook",
+            "studyPlan",
+            "encounter",
+            "practice",
+            "retraction"
+          ]
+        },
+        "entityId": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Uuid"
+            },
+            {
+              "$ref": "#/$defs/WordKey"
+            }
+          ]
+        }
+      },
+      "required": [
+        "entityType",
+        "entityId"
+      ],
+      "additionalProperties": false
+    },
+    "EntityRecord": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "entityType": {
+              "const": "word"
+            },
+            "entityId": {
+              "$ref": "#/$defs/WordKey"
+            },
+            "revision": {
+              "$ref": "#/$defs/Revision"
+            },
+            "deletedAt": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/Timestamp"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "data": {
+              "$ref": "#/$defs/WordData"
+            }
+          },
+          "required": [
+            "entityType",
+            "entityId",
+            "revision",
+            "deletedAt",
+            "data"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "entityType": {
+              "const": "notebook"
+            },
+            "entityId": {
+              "$ref": "#/$defs/Uuid"
+            },
+            "revision": {
+              "$ref": "#/$defs/Revision"
+            },
+            "deletedAt": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/Timestamp"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "data": {
+              "$ref": "#/$defs/NotebookData"
+            }
+          },
+          "required": [
+            "entityType",
+            "entityId",
+            "revision",
+            "deletedAt",
+            "data"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "entityType": {
+              "const": "studyPlan"
+            },
+            "entityId": {
+              "$ref": "#/$defs/Uuid"
+            },
+            "revision": {
+              "$ref": "#/$defs/Revision"
+            },
+            "deletedAt": {
+              "type": "null"
+            },
+            "data": {
+              "$ref": "#/$defs/StudyPlanData"
+            }
+          },
+          "required": [
+            "entityType",
+            "entityId",
+            "revision",
+            "deletedAt",
+            "data"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "entityType": {
+              "const": "encounter"
+            },
+            "entityId": {
+              "$ref": "#/$defs/Uuid"
+            },
+            "revision": {
+              "$ref": "#/$defs/Revision"
+            },
+            "deletedAt": {
+              "type": "null"
+            },
+            "data": {
+              "$ref": "#/$defs/EncounterData"
+            }
+          },
+          "required": [
+            "entityType",
+            "entityId",
+            "revision",
+            "deletedAt",
+            "data"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "entityType": {
+              "const": "practice"
+            },
+            "entityId": {
+              "$ref": "#/$defs/Uuid"
+            },
+            "revision": {
+              "$ref": "#/$defs/Revision"
+            },
+            "deletedAt": {
+              "type": "null"
+            },
+            "data": {
+              "$ref": "#/$defs/PracticeData"
+            }
+          },
+          "required": [
+            "entityType",
+            "entityId",
+            "revision",
+            "deletedAt",
+            "data"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "entityType": {
+              "const": "retraction"
+            },
+            "entityId": {
+              "$ref": "#/$defs/Uuid"
+            },
+            "revision": {
+              "$ref": "#/$defs/Revision"
+            },
+            "deletedAt": {
+              "type": "null"
+            },
+            "data": {
+              "$ref": "#/$defs/RetractionData"
+            }
+          },
+          "required": [
+            "entityType",
+            "entityId",
+            "revision",
+            "deletedAt",
+            "data"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "WordRecord": {
+      "type": "object",
+      "properties": {
+        "entityType": {
+          "const": "word"
+        },
+        "entityId": {
+          "$ref": "#/$defs/WordKey"
+        },
+        "revision": {
+          "$ref": "#/$defs/Revision"
+        },
+        "deletedAt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "data": {
+          "$ref": "#/$defs/WordData"
+        }
+      },
+      "required": [
+        "entityType",
+        "entityId",
+        "revision",
+        "deletedAt",
+        "data"
+      ],
+      "additionalProperties": false
+    },
+    "NotebookRecord": {
+      "type": "object",
+      "properties": {
+        "entityType": {
+          "const": "notebook"
+        },
+        "entityId": {
+          "$ref": "#/$defs/Uuid"
+        },
+        "revision": {
+          "$ref": "#/$defs/Revision"
+        },
+        "deletedAt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "data": {
+          "$ref": "#/$defs/NotebookData"
+        }
+      },
+      "required": [
+        "entityType",
+        "entityId",
+        "revision",
+        "deletedAt",
+        "data"
+      ],
+      "additionalProperties": false
+    },
+    "StudyPlanRecord": {
+      "type": "object",
+      "properties": {
+        "entityType": {
+          "const": "studyPlan"
+        },
+        "entityId": {
+          "$ref": "#/$defs/Uuid"
+        },
+        "revision": {
+          "$ref": "#/$defs/Revision"
+        },
+        "deletedAt": {
+          "type": "null"
+        },
+        "data": {
+          "$ref": "#/$defs/StudyPlanData"
+        }
+      },
+      "required": [
+        "entityType",
+        "entityId",
+        "revision",
+        "deletedAt",
+        "data"
+      ],
+      "additionalProperties": false
+    },
+    "EncounterRecord": {
+      "type": "object",
+      "properties": {
+        "entityType": {
+          "const": "encounter"
+        },
+        "entityId": {
+          "$ref": "#/$defs/Uuid"
+        },
+        "revision": {
+          "$ref": "#/$defs/Revision"
+        },
+        "deletedAt": {
+          "type": "null"
+        },
+        "data": {
+          "$ref": "#/$defs/EncounterData"
+        }
+      },
+      "required": [
+        "entityType",
+        "entityId",
+        "revision",
+        "deletedAt",
+        "data"
+      ],
+      "additionalProperties": false
+    },
+    "PracticeRecord": {
+      "type": "object",
+      "properties": {
+        "entityType": {
+          "const": "practice"
+        },
+        "entityId": {
+          "$ref": "#/$defs/Uuid"
+        },
+        "revision": {
+          "$ref": "#/$defs/Revision"
+        },
+        "deletedAt": {
+          "type": "null"
+        },
+        "data": {
+          "$ref": "#/$defs/PracticeData"
+        }
+      },
+      "required": [
+        "entityType",
+        "entityId",
+        "revision",
+        "deletedAt",
+        "data"
+      ],
+      "additionalProperties": false
+    },
+    "RetractionRecord": {
+      "type": "object",
+      "properties": {
+        "entityType": {
+          "const": "retraction"
+        },
+        "entityId": {
+          "$ref": "#/$defs/Uuid"
+        },
+        "revision": {
+          "$ref": "#/$defs/Revision"
+        },
+        "deletedAt": {
+          "type": "null"
+        },
+        "data": {
+          "$ref": "#/$defs/RetractionData"
+        }
+      },
+      "required": [
+        "entityType",
+        "entityId",
+        "revision",
+        "deletedAt",
+        "data"
+      ],
+      "additionalProperties": false
+    },
+    "WorkspaceIdentity": {
+      "type": "object",
+      "properties": {
+        "workspaceId": {
+          "$ref": "#/$defs/Uuid"
+        },
+        "generation": {
+          "$ref": "#/$defs/Uuid"
+        }
+      },
+      "required": [
+        "workspaceId",
+        "generation"
+      ],
+      "additionalProperties": false
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]*$",
+          "maxLength": 80
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "retryable": {
+          "type": "boolean"
+        },
+        "retryAfterMs": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 300000
+        }
+      },
+      "required": [
+        "code",
+        "message",
+        "retryable"
+      ],
+      "additionalProperties": false
+    },
+    "MemoryProjection": {
+      "type": "object",
+      "properties": {
+        "word": {
+          "$ref": "#/$defs/WordRef"
+        },
+        "profileId": {
+          "const": "leximeet.fsrs6/1"
+        },
+        "historyHash": {
+          "$ref": "#/$defs/Sha256"
+        },
+        "revision": {
+          "$ref": "#/$defs/Revision"
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "new",
+            "learning",
+            "review",
+            "relearning"
+          ]
+        },
+        "step": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "stability": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "difficulty": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 1,
+              "maximum": 10
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "dueAt": {
+          "$ref": "#/$defs/Timestamp"
+        },
+        "lastReviewAt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "word",
+        "profileId",
+        "historyHash",
+        "revision",
+        "state",
+        "step",
+        "stability",
+        "difficulty",
+        "dueAt",
+        "lastReviewAt"
+      ],
+      "additionalProperties": false
+    },
+    "LearningProjection": {
+      "type": "object",
+      "properties": {
+        "ruleVersion": {
+          "const": "leximeet.learning/2"
+        },
+        "mergeProfileId": {
+          "const": "leximeet.learning-sync/1"
+        },
+        "word": {
+          "$ref": "#/$defs/WordRef"
+        },
+        "score": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 30
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "new",
+            "learning",
+            "review",
+            "mastered"
+          ]
+        },
+        "unfamiliar": {
+          "type": "boolean"
+        },
+        "startedAt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "graduatedAt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "graduatedDay": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Day"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reviewEligibleAt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "firstRecallDueAt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "masteryCycleAt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "nextDecayAt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "automaticDueAt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "asOf": {
+          "$ref": "#/$defs/Timestamp"
+        },
+        "historyHash": {
+          "$ref": "#/$defs/Sha256"
+        },
+        "revision": {
+          "$ref": "#/$defs/Revision"
+        }
+      },
+      "required": [
+        "ruleVersion",
+        "mergeProfileId",
+        "word",
+        "score",
+        "status",
+        "unfamiliar",
+        "startedAt",
+        "graduatedAt",
+        "graduatedDay",
+        "reviewEligibleAt",
+        "firstRecallDueAt",
+        "masteryCycleAt",
+        "nextDecayAt",
+        "automaticDueAt",
+        "asOf",
+        "historyHash",
+        "revision"
+      ],
+      "additionalProperties": false
+    },
+    "UuidRead": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    },
+    "RevisionRead": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)$",
+      "maxLength": 40
+    },
+    "VersionRead": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$",
+      "maxLength": 40
+    },
+    "TimestampRead": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "\\.[0-9]{3}Z$",
+      "maxLength": 24
+    },
+    "DayRead": {
+      "type": "string",
+      "format": "date",
+      "maxLength": 10
+    },
+    "TimeZoneRead": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "CursorRead": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1024,
+      "pattern": "^[A-Za-z0-9._~-]+$"
+    },
+    "Sha256Read": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "WordKeyRead": {
+      "type": "string",
+      "pattern": "^(dict|custom):[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    },
+    "WordRefRead": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "dictionary"
+            },
+            "entryId": {
+              "$ref": "#/$defs/UuidRead"
+            },
+            "release": {
+              "$ref": "#/$defs/VersionRead"
+            },
+            "entrySchema": {
+              "const": "leximeet.entry.v2"
+            }
+          },
+          "required": [
+            "kind",
+            "entryId",
+            "release",
+            "entrySchema"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "custom"
+            },
+            "customId": {
+              "$ref": "#/$defs/UuidRead"
+            },
+            "headword": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120
+            },
+            "language": {
+              "const": "en"
+            }
+          },
+          "required": [
+            "kind",
+            "customId",
+            "headword",
+            "language"
+          ],
+          "additionalProperties": true
+        }
+      ]
+    },
+    "OriginRead": {
+      "type": "object",
+      "properties": {
+        "deviceId": {
+          "$ref": "#/$defs/UuidRead"
+        },
+        "clientKind": {
+          "type": "string",
+          "enum": [
+            "desktop",
+            "browser"
+          ]
+        }
+      },
+      "required": [
+        "deviceId",
+        "clientKind"
+      ],
+      "additionalProperties": true
+    },
+    "GoalRead": {
+      "anyOf": [
+        {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "catalog"
+                },
+                "catalogId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120
+                },
+                "release": {
+                  "$ref": "#/$defs/VersionRead"
+                }
+              },
+              "required": [
+                "kind",
+                "catalogId",
+                "release"
+              ],
+              "additionalProperties": true
+            },
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "dictionary"
+                },
+                "edition": {
+                  "type": "string",
+                  "enum": [
+                    "lite-text",
+                    "core-text",
+                    "full-text"
+                  ]
+                },
+                "release": {
+                  "$ref": "#/$defs/VersionRead"
+                }
+              },
+              "required": [
+                "kind",
+                "edition",
+                "release"
+              ],
+              "additionalProperties": true
+            }
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "WordDataRead": {
+      "type": "object",
+      "properties": {
+        "word": {
+          "$ref": "#/$defs/WordRefRead"
+        },
+        "note": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 20000
+        },
+        "collected": {
+          "type": "boolean"
+        },
+        "notebookIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/UuidRead"
+          },
+          "minItems": 0,
+          "maxItems": 100,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "word",
+        "note",
+        "collected",
+        "notebookIds"
+      ],
+      "additionalProperties": true
+    },
+    "NotebookDataRead": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "color": {
+          "type": "string",
+          "pattern": "^#[0-9A-Fa-f]{6}$"
+        },
+        "position": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2000
+        }
+      },
+      "required": [
+        "name",
+        "color",
+        "position"
+      ],
+      "additionalProperties": true
+    },
+    "StudyPlanDataRead": {
+      "type": "object",
+      "properties": {
+        "planId": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/UuidRead"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "goal": {
+          "$ref": "#/$defs/GoalRead"
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "dailyNew": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50
+        },
+        "dailyReview": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 500
+        },
+        "startedOn": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DayRead"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "timeZone": {
+          "$ref": "#/$defs/TimeZoneRead"
+        }
+      },
+      "required": [
+        "planId",
+        "goal",
+        "active",
+        "dailyNew",
+        "dailyReview",
+        "startedOn",
+        "timeZone"
+      ],
+      "additionalProperties": true
+    },
+    "RangeRead": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 40000
+        },
+        "end": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 40000
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "additionalProperties": true
+    },
+    "EncounterDataRead": {
+      "type": "object",
+      "properties": {
+        "word": {
+          "$ref": "#/$defs/WordRefRead"
+        },
+        "surface": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "originalSentence": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 20000
+        },
+        "savedExcerpt": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 20000
+        },
+        "occurrenceRanges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RangeRead"
+          },
+          "minItems": 1,
+          "maxItems": 100,
+          "uniqueItems": false
+        },
+        "excerptRanges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RangeRead"
+          },
+          "minItems": 1,
+          "maxItems": 100,
+          "uniqueItems": false
+        },
+        "annotation": {
+          "type": "object",
+          "properties": {
+            "note": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 20000
+            }
+          },
+          "required": [
+            "note"
+          ],
+          "additionalProperties": true
+        },
+        "source": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "enum": [
+                "web",
+                "manual",
+                "clipboard"
+              ]
+            },
+            "title": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 300
+            },
+            "url": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 2000
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "title",
+            "url"
+          ],
+          "additionalProperties": true
+        },
+        "timeZone": {
+          "$ref": "#/$defs/TimeZoneRead"
+        },
+        "occurredAt": {
+          "$ref": "#/$defs/TimestampRead"
+        },
+        "origin": {
+          "$ref": "#/$defs/OriginRead"
+        },
+        "collectionIntent": {
+          "type": "string",
+          "enum": [
+            "collect",
+            "context-only"
+          ]
+        }
+      },
+      "required": [
+        "word",
+        "surface",
+        "originalSentence",
+        "savedExcerpt",
+        "occurrenceRanges",
+        "excerptRanges",
+        "annotation",
+        "source",
+        "timeZone",
+        "occurredAt",
+        "origin",
+        "collectionIntent"
+      ],
+      "additionalProperties": true
+    },
+    "PracticeModeRead": {
+      "type": "string",
+      "enum": [
+        "word-list",
+        "meaning-choice",
+        "copy",
+        "recall",
+        "listening",
+        "cloze"
+      ]
+    },
+    "PracticeDataRead": {
+      "type": "object",
+      "properties": {
+        "word": {
+          "$ref": "#/$defs/WordRefRead"
+        },
+        "attemptId": {
+          "$ref": "#/$defs/UuidRead"
+        },
+        "questionId": {
+          "$ref": "#/$defs/UuidRead"
+        },
+        "mode": {
+          "$ref": "#/$defs/PracticeModeRead"
+        },
+        "signal": {
+          "type": "string",
+          "enum": [
+            "answer",
+            "familiar",
+            "unfamiliar",
+            "reveal"
+          ]
+        },
+        "correct": {
+          "type": "boolean"
+        },
+        "assisted": {
+          "type": "boolean"
+        },
+        "ruleVersion": {
+          "const": "leximeet.learning/2"
+        },
+        "algorithmProfileId": {
+          "const": "leximeet.fsrs6/1"
+        },
+        "mergeProfileId": {
+          "const": "leximeet.learning-sync/1"
+        },
+        "deviceSeq": {
+          "$ref": "#/$defs/RevisionRead"
+        },
+        "logicalClock": {
+          "$ref": "#/$defs/RevisionRead"
+        },
+        "timeZone": {
+          "$ref": "#/$defs/TimeZoneRead"
+        },
+        "studyDay": {
+          "$ref": "#/$defs/DayRead"
+        },
+        "occurredAt": {
+          "$ref": "#/$defs/TimestampRead"
+        },
+        "initialDueAt": {
+          "$ref": "#/$defs/TimestampRead"
+        },
+        "origin": {
+          "$ref": "#/$defs/OriginRead"
+        },
+        "source": {
+          "type": "string",
+          "enum": [
+            "practice",
+            "notification"
+          ]
+        },
+        "durationMs": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3600000
+        },
+        "evidence": {
+          "type": "object",
+          "properties": {
+            "questionDigest": {
+              "$ref": "#/$defs/Sha256Read"
+            },
+            "answerDigest": {
+              "$ref": "#/$defs/Sha256Read"
+            },
+            "judgeVersion": {
+              "const": "leximeet.judge/1"
+            }
+          },
+          "required": [
+            "questionDigest",
+            "answerDigest",
+            "judgeVersion"
+          ],
+          "additionalProperties": true
+        }
+      },
+      "required": [
+        "word",
+        "attemptId",
+        "questionId",
+        "mode",
+        "signal",
+        "correct",
+        "assisted",
+        "ruleVersion",
+        "algorithmProfileId",
+        "mergeProfileId",
+        "deviceSeq",
+        "logicalClock",
+        "timeZone",
+        "studyDay",
+        "occurredAt",
+        "initialDueAt",
+        "origin",
+        "source",
+        "durationMs",
+        "evidence"
+      ],
+      "additionalProperties": true,
+      "description": "entityId 即稳定 submissionId；correct/assisted 由可信本地学习服务产生，不接受 UI 自报。云同步传输事实，不能上传最终分数/FSRS 卡片。"
+    },
+    "RetractionDataRead": {
+      "type": "object",
+      "properties": {
+        "targetType": {
+          "type": "string",
+          "enum": [
+            "encounter",
+            "practice"
+          ]
+        },
+        "targetId": {
+          "$ref": "#/$defs/UuidRead"
+        },
+        "occurredAt": {
+          "$ref": "#/$defs/TimestampRead"
+        },
+        "origin": {
+          "$ref": "#/$defs/OriginRead"
+        }
+      },
+      "required": [
+        "targetType",
+        "targetId",
+        "occurredAt",
+        "origin"
+      ],
+      "additionalProperties": true
+    },
+    "WordPatchRead": {
+      "type": "object",
+      "properties": {
+        "note": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 20000
+        },
+        "collected": {
+          "type": "boolean"
+        },
+        "notebookIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/UuidRead"
+          },
+          "minItems": 0,
+          "maxItems": 100,
+          "uniqueItems": true
+        }
+      },
+      "required": [],
+      "additionalProperties": true,
+      "minProperties": 1
+    },
+    "NotebookPatchRead": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "color": {
+          "type": "string",
+          "pattern": "^#[0-9A-Fa-f]{6}$"
+        },
+        "position": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2000
+        }
+      },
+      "required": [],
+      "additionalProperties": true,
+      "minProperties": 1
+    },
+    "StudyPlanPatchRead": {
+      "type": "object",
+      "properties": {
+        "planId": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/UuidRead"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "goal": {
+          "$ref": "#/$defs/GoalRead"
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "dailyNew": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50
+        },
+        "dailyReview": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 500
+        },
+        "startedOn": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DayRead"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "timeZone": {
+          "$ref": "#/$defs/TimeZoneRead"
+        }
+      },
+      "required": [],
+      "additionalProperties": true,
+      "minProperties": 1
+    },
+    "EntityRefRead": {
+      "type": "object",
+      "properties": {
+        "entityType": {
+          "type": "string",
+          "enum": [
+            "word",
+            "notebook",
+            "studyPlan",
+            "encounter",
+            "practice",
+            "retraction"
+          ]
+        },
+        "entityId": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/UuidRead"
+            },
+            {
+              "$ref": "#/$defs/WordKeyRead"
+            }
+          ]
+        }
+      },
+      "required": [
+        "entityType",
+        "entityId"
+      ],
+      "additionalProperties": true
+    },
+    "EntityRecordRead": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "entityType": {
+              "const": "word"
+            },
+            "entityId": {
+              "$ref": "#/$defs/WordKeyRead"
+            },
+            "revision": {
+              "$ref": "#/$defs/RevisionRead"
+            },
+            "deletedAt": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/TimestampRead"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "data": {
+              "$ref": "#/$defs/WordDataRead"
+            }
+          },
+          "required": [
+            "entityType",
+            "entityId",
+            "revision",
+            "deletedAt",
+            "data"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "entityType": {
+              "const": "notebook"
+            },
+            "entityId": {
+              "$ref": "#/$defs/UuidRead"
+            },
+            "revision": {
+              "$ref": "#/$defs/RevisionRead"
+            },
+            "deletedAt": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/TimestampRead"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "data": {
+              "$ref": "#/$defs/NotebookDataRead"
+            }
+          },
+          "required": [
+            "entityType",
+            "entityId",
+            "revision",
+            "deletedAt",
+            "data"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "entityType": {
+              "const": "studyPlan"
+            },
+            "entityId": {
+              "$ref": "#/$defs/UuidRead"
+            },
+            "revision": {
+              "$ref": "#/$defs/RevisionRead"
+            },
+            "deletedAt": {
+              "type": "null"
+            },
+            "data": {
+              "$ref": "#/$defs/StudyPlanDataRead"
+            }
+          },
+          "required": [
+            "entityType",
+            "entityId",
+            "revision",
+            "deletedAt",
+            "data"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "entityType": {
+              "const": "encounter"
+            },
+            "entityId": {
+              "$ref": "#/$defs/UuidRead"
+            },
+            "revision": {
+              "$ref": "#/$defs/RevisionRead"
+            },
+            "deletedAt": {
+              "type": "null"
+            },
+            "data": {
+              "$ref": "#/$defs/EncounterDataRead"
+            }
+          },
+          "required": [
+            "entityType",
+            "entityId",
+            "revision",
+            "deletedAt",
+            "data"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "entityType": {
+              "const": "practice"
+            },
+            "entityId": {
+              "$ref": "#/$defs/UuidRead"
+            },
+            "revision": {
+              "$ref": "#/$defs/RevisionRead"
+            },
+            "deletedAt": {
+              "type": "null"
+            },
+            "data": {
+              "$ref": "#/$defs/PracticeDataRead"
+            }
+          },
+          "required": [
+            "entityType",
+            "entityId",
+            "revision",
+            "deletedAt",
+            "data"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "entityType": {
+              "const": "retraction"
+            },
+            "entityId": {
+              "$ref": "#/$defs/UuidRead"
+            },
+            "revision": {
+              "$ref": "#/$defs/RevisionRead"
+            },
+            "deletedAt": {
+              "type": "null"
+            },
+            "data": {
+              "$ref": "#/$defs/RetractionDataRead"
+            }
+          },
+          "required": [
+            "entityType",
+            "entityId",
+            "revision",
+            "deletedAt",
+            "data"
+          ],
+          "additionalProperties": true
+        }
+      ]
+    },
+    "WordRecordRead": {
+      "type": "object",
+      "properties": {
+        "entityType": {
+          "const": "word"
+        },
+        "entityId": {
+          "$ref": "#/$defs/WordKeyRead"
+        },
+        "revision": {
+          "$ref": "#/$defs/RevisionRead"
+        },
+        "deletedAt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TimestampRead"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "data": {
+          "$ref": "#/$defs/WordDataRead"
+        }
+      },
+      "required": [
+        "entityType",
+        "entityId",
+        "revision",
+        "deletedAt",
+        "data"
+      ],
+      "additionalProperties": true
+    },
+    "NotebookRecordRead": {
+      "type": "object",
+      "properties": {
+        "entityType": {
+          "const": "notebook"
+        },
+        "entityId": {
+          "$ref": "#/$defs/UuidRead"
+        },
+        "revision": {
+          "$ref": "#/$defs/RevisionRead"
+        },
+        "deletedAt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TimestampRead"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "data": {
+          "$ref": "#/$defs/NotebookDataRead"
+        }
+      },
+      "required": [
+        "entityType",
+        "entityId",
+        "revision",
+        "deletedAt",
+        "data"
+      ],
+      "additionalProperties": true
+    },
+    "StudyPlanRecordRead": {
+      "type": "object",
+      "properties": {
+        "entityType": {
+          "const": "studyPlan"
+        },
+        "entityId": {
+          "$ref": "#/$defs/UuidRead"
+        },
+        "revision": {
+          "$ref": "#/$defs/RevisionRead"
+        },
+        "deletedAt": {
+          "type": "null"
+        },
+        "data": {
+          "$ref": "#/$defs/StudyPlanDataRead"
+        }
+      },
+      "required": [
+        "entityType",
+        "entityId",
+        "revision",
+        "deletedAt",
+        "data"
+      ],
+      "additionalProperties": true
+    },
+    "EncounterRecordRead": {
+      "type": "object",
+      "properties": {
+        "entityType": {
+          "const": "encounter"
+        },
+        "entityId": {
+          "$ref": "#/$defs/UuidRead"
+        },
+        "revision": {
+          "$ref": "#/$defs/RevisionRead"
+        },
+        "deletedAt": {
+          "type": "null"
+        },
+        "data": {
+          "$ref": "#/$defs/EncounterDataRead"
+        }
+      },
+      "required": [
+        "entityType",
+        "entityId",
+        "revision",
+        "deletedAt",
+        "data"
+      ],
+      "additionalProperties": true
+    },
+    "PracticeRecordRead": {
+      "type": "object",
+      "properties": {
+        "entityType": {
+          "const": "practice"
+        },
+        "entityId": {
+          "$ref": "#/$defs/UuidRead"
+        },
+        "revision": {
+          "$ref": "#/$defs/RevisionRead"
+        },
+        "deletedAt": {
+          "type": "null"
+        },
+        "data": {
+          "$ref": "#/$defs/PracticeDataRead"
+        }
+      },
+      "required": [
+        "entityType",
+        "entityId",
+        "revision",
+        "deletedAt",
+        "data"
+      ],
+      "additionalProperties": true
+    },
+    "RetractionRecordRead": {
+      "type": "object",
+      "properties": {
+        "entityType": {
+          "const": "retraction"
+        },
+        "entityId": {
+          "$ref": "#/$defs/UuidRead"
+        },
+        "revision": {
+          "$ref": "#/$defs/RevisionRead"
+        },
+        "deletedAt": {
+          "type": "null"
+        },
+        "data": {
+          "$ref": "#/$defs/RetractionDataRead"
+        }
+      },
+      "required": [
+        "entityType",
+        "entityId",
+        "revision",
+        "deletedAt",
+        "data"
+      ],
+      "additionalProperties": true
+    },
+    "WorkspaceIdentityRead": {
+      "type": "object",
+      "properties": {
+        "workspaceId": {
+          "$ref": "#/$defs/UuidRead"
+        },
+        "generation": {
+          "$ref": "#/$defs/UuidRead"
+        }
+      },
+      "required": [
+        "workspaceId",
+        "generation"
+      ],
+      "additionalProperties": true
+    },
+    "ErrorRead": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]*$",
+          "maxLength": 80
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "retryable": {
+          "type": "boolean"
+        },
+        "retryAfterMs": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 300000
+        }
+      },
+      "required": [
+        "code",
+        "message",
+        "retryable"
+      ],
+      "additionalProperties": true
+    },
+    "MemoryProjectionRead": {
+      "type": "object",
+      "properties": {
+        "word": {
+          "$ref": "#/$defs/WordRefRead"
+        },
+        "profileId": {
+          "const": "leximeet.fsrs6/1"
+        },
+        "historyHash": {
+          "$ref": "#/$defs/Sha256Read"
+        },
+        "revision": {
+          "$ref": "#/$defs/RevisionRead"
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "new",
+            "learning",
+            "review",
+            "relearning"
+          ]
+        },
+        "step": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "stability": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "difficulty": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 1,
+              "maximum": 10
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "dueAt": {
+          "$ref": "#/$defs/TimestampRead"
+        },
+        "lastReviewAt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TimestampRead"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "word",
+        "profileId",
+        "historyHash",
+        "revision",
+        "state",
+        "step",
+        "stability",
+        "difficulty",
+        "dueAt",
+        "lastReviewAt"
+      ],
+      "additionalProperties": true
+    },
+    "LearningProjectionRead": {
+      "type": "object",
+      "properties": {
+        "ruleVersion": {
+          "const": "leximeet.learning/2"
+        },
+        "mergeProfileId": {
+          "const": "leximeet.learning-sync/1"
+        },
+        "word": {
+          "$ref": "#/$defs/WordRefRead"
+        },
+        "score": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 30
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "new",
+            "learning",
+            "review",
+            "mastered"
+          ]
+        },
+        "unfamiliar": {
+          "type": "boolean"
+        },
+        "startedAt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TimestampRead"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "graduatedAt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TimestampRead"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "graduatedDay": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DayRead"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reviewEligibleAt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TimestampRead"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "firstRecallDueAt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TimestampRead"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "masteryCycleAt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TimestampRead"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "nextDecayAt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TimestampRead"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "automaticDueAt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TimestampRead"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "asOf": {
+          "$ref": "#/$defs/TimestampRead"
+        },
+        "historyHash": {
+          "$ref": "#/$defs/Sha256Read"
+        },
+        "revision": {
+          "$ref": "#/$defs/RevisionRead"
+        }
+      },
+      "required": [
+        "ruleVersion",
+        "mergeProfileId",
+        "word",
+        "score",
+        "status",
+        "unfamiliar",
+        "startedAt",
+        "graduatedAt",
+        "graduatedDay",
+        "reviewEligibleAt",
+        "firstRecallDueAt",
+        "masteryCycleAt",
+        "nextDecayAt",
+        "automaticDueAt",
+        "asOf",
+        "historyHash",
+        "revision"
+      ],
+      "additionalProperties": true
+    }
+  }
+}

@@ -1,0 +1,2836 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://leximeet.github.io/contracts/desktop-api.v1.schema.json",
+  "title": "LMCP 桌面本机 API：连接、遇见与采集",
+  "$defs": {
+    "Authorization": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "sessionToken": {
+          "type": "string",
+          "minLength": 32,
+          "maxLength": 128
+        },
+        "workspaceId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "generation": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "authorizationEpoch": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Revision"
+        }
+      },
+      "required": [
+        "sessionId",
+        "sessionToken",
+        "workspaceId",
+        "generation",
+        "authorizationEpoch"
+      ],
+      "additionalProperties": false
+    },
+    "AuthorizationRead": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "sessionToken": {
+          "type": "string",
+          "minLength": 32,
+          "maxLength": 128
+        },
+        "workspaceId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "generation": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "authorizationEpoch": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Revision"
+        }
+      },
+      "required": [
+        "sessionId",
+        "sessionToken",
+        "workspaceId",
+        "generation",
+        "authorizationEpoch"
+      ],
+      "additionalProperties": true
+    },
+    "WordSummary": {
+      "type": "object",
+      "properties": {
+        "word": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/WordRefRead"
+        },
+        "headword": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "collected": {
+          "type": "boolean"
+        },
+        "inTarget": {
+          "type": "boolean"
+        },
+        "resourceStatus": {
+          "enum": [
+            "available",
+            "missing",
+            "unsupported"
+          ]
+        },
+        "personal": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "note": {
+                  "type": "string",
+                  "minLength": 0,
+                  "maxLength": 20000
+                }
+              },
+              "required": [
+                "note"
+              ],
+              "additionalProperties": true
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "learning": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "enum": [
+                "new",
+                "learning",
+                "review",
+                "mastered"
+              ]
+            },
+            "score": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 30
+            },
+            "asOf": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Timestamp"
+            }
+          },
+          "required": [
+            "status",
+            "score",
+            "asOf"
+          ],
+          "additionalProperties": true
+        },
+        "refreshAfterMs": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 30000
+        }
+      },
+      "required": [
+        "word",
+        "headword",
+        "collected",
+        "inTarget",
+        "resourceStatus",
+        "personal",
+        "learning",
+        "refreshAfterMs"
+      ],
+      "additionalProperties": true
+    },
+    "Operation": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "mutationId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "status": {
+              "const": "unknown"
+            }
+          },
+          "required": [
+            "mutationId",
+            "status"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "mutationId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "status": {
+              "const": "pending"
+            },
+            "method": {
+              "enum": [
+                "recordEncounter",
+                "openInDesktop"
+              ]
+            }
+          },
+          "required": [
+            "mutationId",
+            "status",
+            "method"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "mutationId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "status": {
+              "const": "rejected"
+            },
+            "method": {
+              "enum": [
+                "recordEncounter",
+                "openInDesktop"
+              ]
+            },
+            "error": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/ErrorRead"
+            }
+          },
+          "required": [
+            "mutationId",
+            "status",
+            "method",
+            "error"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "mutationId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "status": {
+              "const": "applied"
+            },
+            "method": {
+              "const": "recordEncounter"
+            },
+            "result": {
+              "$ref": "#/$defs/recordEncounterResult"
+            }
+          },
+          "required": [
+            "mutationId",
+            "status",
+            "method",
+            "result"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "mutationId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "status": {
+              "const": "applied"
+            },
+            "method": {
+              "const": "openInDesktop"
+            },
+            "result": {
+              "$ref": "#/$defs/openInDesktopResult"
+            }
+          },
+          "required": [
+            "mutationId",
+            "status",
+            "method",
+            "result"
+          ],
+          "additionalProperties": true
+        }
+      ]
+    },
+    "helloParams": {
+      "type": "object",
+      "properties": {
+        "apiMajor": {
+          "const": 1
+        },
+        "minApiVersion": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Version"
+        },
+        "connectionId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "clientKind": {
+          "enum": [
+            "browser",
+            "ide",
+            "other"
+          ]
+        },
+        "contractVersion": {
+          "type": "string",
+          "pattern": "^1\\.[0-9]+\\.[0-9]+(-rc\\.[1-9][0-9]*)?$",
+          "maxLength": 40
+        },
+        "contractDigest": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Sha256"
+        },
+        "requiredCapabilities": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "minItems": 0,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "clientInstanceId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        }
+      },
+      "required": [
+        "apiMajor",
+        "minApiVersion",
+        "connectionId",
+        "clientKind",
+        "contractVersion",
+        "contractDigest",
+        "requiredCapabilities",
+        "clientInstanceId",
+        "displayName"
+      ],
+      "additionalProperties": false
+    },
+    "helloResult": {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "type": "string",
+          "pattern": "^1\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$",
+          "maxLength": 40
+        },
+        "desktopInstanceId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "methods": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "minItems": 0,
+          "maxItems": 100,
+          "uniqueItems": true
+        },
+        "maxFrameBytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 262144
+        },
+        "capabilities": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "minItems": 0,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "connectionId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "contractVersion": {
+          "type": "string",
+          "pattern": "^1\\.[0-9]+\\.[0-9]+(-rc\\.[1-9][0-9]*)?$",
+          "maxLength": 40
+        },
+        "contractDigest": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Sha256"
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        }
+      },
+      "required": [
+        "apiVersion",
+        "desktopInstanceId",
+        "methods",
+        "maxFrameBytes",
+        "capabilities",
+        "connectionId",
+        "contractVersion",
+        "contractDigest",
+        "displayName"
+      ],
+      "additionalProperties": true
+    },
+    "pairParams": {
+      "type": "object",
+      "properties": {
+        "invitationId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "invitationToken": {
+          "type": "string",
+          "minLength": 43,
+          "maxLength": 128
+        },
+        "clientInstanceId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        }
+      },
+      "required": [
+        "invitationId",
+        "invitationToken",
+        "clientInstanceId"
+      ],
+      "additionalProperties": false
+    },
+    "pairResult": {
+      "type": "object",
+      "properties": {
+        "authorization": {
+          "$ref": "#/$defs/AuthorizationRead"
+        },
+        "expiresAt": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Timestamp"
+        },
+        "readLeaseUntil": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Timestamp"
+        },
+        "scopes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "minItems": 0,
+          "maxItems": 20,
+          "uniqueItems": true
+        },
+        "pairingId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "owner": {
+          "$ref": "#/$defs/PairingOwner"
+        },
+        "pairingCredential": {
+          "$ref": "#/$defs/PairingCredential"
+        }
+      },
+      "required": [
+        "authorization",
+        "expiresAt",
+        "readLeaseUntil",
+        "scopes",
+        "pairingId",
+        "owner",
+        "pairingCredential"
+      ],
+      "additionalProperties": true
+    },
+    "renewSessionParams": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "additionalProperties": false
+    },
+    "renewSessionResult": {
+      "$ref": "#/$defs/SessionState"
+    },
+    "getWorkspaceParams": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "additionalProperties": false
+    },
+    "getWorkspaceResult": {
+      "type": "object",
+      "properties": {
+        "owner": {
+          "$ref": "#/$defs/PairingOwner"
+        },
+        "revision": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Revision"
+        },
+        "dictionaryRelease": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Version"
+        },
+        "dictionaryEdition": {
+          "enum": [
+            "lite-text",
+            "core-text",
+            "full-text"
+          ]
+        },
+        "account": {
+          "$ref": "#/$defs/AccountContext"
+        },
+        "cloudSync": {
+          "enum": [
+            "disabled",
+            "ready",
+            "syncing",
+            "error"
+          ]
+        },
+        "readLeaseUntil": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Timestamp"
+        }
+      },
+      "required": [
+        "owner",
+        "revision",
+        "dictionaryRelease",
+        "dictionaryEdition",
+        "account",
+        "cloudSync",
+        "readLeaseUntil"
+      ],
+      "additionalProperties": true
+    },
+    "getWordParams": {
+      "type": "object",
+      "properties": {
+        "word": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/WordRef"
+        }
+      },
+      "required": [
+        "word"
+      ],
+      "additionalProperties": false
+    },
+    "getWordResult": {
+      "$ref": "#/$defs/WordSummary"
+    },
+    "getPublicEntryParams": {
+      "type": "object",
+      "properties": {
+        "entryId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "release": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Version"
+        }
+      },
+      "required": [
+        "entryId",
+        "release"
+      ],
+      "additionalProperties": false
+    },
+    "getPublicEntryResult": {
+      "type": "object",
+      "properties": {
+        "release": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Version"
+        },
+        "entry": {
+          "$ref": "https://github.com/leximeet/leximeet-dictionary/schemas/leximeet.entry.v2.schema.json"
+        }
+      },
+      "required": [
+        "release",
+        "entry"
+      ],
+      "additionalProperties": true
+    },
+    "listNotebooksParams": {
+      "type": "object",
+      "properties": {
+        "cursor": {
+          "anyOf": [
+            {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Cursor"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "listNotebooksResult": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/NotebookRecordRead"
+          },
+          "minItems": 0,
+          "maxItems": 100,
+          "uniqueItems": false
+        },
+        "nextCursor": {
+          "anyOf": [
+            {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Cursor"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "complete": {
+          "type": "boolean"
+        },
+        "revision": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Revision"
+        }
+      },
+      "required": [
+        "items",
+        "nextCursor",
+        "complete",
+        "revision"
+      ],
+      "additionalProperties": true
+    },
+    "recordEncounterParams": {
+      "type": "object",
+      "properties": {
+        "eventId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "data": {
+          "$ref": "#/$defs/EncounterInput"
+        },
+        "notebookId": {
+          "anyOf": [
+            {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "mutationId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        }
+      },
+      "required": [
+        "eventId",
+        "data",
+        "notebookId",
+        "mutationId"
+      ],
+      "additionalProperties": false
+    },
+    "recordEncounterResult": {
+      "type": "object",
+      "properties": {
+        "entity": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/EncounterRecordRead"
+        },
+        "workspaceRevision": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Revision"
+        }
+      },
+      "required": [
+        "entity",
+        "workspaceRevision"
+      ],
+      "additionalProperties": true
+    },
+    "listEncountersParams": {
+      "type": "object",
+      "properties": {
+        "cursor": {
+          "anyOf": [
+            {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Cursor"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "word": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/WordRef"
+        },
+        "from": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Day"
+        },
+        "to": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Day"
+        }
+      },
+      "required": [
+        "word"
+      ],
+      "additionalProperties": false
+    },
+    "listEncountersResult": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/EncounterRecordRead"
+          },
+          "minItems": 0,
+          "maxItems": 100,
+          "uniqueItems": false
+        },
+        "nextCursor": {
+          "anyOf": [
+            {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Cursor"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "complete": {
+          "type": "boolean"
+        },
+        "revision": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Revision"
+        }
+      },
+      "required": [
+        "items",
+        "nextCursor",
+        "complete",
+        "revision"
+      ],
+      "additionalProperties": true
+    },
+    "getChangesParams": {
+      "type": "object",
+      "properties": {
+        "sinceRevision": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Revision"
+        }
+      },
+      "required": [
+        "sinceRevision"
+      ],
+      "additionalProperties": false
+    },
+    "getChangesResult": {
+      "type": "object",
+      "properties": {
+        "revision": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Revision"
+        },
+        "changed": {
+          "type": "boolean"
+        },
+        "readLeaseUntil": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Timestamp"
+        }
+      },
+      "required": [
+        "revision",
+        "changed",
+        "readLeaseUntil"
+      ],
+      "additionalProperties": true
+    },
+    "getOperationParams": {
+      "type": "object",
+      "properties": {
+        "mutationId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        }
+      },
+      "required": [
+        "mutationId"
+      ],
+      "additionalProperties": false
+    },
+    "getOperationResult": {
+      "$ref": "#/$defs/Operation"
+    },
+    "openInDesktopParams": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "target": {
+              "const": "word"
+            },
+            "word": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/WordRef"
+            },
+            "mutationId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            }
+          },
+          "required": [
+            "target",
+            "word",
+            "mutationId"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "target": {
+              "enum": [
+                "library",
+                "plan",
+                "settings"
+              ]
+            },
+            "mutationId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            }
+          },
+          "required": [
+            "target",
+            "mutationId"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "openInDesktopResult": {
+      "type": "object",
+      "properties": {
+        "opened": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "opened"
+      ],
+      "additionalProperties": true
+    },
+    "Request": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "apiMajor": {
+              "const": 1
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "hello"
+            },
+            "params": {
+              "$ref": "#/$defs/helloParams"
+            }
+          },
+          "required": [
+            "apiMajor",
+            "requestId",
+            "connectionId",
+            "method",
+            "params"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiMajor": {
+              "const": 1
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "getConnectionStatus"
+            },
+            "params": {
+              "$ref": "#/$defs/getConnectionStatusParams"
+            }
+          },
+          "required": [
+            "apiMajor",
+            "requestId",
+            "connectionId",
+            "method",
+            "params"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiMajor": {
+              "const": 1
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "requestConnection"
+            },
+            "params": {
+              "$ref": "#/$defs/requestConnectionParams"
+            }
+          },
+          "required": [
+            "apiMajor",
+            "requestId",
+            "connectionId",
+            "method",
+            "params"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiMajor": {
+              "const": 1
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "pair"
+            },
+            "params": {
+              "$ref": "#/$defs/pairParams"
+            }
+          },
+          "required": [
+            "apiMajor",
+            "requestId",
+            "connectionId",
+            "method",
+            "params"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiMajor": {
+              "const": 1
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "resumeSession"
+            },
+            "params": {
+              "$ref": "#/$defs/resumeSessionParams"
+            }
+          },
+          "required": [
+            "apiMajor",
+            "requestId",
+            "connectionId",
+            "method",
+            "params"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiMajor": {
+              "const": 1
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "renewSession"
+            },
+            "params": {
+              "$ref": "#/$defs/renewSessionParams"
+            },
+            "authorization": {
+              "$ref": "#/$defs/Authorization"
+            }
+          },
+          "required": [
+            "apiMajor",
+            "requestId",
+            "connectionId",
+            "method",
+            "params",
+            "authorization"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiMajor": {
+              "const": 1
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "revokePairing"
+            },
+            "params": {
+              "$ref": "#/$defs/revokePairingParams"
+            },
+            "authorization": {
+              "$ref": "#/$defs/Authorization"
+            }
+          },
+          "required": [
+            "apiMajor",
+            "requestId",
+            "connectionId",
+            "method",
+            "params",
+            "authorization"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiMajor": {
+              "const": 1
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "disconnect"
+            },
+            "params": {
+              "$ref": "#/$defs/disconnectParams"
+            },
+            "authorization": {
+              "$ref": "#/$defs/Authorization"
+            }
+          },
+          "required": [
+            "apiMajor",
+            "requestId",
+            "connectionId",
+            "method",
+            "params",
+            "authorization"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiMajor": {
+              "const": 1
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "getWorkspace"
+            },
+            "params": {
+              "$ref": "#/$defs/getWorkspaceParams"
+            },
+            "authorization": {
+              "$ref": "#/$defs/Authorization"
+            }
+          },
+          "required": [
+            "apiMajor",
+            "requestId",
+            "connectionId",
+            "method",
+            "params",
+            "authorization"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiMajor": {
+              "const": 1
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "matchWords"
+            },
+            "params": {
+              "$ref": "#/$defs/matchWordsParams"
+            },
+            "authorization": {
+              "$ref": "#/$defs/Authorization"
+            }
+          },
+          "required": [
+            "apiMajor",
+            "requestId",
+            "connectionId",
+            "method",
+            "params",
+            "authorization"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiMajor": {
+              "const": 1
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "getWord"
+            },
+            "params": {
+              "$ref": "#/$defs/getWordParams"
+            },
+            "authorization": {
+              "$ref": "#/$defs/Authorization"
+            }
+          },
+          "required": [
+            "apiMajor",
+            "requestId",
+            "connectionId",
+            "method",
+            "params",
+            "authorization"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiMajor": {
+              "const": 1
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "getPublicEntry"
+            },
+            "params": {
+              "$ref": "#/$defs/getPublicEntryParams"
+            },
+            "authorization": {
+              "$ref": "#/$defs/Authorization"
+            }
+          },
+          "required": [
+            "apiMajor",
+            "requestId",
+            "connectionId",
+            "method",
+            "params",
+            "authorization"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiMajor": {
+              "const": 1
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "recordEncounter"
+            },
+            "params": {
+              "$ref": "#/$defs/recordEncounterParams"
+            },
+            "authorization": {
+              "$ref": "#/$defs/Authorization"
+            }
+          },
+          "required": [
+            "apiMajor",
+            "requestId",
+            "connectionId",
+            "method",
+            "params",
+            "authorization"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiMajor": {
+              "const": 1
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "getChanges"
+            },
+            "params": {
+              "$ref": "#/$defs/getChangesParams"
+            },
+            "authorization": {
+              "$ref": "#/$defs/Authorization"
+            }
+          },
+          "required": [
+            "apiMajor",
+            "requestId",
+            "connectionId",
+            "method",
+            "params",
+            "authorization"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiMajor": {
+              "const": 1
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "getOperation"
+            },
+            "params": {
+              "$ref": "#/$defs/getOperationParams"
+            },
+            "authorization": {
+              "$ref": "#/$defs/Authorization"
+            }
+          },
+          "required": [
+            "apiMajor",
+            "requestId",
+            "connectionId",
+            "method",
+            "params",
+            "authorization"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiMajor": {
+              "const": 1
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "openInDesktop"
+            },
+            "params": {
+              "$ref": "#/$defs/openInDesktopParams"
+            },
+            "authorization": {
+              "$ref": "#/$defs/Authorization"
+            }
+          },
+          "required": [
+            "apiMajor",
+            "requestId",
+            "connectionId",
+            "method",
+            "params",
+            "authorization"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiMajor": {
+              "const": 1
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "listNotebooks"
+            },
+            "params": {
+              "$ref": "#/$defs/listNotebooksParams"
+            },
+            "authorization": {
+              "$ref": "#/$defs/Authorization"
+            }
+          },
+          "required": [
+            "apiMajor",
+            "requestId",
+            "connectionId",
+            "method",
+            "params",
+            "authorization"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiMajor": {
+              "const": 1
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "listEncounters"
+            },
+            "params": {
+              "$ref": "#/$defs/listEncountersParams"
+            },
+            "authorization": {
+              "$ref": "#/$defs/Authorization"
+            }
+          },
+          "required": [
+            "apiMajor",
+            "requestId",
+            "connectionId",
+            "method",
+            "params",
+            "authorization"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiMajor": {
+              "const": 1
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "registerHost"
+            },
+            "params": {
+              "$ref": "#/$defs/registerHostParams"
+            },
+            "authorization": {
+              "$ref": "#/$defs/Authorization"
+            }
+          },
+          "required": [
+            "apiMajor",
+            "requestId",
+            "connectionId",
+            "method",
+            "params",
+            "authorization"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "Response": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "apiVersion": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Version"
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "hello"
+            },
+            "ok": {
+              "const": true
+            },
+            "result": {
+              "$ref": "#/$defs/helloResult"
+            }
+          },
+          "required": [
+            "apiVersion",
+            "requestId",
+            "connectionId",
+            "method",
+            "ok",
+            "result"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiVersion": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Version"
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "getConnectionStatus"
+            },
+            "ok": {
+              "const": true
+            },
+            "result": {
+              "$ref": "#/$defs/getConnectionStatusResult"
+            }
+          },
+          "required": [
+            "apiVersion",
+            "requestId",
+            "connectionId",
+            "method",
+            "ok",
+            "result"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiVersion": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Version"
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "requestConnection"
+            },
+            "ok": {
+              "const": true
+            },
+            "result": {
+              "$ref": "#/$defs/requestConnectionResult"
+            }
+          },
+          "required": [
+            "apiVersion",
+            "requestId",
+            "connectionId",
+            "method",
+            "ok",
+            "result"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiVersion": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Version"
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "pair"
+            },
+            "ok": {
+              "const": true
+            },
+            "result": {
+              "$ref": "#/$defs/pairResult"
+            }
+          },
+          "required": [
+            "apiVersion",
+            "requestId",
+            "connectionId",
+            "method",
+            "ok",
+            "result"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiVersion": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Version"
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "resumeSession"
+            },
+            "ok": {
+              "const": true
+            },
+            "result": {
+              "$ref": "#/$defs/resumeSessionResult"
+            }
+          },
+          "required": [
+            "apiVersion",
+            "requestId",
+            "connectionId",
+            "method",
+            "ok",
+            "result"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiVersion": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Version"
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "renewSession"
+            },
+            "ok": {
+              "const": true
+            },
+            "result": {
+              "$ref": "#/$defs/renewSessionResult"
+            }
+          },
+          "required": [
+            "apiVersion",
+            "requestId",
+            "connectionId",
+            "method",
+            "ok",
+            "result"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiVersion": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Version"
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "revokePairing"
+            },
+            "ok": {
+              "const": true
+            },
+            "result": {
+              "$ref": "#/$defs/revokePairingResult"
+            }
+          },
+          "required": [
+            "apiVersion",
+            "requestId",
+            "connectionId",
+            "method",
+            "ok",
+            "result"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiVersion": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Version"
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "disconnect"
+            },
+            "ok": {
+              "const": true
+            },
+            "result": {
+              "$ref": "#/$defs/disconnectResult"
+            }
+          },
+          "required": [
+            "apiVersion",
+            "requestId",
+            "connectionId",
+            "method",
+            "ok",
+            "result"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiVersion": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Version"
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "getWorkspace"
+            },
+            "ok": {
+              "const": true
+            },
+            "result": {
+              "$ref": "#/$defs/getWorkspaceResult"
+            }
+          },
+          "required": [
+            "apiVersion",
+            "requestId",
+            "connectionId",
+            "method",
+            "ok",
+            "result"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiVersion": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Version"
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "matchWords"
+            },
+            "ok": {
+              "const": true
+            },
+            "result": {
+              "$ref": "#/$defs/matchWordsResult"
+            }
+          },
+          "required": [
+            "apiVersion",
+            "requestId",
+            "connectionId",
+            "method",
+            "ok",
+            "result"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiVersion": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Version"
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "getWord"
+            },
+            "ok": {
+              "const": true
+            },
+            "result": {
+              "$ref": "#/$defs/getWordResult"
+            }
+          },
+          "required": [
+            "apiVersion",
+            "requestId",
+            "connectionId",
+            "method",
+            "ok",
+            "result"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiVersion": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Version"
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "getPublicEntry"
+            },
+            "ok": {
+              "const": true
+            },
+            "result": {
+              "$ref": "#/$defs/getPublicEntryResult"
+            }
+          },
+          "required": [
+            "apiVersion",
+            "requestId",
+            "connectionId",
+            "method",
+            "ok",
+            "result"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiVersion": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Version"
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "recordEncounter"
+            },
+            "ok": {
+              "const": true
+            },
+            "result": {
+              "$ref": "#/$defs/recordEncounterResult"
+            }
+          },
+          "required": [
+            "apiVersion",
+            "requestId",
+            "connectionId",
+            "method",
+            "ok",
+            "result"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiVersion": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Version"
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "getChanges"
+            },
+            "ok": {
+              "const": true
+            },
+            "result": {
+              "$ref": "#/$defs/getChangesResult"
+            }
+          },
+          "required": [
+            "apiVersion",
+            "requestId",
+            "connectionId",
+            "method",
+            "ok",
+            "result"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiVersion": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Version"
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "getOperation"
+            },
+            "ok": {
+              "const": true
+            },
+            "result": {
+              "$ref": "#/$defs/getOperationResult"
+            }
+          },
+          "required": [
+            "apiVersion",
+            "requestId",
+            "connectionId",
+            "method",
+            "ok",
+            "result"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiVersion": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Version"
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "openInDesktop"
+            },
+            "ok": {
+              "const": true
+            },
+            "result": {
+              "$ref": "#/$defs/openInDesktopResult"
+            }
+          },
+          "required": [
+            "apiVersion",
+            "requestId",
+            "connectionId",
+            "method",
+            "ok",
+            "result"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiVersion": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Version"
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "listNotebooks"
+            },
+            "ok": {
+              "const": true
+            },
+            "result": {
+              "$ref": "#/$defs/listNotebooksResult"
+            }
+          },
+          "required": [
+            "apiVersion",
+            "requestId",
+            "connectionId",
+            "method",
+            "ok",
+            "result"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiVersion": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Version"
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "listEncounters"
+            },
+            "ok": {
+              "const": true
+            },
+            "result": {
+              "$ref": "#/$defs/listEncountersResult"
+            }
+          },
+          "required": [
+            "apiVersion",
+            "requestId",
+            "connectionId",
+            "method",
+            "ok",
+            "result"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiVersion": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Version"
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "const": "registerHost"
+            },
+            "ok": {
+              "const": true
+            },
+            "result": {
+              "$ref": "#/$defs/registerHostResult"
+            }
+          },
+          "required": [
+            "apiVersion",
+            "requestId",
+            "connectionId",
+            "method",
+            "ok",
+            "result"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apiVersion": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Version"
+            },
+            "requestId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "connectionId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "method": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 80
+            },
+            "ok": {
+              "const": false
+            },
+            "error": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/ErrorRead"
+            }
+          },
+          "required": [
+            "apiVersion",
+            "requestId",
+            "connectionId",
+            "method",
+            "ok",
+            "error"
+          ],
+          "additionalProperties": true
+        }
+      ]
+    },
+    "matchWordsParams": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "ids"
+            },
+            "words": {
+              "type": "array",
+              "items": {
+                "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/WordRef"
+              },
+              "maxItems": 100,
+              "minItems": 1,
+              "uniqueItems": false
+            }
+          },
+          "required": [
+            "kind",
+            "words"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "tokens"
+            },
+            "tokens": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120
+              },
+              "maxItems": 100,
+              "minItems": 1,
+              "uniqueItems": false
+            }
+          },
+          "required": [
+            "kind",
+            "tokens"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "matchWordsResult": {
+      "type": "object",
+      "properties": {
+        "results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "inputIndex": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 99
+              },
+              "matches": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "word": {
+                      "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/WordRefRead"
+                    },
+                    "headword": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120
+                    },
+                    "inTarget": {
+                      "type": "boolean"
+                    },
+                    "collected": {
+                      "type": "boolean"
+                    },
+                    "learningStatus": {
+                      "type": "string",
+                      "enum": [
+                        "new",
+                        "learning",
+                        "review",
+                        "mastered"
+                      ]
+                    },
+                    "score": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 30
+                    }
+                  },
+                  "required": [
+                    "word",
+                    "headword",
+                    "inTarget",
+                    "collected",
+                    "learningStatus",
+                    "score"
+                  ],
+                  "additionalProperties": true
+                },
+                "maxItems": 10,
+                "minItems": 0,
+                "uniqueItems": false
+              },
+              "complete": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "inputIndex",
+              "matches",
+              "complete"
+            ],
+            "additionalProperties": true
+          },
+          "maxItems": 100,
+          "minItems": 0,
+          "uniqueItems": false
+        },
+        "workspaceRevision": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Revision"
+        },
+        "asOf": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Timestamp"
+        },
+        "refreshAfterMs": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 30000
+        }
+      },
+      "required": [
+        "results",
+        "workspaceRevision",
+        "asOf",
+        "refreshAfterMs"
+      ],
+      "additionalProperties": true
+    },
+    "EncounterInput": {
+      "type": "object",
+      "properties": {
+        "word": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/WordRef"
+        },
+        "surface": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "originalSentence": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 20000
+        },
+        "savedExcerpt": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 20000
+        },
+        "occurrenceRanges": {
+          "type": "array",
+          "items": {
+            "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Range"
+          },
+          "minItems": 1,
+          "maxItems": 100,
+          "uniqueItems": false
+        },
+        "excerptRanges": {
+          "type": "array",
+          "items": {
+            "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Range"
+          },
+          "minItems": 1,
+          "maxItems": 100,
+          "uniqueItems": false
+        },
+        "annotation": {
+          "type": "object",
+          "properties": {
+            "note": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 20000
+            }
+          },
+          "required": [
+            "note"
+          ],
+          "additionalProperties": false
+        },
+        "source": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "enum": [
+                "web",
+                "manual"
+              ]
+            },
+            "title": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 300
+            },
+            "url": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 2000
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "title",
+            "url"
+          ],
+          "additionalProperties": false
+        },
+        "collectionIntent": {
+          "const": "collect"
+        }
+      },
+      "required": [
+        "word",
+        "surface",
+        "originalSentence",
+        "savedExcerpt",
+        "occurrenceRanges",
+        "excerptRanges",
+        "annotation",
+        "source",
+        "collectionIntent"
+      ],
+      "additionalProperties": false
+    },
+    "PairingOwner": {
+      "type": "object",
+      "properties": {
+        "pairingId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "desktopInstanceId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "clientInstanceId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "workspaceId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "generation": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "authorizationEpoch": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Revision"
+        }
+      },
+      "required": [
+        "pairingId",
+        "desktopInstanceId",
+        "clientInstanceId",
+        "workspaceId",
+        "generation",
+        "authorizationEpoch"
+      ],
+      "additionalProperties": false
+    },
+    "PairingCredential": {
+      "type": "object",
+      "properties": {
+        "pairingId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "desktopInstanceId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "clientInstanceId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "workspaceId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "generation": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "authorizationEpoch": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Revision"
+        },
+        "pairingToken": {
+          "type": "string",
+          "minLength": 32,
+          "maxLength": 128
+        }
+      },
+      "required": [
+        "pairingId",
+        "desktopInstanceId",
+        "clientInstanceId",
+        "workspaceId",
+        "generation",
+        "authorizationEpoch",
+        "pairingToken"
+      ],
+      "additionalProperties": false
+    },
+    "SessionState": {
+      "type": "object",
+      "properties": {
+        "authorization": {
+          "$ref": "#/$defs/AuthorizationRead"
+        },
+        "expiresAt": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Timestamp"
+        },
+        "readLeaseUntil": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Timestamp"
+        },
+        "scopes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "minItems": 0,
+          "maxItems": 20,
+          "uniqueItems": true
+        },
+        "pairingId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "owner": {
+          "$ref": "#/$defs/PairingOwner"
+        }
+      },
+      "required": [
+        "authorization",
+        "expiresAt",
+        "readLeaseUntil",
+        "scopes",
+        "pairingId",
+        "owner"
+      ],
+      "additionalProperties": true
+    },
+    "resumeSessionParams": {
+      "type": "object",
+      "properties": {
+        "pairingId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "desktopInstanceId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "clientInstanceId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "workspaceId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "generation": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "authorizationEpoch": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Revision"
+        },
+        "pairingToken": {
+          "type": "string",
+          "minLength": 32,
+          "maxLength": 128
+        }
+      },
+      "required": [
+        "pairingId",
+        "desktopInstanceId",
+        "clientInstanceId",
+        "workspaceId",
+        "generation",
+        "authorizationEpoch",
+        "pairingToken"
+      ],
+      "additionalProperties": false
+    },
+    "resumeSessionResult": {
+      "$ref": "#/$defs/SessionState"
+    },
+    "revokePairingParams": {
+      "type": "object",
+      "properties": {
+        "pairingId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        }
+      },
+      "required": [
+        "pairingId"
+      ],
+      "additionalProperties": false
+    },
+    "revokePairingResult": {
+      "type": "object",
+      "properties": {
+        "pairingId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "revoked": {
+          "const": true
+        }
+      },
+      "required": [
+        "pairingId",
+        "revoked"
+      ],
+      "additionalProperties": true
+    },
+    "disconnectParams": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "additionalProperties": false
+    },
+    "disconnectResult": {
+      "type": "object",
+      "properties": {
+        "disconnected": {
+          "const": true
+        },
+        "pairingRetained": {
+          "const": true
+        }
+      },
+      "required": [
+        "disconnected",
+        "pairingRetained"
+      ],
+      "additionalProperties": true
+    },
+    "AccountContext": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "status": {
+              "const": "unavailable"
+            },
+            "source": {
+              "const": "desktop"
+            }
+          },
+          "required": [
+            "status",
+            "source"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "status": {
+              "const": "signed-out"
+            },
+            "source": {
+              "const": "desktop"
+            }
+          },
+          "required": [
+            "status",
+            "source"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "status": {
+              "const": "signed-in"
+            },
+            "account": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                },
+                "displayName": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 80
+                }
+              },
+              "required": [
+                "id",
+                "displayName"
+              ],
+              "additionalProperties": true
+            },
+            "source": {
+              "const": "desktop"
+            }
+          },
+          "required": [
+            "status",
+            "account",
+            "source"
+          ],
+          "additionalProperties": true
+        }
+      ]
+    },
+    "registerHostParams": {
+      "type": "object",
+      "properties": {
+        "extensionId": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9.-]*/[1-9][0-9]*$",
+          "maxLength": 80
+        },
+        "capabilities": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "minItems": 1,
+          "maxItems": 20,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "extensionId",
+        "capabilities"
+      ],
+      "additionalProperties": false
+    },
+    "registerHostResult": {
+      "type": "object",
+      "properties": {
+        "grantId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "grantToken": {
+          "type": "string",
+          "minLength": 32,
+          "maxLength": 128
+        },
+        "expiresAt": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Timestamp"
+        },
+        "capabilities": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "maxItems": 20,
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "owner": {
+          "$ref": "#/$defs/PairingOwner"
+        },
+        "extensionId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        }
+      },
+      "required": [
+        "grantId",
+        "grantToken",
+        "expiresAt",
+        "capabilities",
+        "owner",
+        "extensionId"
+      ],
+      "additionalProperties": true
+    },
+    "ConnectionInvitation": {
+      "type": "object",
+      "properties": {
+        "invitationId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "invitationToken": {
+          "type": "string",
+          "minLength": 43,
+          "maxLength": 128
+        },
+        "requestedBy": {
+          "enum": [
+            "desktop",
+            "plugin"
+          ]
+        },
+        "expiresAt": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Timestamp"
+        }
+      },
+      "required": [
+        "invitationId",
+        "invitationToken",
+        "requestedBy",
+        "expiresAt"
+      ],
+      "additionalProperties": true
+    },
+    "ConnectionStatus": {
+      "type": "object",
+      "properties": {
+        "desktopInstanceId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "connectionState": {
+          "enum": [
+            "unpaired",
+            "connected",
+            "disconnected",
+            "revoked"
+          ]
+        },
+        "invitationState": {
+          "enum": [
+            "none",
+            "pending",
+            "accepted",
+            "cancelled",
+            "expired"
+          ]
+        },
+        "invitation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ConnectionInvitation"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "desktopInstanceId",
+        "displayName",
+        "connectionState",
+        "invitationState",
+        "invitation"
+      ],
+      "additionalProperties": true
+    },
+    "requestConnectionParams": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "clientInstanceId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "action": {
+              "const": "request"
+            }
+          },
+          "required": [
+            "clientInstanceId",
+            "action"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "clientInstanceId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            },
+            "action": {
+              "const": "cancel"
+            },
+            "invitationId": {
+              "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+            }
+          },
+          "required": [
+            "clientInstanceId",
+            "action",
+            "invitationId"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "requestConnectionResult": {
+      "$ref": "#/$defs/ConnectionStatus"
+    },
+    "getConnectionStatusParams": {
+      "type": "object",
+      "properties": {
+        "clientInstanceId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        },
+        "pairingCredential": {
+          "$ref": "#/$defs/PairingCredential"
+        },
+        "invitationId": {
+          "$ref": "https://leximeet.github.io/contracts/reading-domain.v1.schema.json#/$defs/Uuid"
+        }
+      },
+      "required": [
+        "clientInstanceId"
+      ],
+      "additionalProperties": false
+    },
+    "getConnectionStatusResult": {
+      "$ref": "#/$defs/ConnectionStatus"
+    }
+  }
+}

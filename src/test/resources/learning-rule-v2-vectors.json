@@ -1,0 +1,3307 @@
+{
+  "ruleVersion": "leximeet.learning/2",
+  "cases": [
+    {
+      "name": "未学习不是生词",
+      "asOf": "2026-10-02T00:00:00Z",
+      "events": [],
+      "expected": {
+        "score": 10,
+        "status": "new"
+      }
+    },
+    {
+      "name": "copy 正确",
+      "asOf": "2026-10-02T00:00:00Z",
+      "events": [
+        {
+          "id": "e0",
+          "attempt_id": "a0",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        }
+      ],
+      "expected": {
+        "score": 11,
+        "status": "learning"
+      }
+    },
+    {
+      "name": "recall 正确",
+      "asOf": "2026-10-02T00:00:00Z",
+      "events": [
+        {
+          "id": "e0",
+          "attempt_id": "a0",
+          "mode": "recall",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        }
+      ],
+      "expected": {
+        "score": 12,
+        "status": "learning"
+      }
+    },
+    {
+      "name": "cloze 正确",
+      "asOf": "2026-10-02T00:00:00Z",
+      "events": [
+        {
+          "id": "e0",
+          "attempt_id": "a0",
+          "mode": "cloze",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        }
+      ],
+      "expected": {
+        "score": 12,
+        "status": "learning"
+      }
+    },
+    {
+      "name": "listening 正确",
+      "asOf": "2026-10-02T00:00:00Z",
+      "events": [
+        {
+          "id": "e0",
+          "attempt_id": "a0",
+          "mode": "listening",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        }
+      ],
+      "expected": {
+        "score": 11,
+        "status": "learning"
+      }
+    },
+    {
+      "name": "meaning-choice 正确",
+      "asOf": "2026-10-02T00:00:00Z",
+      "events": [
+        {
+          "id": "e0",
+          "attempt_id": "a0",
+          "mode": "meaning-choice",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        }
+      ],
+      "expected": {
+        "score": 11,
+        "status": "learning"
+      }
+    },
+    {
+      "name": "列表熟练",
+      "asOf": "2026-10-02T00:00:00Z",
+      "events": [
+        {
+          "id": "e0",
+          "attempt_id": "a0",
+          "mode": "word-list",
+          "signal": "familiar",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        }
+      ],
+      "expected": {
+        "score": 11,
+        "status": "learning"
+      }
+    },
+    {
+      "name": "错误",
+      "asOf": "2026-10-02T00:00:00Z",
+      "events": [
+        {
+          "id": "e0",
+          "attempt_id": "a0",
+          "mode": "recall",
+          "signal": "answer",
+          "correct": false,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        }
+      ],
+      "expected": {
+        "score": 9,
+        "status": "learning"
+      }
+    },
+    {
+      "name": "首次揭示后订正不加分",
+      "asOf": "2026-10-02T00:00:00Z",
+      "events": [
+        {
+          "id": "e0",
+          "attempt_id": "a0",
+          "mode": "recall",
+          "signal": "reveal",
+          "correct": false,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e1",
+          "attempt_id": "a0",
+          "mode": "recall",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        }
+      ],
+      "expected": {
+        "score": 9,
+        "status": "learning"
+      }
+    },
+    {
+      "name": "提示成功不加分",
+      "asOf": "2026-10-02T00:00:00Z",
+      "events": [
+        {
+          "id": "e0",
+          "attempt_id": "a0",
+          "mode": "recall",
+          "signal": "answer",
+          "correct": true,
+          "assisted": true,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        }
+      ],
+      "expected": {
+        "score": 10,
+        "status": "learning"
+      }
+    },
+    {
+      "name": "不低于零",
+      "asOf": "2026-10-02T00:00:00Z",
+      "events": [
+        {
+          "id": "e0",
+          "attempt_id": "a0",
+          "mode": "recall",
+          "signal": "answer",
+          "correct": false,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e1",
+          "attempt_id": "a1",
+          "mode": "recall",
+          "signal": "answer",
+          "correct": false,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e2",
+          "attempt_id": "a2",
+          "mode": "recall",
+          "signal": "answer",
+          "correct": false,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e3",
+          "attempt_id": "a3",
+          "mode": "recall",
+          "signal": "answer",
+          "correct": false,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e4",
+          "attempt_id": "a4",
+          "mode": "recall",
+          "signal": "answer",
+          "correct": false,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e5",
+          "attempt_id": "a5",
+          "mode": "recall",
+          "signal": "answer",
+          "correct": false,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e6",
+          "attempt_id": "a6",
+          "mode": "recall",
+          "signal": "answer",
+          "correct": false,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e7",
+          "attempt_id": "a7",
+          "mode": "recall",
+          "signal": "answer",
+          "correct": false,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e8",
+          "attempt_id": "a8",
+          "mode": "recall",
+          "signal": "answer",
+          "correct": false,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e9",
+          "attempt_id": "a9",
+          "mode": "recall",
+          "signal": "answer",
+          "correct": false,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e10",
+          "attempt_id": "a10",
+          "mode": "recall",
+          "signal": "answer",
+          "correct": false,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e11",
+          "attempt_id": "a11",
+          "mode": "recall",
+          "signal": "answer",
+          "correct": false,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        }
+      ],
+      "expected": {
+        "score": 0,
+        "status": "learning"
+      }
+    },
+    {
+      "name": "同题幂等",
+      "asOf": "2026-10-02T00:00:00Z",
+      "events": [
+        {
+          "id": "e0",
+          "attempt_id": "a0",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e0",
+          "attempt_id": "a0",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        }
+      ],
+      "expected": {
+        "score": 11,
+        "status": "learning"
+      }
+    },
+    {
+      "name": "跨越二十",
+      "asOf": "2026-10-02T00:00:00Z",
+      "events": [
+        {
+          "id": "e0",
+          "attempt_id": "a0",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e1",
+          "attempt_id": "a1",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e2",
+          "attempt_id": "a2",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e3",
+          "attempt_id": "a3",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e4",
+          "attempt_id": "a4",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e5",
+          "attempt_id": "a5",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e6",
+          "attempt_id": "a6",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e7",
+          "attempt_id": "a7",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e8",
+          "attempt_id": "a8",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e9",
+          "attempt_id": "a9",
+          "mode": "recall",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        }
+      ],
+      "expected": {
+        "score": 21,
+        "status": "review"
+      }
+    },
+    {
+      "name": "首次二十完成",
+      "asOf": "2026-10-02T00:00:00Z",
+      "events": [
+        {
+          "id": "e0",
+          "attempt_id": "a0",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e1",
+          "attempt_id": "a1",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e2",
+          "attempt_id": "a2",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e3",
+          "attempt_id": "a3",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e4",
+          "attempt_id": "a4",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e5",
+          "attempt_id": "a5",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e6",
+          "attempt_id": "a6",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e7",
+          "attempt_id": "a7",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e8",
+          "attempt_id": "a8",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e9",
+          "attempt_id": "a9",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        }
+      ],
+      "expected": {
+        "score": 20,
+        "status": "review",
+        "graduatedDay": "2026-10-02",
+        "reviewEligibleAt": "2026-10-02T16:00:00Z"
+      }
+    },
+    {
+      "name": "无每日四分限制",
+      "asOf": "2026-10-02T00:00:00Z",
+      "events": [
+        {
+          "id": "e0",
+          "attempt_id": "a0",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e1",
+          "attempt_id": "a1",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e2",
+          "attempt_id": "a2",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e3",
+          "attempt_id": "a3",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e4",
+          "attempt_id": "a4",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e5",
+          "attempt_id": "a5",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e6",
+          "attempt_id": "a6",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e7",
+          "attempt_id": "a7",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e8",
+          "attempt_id": "a8",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e9",
+          "attempt_id": "a9",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e10",
+          "attempt_id": "a10",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e11",
+          "attempt_id": "a11",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e12",
+          "attempt_id": "a12",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e13",
+          "attempt_id": "a13",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e14",
+          "attempt_id": "a14",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e15",
+          "attempt_id": "a15",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e16",
+          "attempt_id": "a16",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e17",
+          "attempt_id": "a17",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e18",
+          "attempt_id": "a18",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e19",
+          "attempt_id": "a19",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        }
+      ],
+      "expected": {
+        "score": 30,
+        "status": "mastered"
+      }
+    },
+    {
+      "name": "满分三天保护",
+      "asOf": "2026-10-05T00:00:00Z",
+      "events": [
+        {
+          "id": "e0",
+          "attempt_id": "a0",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e1",
+          "attempt_id": "a1",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e2",
+          "attempt_id": "a2",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e3",
+          "attempt_id": "a3",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e4",
+          "attempt_id": "a4",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e5",
+          "attempt_id": "a5",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e6",
+          "attempt_id": "a6",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e7",
+          "attempt_id": "a7",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e8",
+          "attempt_id": "a8",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e9",
+          "attempt_id": "a9",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e10",
+          "attempt_id": "a10",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e11",
+          "attempt_id": "a11",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e12",
+          "attempt_id": "a12",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e13",
+          "attempt_id": "a13",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e14",
+          "attempt_id": "a14",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e15",
+          "attempt_id": "a15",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e16",
+          "attempt_id": "a16",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e17",
+          "attempt_id": "a17",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e18",
+          "attempt_id": "a18",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e19",
+          "attempt_id": "a19",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        }
+      ],
+      "expected": {
+        "score": 30,
+        "status": "mastered"
+      }
+    },
+    {
+      "name": "第五天首次扣分",
+      "asOf": "2026-10-07T00:00:00Z",
+      "events": [
+        {
+          "id": "e0",
+          "attempt_id": "a0",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e1",
+          "attempt_id": "a1",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e2",
+          "attempt_id": "a2",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e3",
+          "attempt_id": "a3",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e4",
+          "attempt_id": "a4",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e5",
+          "attempt_id": "a5",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e6",
+          "attempt_id": "a6",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e7",
+          "attempt_id": "a7",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e8",
+          "attempt_id": "a8",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e9",
+          "attempt_id": "a9",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e10",
+          "attempt_id": "a10",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e11",
+          "attempt_id": "a11",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e12",
+          "attempt_id": "a12",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e13",
+          "attempt_id": "a13",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e14",
+          "attempt_id": "a14",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e15",
+          "attempt_id": "a15",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e16",
+          "attempt_id": "a16",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e17",
+          "attempt_id": "a17",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e18",
+          "attempt_id": "a18",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e19",
+          "attempt_id": "a19",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        }
+      ],
+      "expected": {
+        "score": 29,
+        "status": "mastered"
+      }
+    },
+    {
+      "name": "第七天二次扣分",
+      "asOf": "2026-10-09T00:00:00Z",
+      "events": [
+        {
+          "id": "e0",
+          "attempt_id": "a0",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e1",
+          "attempt_id": "a1",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e2",
+          "attempt_id": "a2",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e3",
+          "attempt_id": "a3",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e4",
+          "attempt_id": "a4",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e5",
+          "attempt_id": "a5",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e6",
+          "attempt_id": "a6",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e7",
+          "attempt_id": "a7",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e8",
+          "attempt_id": "a8",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e9",
+          "attempt_id": "a9",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e10",
+          "attempt_id": "a10",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e11",
+          "attempt_id": "a11",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e12",
+          "attempt_id": "a12",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e13",
+          "attempt_id": "a13",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e14",
+          "attempt_id": "a14",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e15",
+          "attempt_id": "a15",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e16",
+          "attempt_id": "a16",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e17",
+          "attempt_id": "a17",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e18",
+          "attempt_id": "a18",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e19",
+          "attempt_id": "a19",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        }
+      ],
+      "expected": {
+        "score": 28,
+        "status": "mastered"
+      }
+    },
+    {
+      "name": "离线补算到二十",
+      "asOf": "2026-10-25T00:00:00Z",
+      "events": [
+        {
+          "id": "e0",
+          "attempt_id": "a0",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e1",
+          "attempt_id": "a1",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e2",
+          "attempt_id": "a2",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e3",
+          "attempt_id": "a3",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e4",
+          "attempt_id": "a4",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e5",
+          "attempt_id": "a5",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e6",
+          "attempt_id": "a6",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e7",
+          "attempt_id": "a7",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e8",
+          "attempt_id": "a8",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e9",
+          "attempt_id": "a9",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e10",
+          "attempt_id": "a10",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e11",
+          "attempt_id": "a11",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e12",
+          "attempt_id": "a12",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e13",
+          "attempt_id": "a13",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e14",
+          "attempt_id": "a14",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e15",
+          "attempt_id": "a15",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e16",
+          "attempt_id": "a16",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e17",
+          "attempt_id": "a17",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e18",
+          "attempt_id": "a18",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e19",
+          "attempt_id": "a19",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        }
+      ],
+      "expected": {
+        "score": 20,
+        "status": "review",
+        "reviewEligibleAt": "2026-10-25T00:00:00Z"
+      }
+    },
+    {
+      "name": "衰减不低于二十",
+      "asOf": "2027-01-10T00:00:00Z",
+      "events": [
+        {
+          "id": "e0",
+          "attempt_id": "a0",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e1",
+          "attempt_id": "a1",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e2",
+          "attempt_id": "a2",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e3",
+          "attempt_id": "a3",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e4",
+          "attempt_id": "a4",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e5",
+          "attempt_id": "a5",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e6",
+          "attempt_id": "a6",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e7",
+          "attempt_id": "a7",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e8",
+          "attempt_id": "a8",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e9",
+          "attempt_id": "a9",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e10",
+          "attempt_id": "a10",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e11",
+          "attempt_id": "a11",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e12",
+          "attempt_id": "a12",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e13",
+          "attempt_id": "a13",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e14",
+          "attempt_id": "a14",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e15",
+          "attempt_id": "a15",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e16",
+          "attempt_id": "a16",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e17",
+          "attempt_id": "a17",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e18",
+          "attempt_id": "a18",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e19",
+          "attempt_id": "a19",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        }
+      ],
+      "expected": {
+        "score": 20,
+        "status": "review"
+      }
+    },
+    {
+      "name": "仍然三十分不重置",
+      "asOf": "2026-10-07T00:00:00Z",
+      "events": [
+        {
+          "id": "e0",
+          "attempt_id": "a0",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e1",
+          "attempt_id": "a1",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e2",
+          "attempt_id": "a2",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e3",
+          "attempt_id": "a3",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e4",
+          "attempt_id": "a4",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e5",
+          "attempt_id": "a5",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e6",
+          "attempt_id": "a6",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e7",
+          "attempt_id": "a7",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e8",
+          "attempt_id": "a8",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e9",
+          "attempt_id": "a9",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e10",
+          "attempt_id": "a10",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e11",
+          "attempt_id": "a11",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e12",
+          "attempt_id": "a12",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e13",
+          "attempt_id": "a13",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e14",
+          "attempt_id": "a14",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e15",
+          "attempt_id": "a15",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e16",
+          "attempt_id": "a16",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e17",
+          "attempt_id": "a17",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e18",
+          "attempt_id": "a18",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e19",
+          "attempt_id": "a19",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e21",
+          "attempt_id": "a21",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-05T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        }
+      ],
+      "expected": {
+        "score": 29,
+        "status": "mastered",
+        "masteryCycleAt": "2026-10-02T00:00:00Z"
+      }
+    },
+    {
+      "name": "衰减后回满分重新计时",
+      "asOf": "2026-10-10T00:00:00Z",
+      "events": [
+        {
+          "id": "e0",
+          "attempt_id": "a0",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e1",
+          "attempt_id": "a1",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e2",
+          "attempt_id": "a2",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e3",
+          "attempt_id": "a3",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e4",
+          "attempt_id": "a4",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e5",
+          "attempt_id": "a5",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e6",
+          "attempt_id": "a6",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e7",
+          "attempt_id": "a7",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e8",
+          "attempt_id": "a8",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e9",
+          "attempt_id": "a9",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e10",
+          "attempt_id": "a10",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e11",
+          "attempt_id": "a11",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e12",
+          "attempt_id": "a12",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e13",
+          "attempt_id": "a13",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e14",
+          "attempt_id": "a14",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e15",
+          "attempt_id": "a15",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e16",
+          "attempt_id": "a16",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e17",
+          "attempt_id": "a17",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e18",
+          "attempt_id": "a18",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e19",
+          "attempt_id": "a19",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e21",
+          "attempt_id": "a21",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-07T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        }
+      ],
+      "expected": {
+        "score": 30,
+        "status": "mastered",
+        "masteryCycleAt": "2026-10-07T00:00:00Z"
+      }
+    },
+    {
+      "name": "熟悉期一次错误不退出",
+      "asOf": "2026-10-03T00:00:00Z",
+      "events": [
+        {
+          "id": "e0",
+          "attempt_id": "a0",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e1",
+          "attempt_id": "a1",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e2",
+          "attempt_id": "a2",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e3",
+          "attempt_id": "a3",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e4",
+          "attempt_id": "a4",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e5",
+          "attempt_id": "a5",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e6",
+          "attempt_id": "a6",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e7",
+          "attempt_id": "a7",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e8",
+          "attempt_id": "a8",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e9",
+          "attempt_id": "a9",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e10",
+          "attempt_id": "a10",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e11",
+          "attempt_id": "a11",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e12",
+          "attempt_id": "a12",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e13",
+          "attempt_id": "a13",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e14",
+          "attempt_id": "a14",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e15",
+          "attempt_id": "a15",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e16",
+          "attempt_id": "a16",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e17",
+          "attempt_id": "a17",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e18",
+          "attempt_id": "a18",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e19",
+          "attempt_id": "a19",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e21",
+          "attempt_id": "a21",
+          "mode": "recall",
+          "signal": "answer",
+          "correct": false,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-03T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        }
+      ],
+      "expected": {
+        "score": 29,
+        "status": "mastered"
+      }
+    },
+    {
+      "name": "熟悉期主动降至二十释放",
+      "asOf": "2026-10-03T00:00:00Z",
+      "events": [
+        {
+          "id": "e0",
+          "attempt_id": "a0",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e1",
+          "attempt_id": "a1",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e2",
+          "attempt_id": "a2",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e3",
+          "attempt_id": "a3",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e4",
+          "attempt_id": "a4",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e5",
+          "attempt_id": "a5",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e6",
+          "attempt_id": "a6",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e7",
+          "attempt_id": "a7",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e8",
+          "attempt_id": "a8",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e9",
+          "attempt_id": "a9",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e10",
+          "attempt_id": "a10",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e11",
+          "attempt_id": "a11",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e12",
+          "attempt_id": "a12",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e13",
+          "attempt_id": "a13",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e14",
+          "attempt_id": "a14",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e15",
+          "attempt_id": "a15",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e16",
+          "attempt_id": "a16",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e17",
+          "attempt_id": "a17",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e18",
+          "attempt_id": "a18",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e19",
+          "attempt_id": "a19",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e21",
+          "attempt_id": "a21",
+          "mode": "recall",
+          "signal": "answer",
+          "correct": false,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-03T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e22",
+          "attempt_id": "a22",
+          "mode": "recall",
+          "signal": "answer",
+          "correct": false,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-03T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e23",
+          "attempt_id": "a23",
+          "mode": "recall",
+          "signal": "answer",
+          "correct": false,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-03T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e24",
+          "attempt_id": "a24",
+          "mode": "recall",
+          "signal": "answer",
+          "correct": false,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-03T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e25",
+          "attempt_id": "a25",
+          "mode": "recall",
+          "signal": "answer",
+          "correct": false,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-03T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e26",
+          "attempt_id": "a26",
+          "mode": "recall",
+          "signal": "answer",
+          "correct": false,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-03T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e27",
+          "attempt_id": "a27",
+          "mode": "recall",
+          "signal": "answer",
+          "correct": false,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-03T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e28",
+          "attempt_id": "a28",
+          "mode": "recall",
+          "signal": "answer",
+          "correct": false,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-03T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e29",
+          "attempt_id": "a29",
+          "mode": "recall",
+          "signal": "answer",
+          "correct": false,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-03T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e30",
+          "attempt_id": "a30",
+          "mode": "recall",
+          "signal": "answer",
+          "correct": false,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-03T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        }
+      ],
+      "expected": {
+        "score": 20,
+        "status": "review"
+      }
+    },
+    {
+      "name": "撤销满分事件移除周期",
+      "asOf": "2026-10-02T00:00:00Z",
+      "events": [
+        {
+          "id": "e0",
+          "attempt_id": "a0",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e1",
+          "attempt_id": "a1",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e2",
+          "attempt_id": "a2",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e3",
+          "attempt_id": "a3",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e4",
+          "attempt_id": "a4",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e5",
+          "attempt_id": "a5",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e6",
+          "attempt_id": "a6",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e7",
+          "attempt_id": "a7",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e8",
+          "attempt_id": "a8",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e9",
+          "attempt_id": "a9",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e10",
+          "attempt_id": "a10",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e11",
+          "attempt_id": "a11",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e12",
+          "attempt_id": "a12",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e13",
+          "attempt_id": "a13",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e14",
+          "attempt_id": "a14",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e15",
+          "attempt_id": "a15",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e16",
+          "attempt_id": "a16",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e17",
+          "attempt_id": "a17",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e18",
+          "attempt_id": "a18",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai"
+        },
+        {
+          "id": "e19",
+          "attempt_id": "a19",
+          "mode": "copy",
+          "signal": "answer",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/2",
+          "created_at": "2026-10-02T00:00:00Z",
+          "zone": "Asia/Shanghai",
+          "undone_at": "2026-10-02T00:00:00Z"
+        }
+      ],
+      "expected": {
+        "score": 29,
+        "status": "review"
+      }
+    }
+  ]
+}

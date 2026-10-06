@@ -1,0 +1,16 @@
+sequenceDiagram
+  participant Main
+  participant Route as 私有路由
+  participant UseCase as 业务用例
+  participant DB as SQLite
+  Main->>Route: 带启动令牌的命名命令
+  Route->>UseCase: 校验后的 DTO
+  UseCase->>DB: 开始事务
+  UseCase->>DB: 事件、关系、投影、修订、回执
+  alt 全部成功
+    DB-->>UseCase: 提交完成
+    UseCase-->>Main: 已确认结果
+  else 任一步失败
+    DB-->>UseCase: 整笔回滚
+    UseCase-->>Main: 明确失败或待查询原回执
+  end

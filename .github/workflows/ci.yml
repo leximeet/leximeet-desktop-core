@@ -1,0 +1,55 @@
+name: Core Java CI
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  workflow_call:
+permissions:
+  contents: read
+concurrency:
+  group: core-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  core:
+    name: JDK 21 / ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, macos-15, windows-2025]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.13'
+      - name: 统一排版、全部单元与真实 SQLite/HTTP/子进程回归、源码与 SBOM
+        run: mvn -B -ntp -gs maven-settings.xml -s maven-settings.xml -Dmaven.repo.local=.runtime/m2 clean verify
+      - name: 本地文档路径检查
+        run: python scripts/verify-docs.py
+      - name: 真正以 java -jar 启动本轮产物并检查许可与隔离清理
+        run: python scripts/verify-release.py
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        if: always()
+        with:
+          name: core-reports-${{ matrix.os }}
+          path: |
+            target/surefire-reports/
+            target/release-verification.json
+          retention-days: 14
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        if: success()
+        with:
+          name: core-candidate-${{ matrix.os }}
+          path: |
+            target/leximeet-core.jar
+            target/leximeet-core-sources.jar
+            target/bom.json
+            target/bom.xml
+          retention-days: 14

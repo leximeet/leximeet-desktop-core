@@ -1,0 +1,9 @@
+erDiagram
+  WORD ||--o{ ENCOUNTER : records
+  WORD ||--o{ WORD_BOOK : belongs
+  BOOK ||--o{ WORD_BOOK : contains
+  WORD ||--o{ PRACTICE_EVENT : practices
+  WORD ||--o| FAMILIARITY : projects
+  WORD ||--o| MEMORY_CARD : schedules
+  PRACTICE_SESSION ||--o{ QUESTION : freezes
+  QUESTION ||--o{ DRAFT : resumes

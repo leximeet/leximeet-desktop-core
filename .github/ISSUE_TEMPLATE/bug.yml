@@ -1,0 +1,28 @@
+name: 问题报告
+description: 提供版本、最小脱敏步骤与预期结果
+title: '[Bug] '
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Core / Desktop / 协议版本和操作系统
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 最小复现步骤
+      description: 请勿上传个人 SQLite、原网页全文、token、邮箱或账号；只用脱敏示例。
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: 预期与实际结果
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 已检查的日志或测试
+      description: 只保留版本、错误码和脱敏最小信息。漏洞请按 SECURITY.md 使用私密渠道。

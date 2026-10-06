@@ -1,0 +1,50 @@
+{
+  "apiVersion": "1.0.0",
+  "packageVersion": "1.0.0",
+  "status": "release-preparation",
+  "runtimeImplemented": false,
+  "transport": "binding-specific",
+  "domainAuthority": "leximeet-sync-protocol",
+  "domainSha256": "01094e7b4ad13ca36e755b68c23ea8dfe4f32425f2c27b802b25e7de7d4222cf",
+  "releaseTrack": "application-1.0.0",
+  "contractFrozenForImplementation": true,
+  "jointAcceptancePassed": false,
+  "preReleaseCompatibility": "none",
+  "releasedDataPolicy": "preserve-from-application-1.0.0",
+  "contractDigest": "61a44cc2f7f73fef81b007c844e1f2fa4deb955bf21a69236ee7b4f713808c49",
+  "contractManifest": "contract-manifest.json",
+  "contractDigestAlgorithm": "sha256-jcs-manifest/1",
+  "domainSchema": "schemas/reading-domain.v1.schema.json",
+  "requiredCapabilities": [
+    "lmcp.connection/1",
+    "desktop.reading/1",
+    "desktop.capture/1",
+    "desktop.navigation/1"
+  ],
+  "optionalCapabilities": [
+    "desktop.notebooks/1",
+    "desktop.encounters/1",
+    "host.registration/1"
+  ],
+  "connectionPolicy": {
+    "dataTransfer": "none",
+    "independentWorkspace": "frozen-local",
+    "independentAccount": "signed-out",
+    "cloudSyncOwner": "desktop",
+    "management": "open-desktop",
+    "settings": [
+      "disconnect"
+    ],
+    "disconnect": "either-end-resume-independent-signed-out",
+    "temporaryDisconnect": "reconnect-only",
+    "discovery": "hello-safe-metadata",
+    "confirmation": "explicit-plugin-dialog",
+    "invitation": "targeted-120s-one-time"
+  },
+  "compatibility": "api-major-and-required-capabilities",
+  "browserBinding": {
+    "transport": "native-messaging-json",
+    "nativeHostName": "org.leximeet.browser",
+    "maxFrameBytes": 262144
+  }
+}

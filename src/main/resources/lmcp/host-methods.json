@@ -1,0 +1,74 @@
+[
+  {
+    "method": "browser.getContext",
+    "description": "读取插件中用户已选定且授权的阅读页，不枚举全部标签",
+    "capability": "browser.context/1",
+    "direction": "desktop-to-browser",
+    "params": "#/$defs/getContextParams",
+    "result": "#/$defs/getContextResult",
+    "extensionId": "browser/1",
+    "requiredForCore": false
+  },
+  {
+    "method": "browser.readSelection",
+    "description": "在浏览器确认授权后读取当前有限选区",
+    "capability": "browser.selection/1",
+    "direction": "desktop-to-browser",
+    "params": "#/$defs/readSelectionParams",
+    "result": "#/$defs/readSelectionResult",
+    "extensionId": "browser/1",
+    "requiredForCore": false
+  },
+  {
+    "method": "browser.highlight",
+    "description": "按原文引用定位已有页面文本，不执行调用者代码",
+    "capability": "browser.highlight/1",
+    "direction": "desktop-to-browser",
+    "params": "#/$defs/highlightParams",
+    "result": "#/$defs/highlightResult",
+    "extensionId": "browser/1",
+    "requiredForCore": false
+  },
+  {
+    "method": "browser.openSource",
+    "description": "用户在桌面发起打开公开 HTTP/HTTPS 来源",
+    "capability": "browser.open-source/1",
+    "direction": "desktop-to-browser",
+    "params": "#/$defs/openSourceParams",
+    "result": "#/$defs/openSourceResult",
+    "extensionId": "browser/1",
+    "requiredForCore": false
+  },
+  {
+    "method": "browser.requestSidePanel",
+    "description": "请求展示插件侧栏；不假定桌面点击等于浏览器用户手势",
+    "capability": "browser.side-panel/1",
+    "direction": "desktop-to-browser",
+    "params": "#/$defs/requestSidePanelParams",
+    "result": "#/$defs/requestSidePanelResult",
+    "extensionId": "browser/1",
+    "requiredForCore": false
+  },
+  {
+    "method": "browser.getOperation",
+    "description": "经当前有效 grant 只读恢复同 owner 的原 grant 完整回执，撤权后禁止恢复",
+    "capability": null,
+    "direction": "desktop-to-browser",
+    "params": "#/$defs/getOperationParams",
+    "result": "#/$defs/getOperationResult",
+    "grantControl": true,
+    "extensionId": "browser/1",
+    "requiredForCore": false
+  },
+  {
+    "method": "browser.cancelOperation",
+    "description": "尽力取消尚未执行的调用；不承诺撤回已完成动作",
+    "capability": null,
+    "direction": "desktop-to-browser",
+    "params": "#/$defs/cancelOperationParams",
+    "result": "#/$defs/cancelOperationResult",
+    "grantControl": true,
+    "extensionId": "browser/1",
+    "requiredForCore": false
+  }
+]

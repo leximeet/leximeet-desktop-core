@@ -1,0 +1,39 @@
+{
+  "profileId": "leximeet.learning-sync/1",
+  "learningRuleVersion": "leximeet.learning/2",
+  "algorithmProfileId": "leximeet.fsrs6/1",
+  "initialScore": 10,
+  "minimumScore": 0,
+  "maximumScore": 30,
+  "graduationThreshold": 20,
+  "protectionHours": 72,
+  "decayStepHours": 48,
+  "decayFloor": 20,
+  "eventOrder": [
+    "logicalClock",
+    "origin.deviceId",
+    "deviceSeq",
+    "entityId"
+  ],
+  "numericCounters": "unsigned-decimal-string",
+  "timestampPrecision": "milliseconds",
+  "effectiveTime": "max(occurredAt, previousEffectiveAt)",
+  "firstFeedbackKey": [
+    "workspaceId",
+    "generation",
+    "attemptId"
+  ],
+  "completionSource": "replay",
+  "dailyNewDefault": 10,
+  "dailyReviewDefault": 20,
+  "practiceModes": [
+    "word-list",
+    "meaning-choice",
+    "copy",
+    "recall",
+    "listening",
+    "cloze"
+  ],
+  "source": "docs/学习事件与合并.md",
+  "schedulingSource": "practice"
+}

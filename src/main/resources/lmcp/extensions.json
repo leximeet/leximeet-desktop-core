@@ -1,0 +1,16 @@
+[
+  {
+    "id": "browser/1",
+    "requiredForCore": false,
+    "capabilities": [
+      "browser.context/1",
+      "browser.selection/1",
+      "browser.highlight/1",
+      "browser.open-source/1",
+      "browser.side-panel/1"
+    ],
+    "schema": "schemas/browser-host.v1.schema.json",
+    "methods": "host-methods.json",
+    "documentation": "docs/extensions/browser.md"
+  }
+]

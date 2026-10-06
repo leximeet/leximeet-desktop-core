@@ -1,0 +1,12 @@
+sequenceDiagram
+  participant UI as 练习页面或通知
+  participant Core
+  participant DB as SQLite
+  UI->>Core: 开始或恢复固定 scope
+  Core->>DB: 固定 session、items、checkpoint
+  UI->>Core: 请求当前位置和模式的题目
+  Core->>DB: 随机 choiceId、私有冻结答案
+  Core-->>UI: questionId、prompt、choices
+  UI->>Core: 答案/揭示信号、attemptId、submissionId
+  Core->>DB: 判题、事件、投影、回执
+  Core-->>UI: correct、effective、delta、assisted

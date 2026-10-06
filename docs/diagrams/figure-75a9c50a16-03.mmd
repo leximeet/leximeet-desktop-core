@@ -1,0 +1,12 @@
+erDiagram
+  PERSONAL_WORD ||--o{ ENCOUNTER : records
+  PERSONAL_WORD ||--o{ WORD_BOOK : belongs
+  NOTEBOOK ||--o{ WORD_BOOK : contains
+  PERSONAL_WORD ||--o{ PRACTICE_FACT : learns
+  PERSONAL_WORD ||--o| FAMILIARITY : projects
+  PERSONAL_WORD ||--o| MEMORY_CARD : schedules
+  PRACTICE_SESSION ||--o{ PRACTICE_ITEM : freezes
+  PRACTICE_ITEM ||--o{ QUESTION : modes
+  QUESTION ||--o{ ATTEMPT_MAPPING : resumes
+  PAIRING ||--o{ CONNECTION_SESSION : authorizes
+  PAIRING ||--o{ OPERATION_RECEIPT : remembers

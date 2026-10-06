@@ -1,0 +1,317 @@
+{
+  "ruleVersion": "leximeet.learning/1",
+  "cases": [
+    {
+      "name": "零分不会扣成负数",
+      "events": [
+        {
+          "id": "e1",
+          "attempt_id": "a1",
+          "mode": "word-list",
+          "signal": "unfamiliar",
+          "study_day": "2026-10-01",
+          "correct": false,
+          "assisted": false,
+          "rule_version": "leximeet.learning/1"
+        }
+      ],
+      "score": 0
+    },
+    {
+      "name": "熟练后新一题查看释义扣一次",
+      "events": [
+        {
+          "id": "e1",
+          "attempt_id": "a1",
+          "mode": "word-list",
+          "signal": "familiar",
+          "study_day": "2026-10-01",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/1"
+        },
+        {
+          "id": "e2",
+          "attempt_id": "b",
+          "mode": "word-list",
+          "signal": "reveal",
+          "study_day": "2026-10-01",
+          "correct": false,
+          "assisted": false,
+          "rule_version": "leximeet.learning/1"
+        },
+        {
+          "id": "e3",
+          "attempt_id": "b",
+          "mode": "word-list",
+          "signal": "unfamiliar",
+          "study_day": "2026-10-01",
+          "correct": false,
+          "assisted": false,
+          "rule_version": "leximeet.learning/1"
+        },
+        {
+          "id": "e4",
+          "attempt_id": "b",
+          "mode": "word-list",
+          "signal": "familiar",
+          "study_day": "2026-10-01",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/1"
+        }
+      ],
+      "score": 0
+    },
+    {
+      "name": "四次以上回想受每日四分限制",
+      "events": [
+        {
+          "id": "e1",
+          "attempt_id": "a1",
+          "mode": "word-list",
+          "signal": "familiar",
+          "study_day": "2026-10-01",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/1"
+        },
+        {
+          "id": "e2",
+          "attempt_id": "a2",
+          "mode": "word-list",
+          "signal": "familiar",
+          "study_day": "2026-10-01",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/1"
+        },
+        {
+          "id": "e3",
+          "attempt_id": "a3",
+          "mode": "word-list",
+          "signal": "familiar",
+          "study_day": "2026-10-01",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/1"
+        },
+        {
+          "id": "e4",
+          "attempt_id": "a4",
+          "mode": "word-list",
+          "signal": "familiar",
+          "study_day": "2026-10-01",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/1"
+        },
+        {
+          "id": "e5",
+          "attempt_id": "a5",
+          "mode": "word-list",
+          "signal": "familiar",
+          "study_day": "2026-10-01",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/1"
+        },
+        {
+          "id": "e6",
+          "attempt_id": "a6",
+          "mode": "word-list",
+          "signal": "familiar",
+          "study_day": "2026-10-01",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/1"
+        }
+      ],
+      "score": 4
+    },
+    {
+      "name": "独立默写和选义权重",
+      "events": [
+        {
+          "id": "e1",
+          "attempt_id": "a1",
+          "mode": "recall",
+          "signal": "answer",
+          "study_day": "2026-10-01",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/1"
+        },
+        {
+          "id": "e2",
+          "attempt_id": "a2",
+          "mode": "meaning-choice",
+          "signal": "answer",
+          "study_day": "2026-10-01",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/1"
+        }
+      ],
+      "score": 2
+    },
+    {
+      "name": "临摹正确加一分",
+      "events": [
+        {
+          "id": "e1",
+          "attempt_id": "a1",
+          "mode": "copy",
+          "signal": "answer",
+          "study_day": "2026-10-01",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/1"
+        }
+      ],
+      "score": 1
+    },
+    {
+      "name": "错误后当题订正不加分",
+      "events": [
+        {
+          "id": "e1",
+          "attempt_id": "b",
+          "mode": "recall",
+          "signal": "answer",
+          "study_day": "2026-10-01",
+          "correct": false,
+          "assisted": false,
+          "rule_version": "leximeet.learning/1"
+        },
+        {
+          "id": "e2",
+          "attempt_id": "b",
+          "mode": "recall",
+          "signal": "answer",
+          "study_day": "2026-10-01",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/1"
+        }
+      ],
+      "score": 0
+    },
+    {
+      "name": "五天达到20再遗忘退回19",
+      "events": [
+        {
+          "id": "e0",
+          "attempt_id": "a0",
+          "mode": "listening",
+          "signal": "answer",
+          "study_day": "2026-10-01",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/1"
+        },
+        {
+          "id": "e1",
+          "attempt_id": "a1",
+          "mode": "listening",
+          "signal": "answer",
+          "study_day": "2026-10-01",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/1"
+        },
+        {
+          "id": "e2",
+          "attempt_id": "a2",
+          "mode": "listening",
+          "signal": "answer",
+          "study_day": "2026-10-02",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/1"
+        },
+        {
+          "id": "e3",
+          "attempt_id": "a3",
+          "mode": "listening",
+          "signal": "answer",
+          "study_day": "2026-10-02",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/1"
+        },
+        {
+          "id": "e4",
+          "attempt_id": "a4",
+          "mode": "listening",
+          "signal": "answer",
+          "study_day": "2026-10-03",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/1"
+        },
+        {
+          "id": "e5",
+          "attempt_id": "a5",
+          "mode": "listening",
+          "signal": "answer",
+          "study_day": "2026-10-03",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/1"
+        },
+        {
+          "id": "e6",
+          "attempt_id": "a6",
+          "mode": "listening",
+          "signal": "answer",
+          "study_day": "2026-10-04",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/1"
+        },
+        {
+          "id": "e7",
+          "attempt_id": "a7",
+          "mode": "listening",
+          "signal": "answer",
+          "study_day": "2026-10-04",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/1"
+        },
+        {
+          "id": "e8",
+          "attempt_id": "a8",
+          "mode": "listening",
+          "signal": "answer",
+          "study_day": "2026-10-05",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/1"
+        },
+        {
+          "id": "e9",
+          "attempt_id": "a9",
+          "mode": "listening",
+          "signal": "answer",
+          "study_day": "2026-10-05",
+          "correct": true,
+          "assisted": false,
+          "rule_version": "leximeet.learning/1"
+        },
+        {
+          "id": "e20",
+          "attempt_id": "a20",
+          "mode": "word-list",
+          "signal": "unfamiliar",
+          "study_day": "2026-10-05",
+          "correct": false,
+          "assisted": false,
+          "rule_version": "leximeet.learning/1"
+        }
+      ],
+      "score": 19
+    }
+  ]
+}

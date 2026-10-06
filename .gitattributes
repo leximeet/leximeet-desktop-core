@@ -1,0 +1,2 @@
+# 固定文本换行，避免 Windows checkout 改写冻结协议资源或归档输入。
+* text=auto eol=lf

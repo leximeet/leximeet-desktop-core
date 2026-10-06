@@ -1,0 +1,348 @@
+{
+  "policyVersion": 1,
+  "contextKeys": [
+    {
+      "input": "  alpha\tappears.  ",
+      "expected": "alpha appears."
+    },
+    {
+      "input": "alpha Café.",
+      "expected": "alpha café."
+    },
+    {
+      "input": "Alpha appears.",
+      "expected": "alpha appears."
+    },
+    {
+      "input": "\u001calpha\u001c",
+      "expected": "\u001calpha\u001c"
+    },
+    {
+      "input": "  The  Node uses a SYSTEM. ",
+      "expected": "the node uses a system."
+    }
+  ],
+  "segments": [
+    {
+      "id": "sentence",
+      "input": "Before. alpha appears here! After.",
+      "surface": "alpha",
+      "ranges": [
+        {
+          "start": 8,
+          "end": 13
+        }
+      ],
+      "policy": {
+        "duplicateWindowDays": 7,
+        "sensitiveRedactionEnabled": true,
+        "contextMaxLength": 500
+      },
+      "expected": {
+        "text": "alpha appears here!",
+        "ranges": [
+          {
+            "start": 0,
+            "end": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "contact",
+      "input": "Intro. Contact me@example.com about alpha on 13800138000. Tail.",
+      "surface": "alpha",
+      "ranges": [
+        {
+          "start": 36,
+          "end": 41
+        }
+      ],
+      "policy": {
+        "duplicateWindowDays": 7,
+        "sensitiveRedactionEnabled": true,
+        "contextMaxLength": 500
+      },
+      "expected": {
+        "text": "Contact xxx about alpha on xxx.",
+        "ranges": [
+          {
+            "start": 18,
+            "end": 23
+          }
+        ]
+      }
+    },
+    {
+      "id": "credentials",
+      "input": "token=longSecret123 and Bearer abcdefghijklmnop relate to alpha.",
+      "surface": "alpha",
+      "ranges": [
+        {
+          "start": 58,
+          "end": 63
+        }
+      ],
+      "policy": {
+        "duplicateWindowDays": 7,
+        "sensitiveRedactionEnabled": true,
+        "contextMaxLength": 500
+      },
+      "expected": {
+        "text": "token=xxx and Bearer xxx relate to alpha.",
+        "ranges": [
+          {
+            "start": 35,
+            "end": 40
+          }
+        ]
+      }
+    },
+    {
+      "id": "card",
+      "input": "Pay 4111 1111 1111 1111 for alpha.",
+      "surface": "alpha",
+      "ranges": [
+        {
+          "start": 28,
+          "end": 33
+        }
+      ],
+      "policy": {
+        "duplicateWindowDays": 7,
+        "sensitiveRedactionEnabled": true,
+        "contextMaxLength": 500
+      },
+      "expected": {
+        "text": "Pay xxx for alpha.",
+        "ranges": [
+          {
+            "start": 12,
+            "end": 17
+          }
+        ]
+      }
+    },
+    {
+      "id": "identity",
+      "input": "Identity 11010519491231002X belongs near alpha.",
+      "surface": "alpha",
+      "ranges": [
+        {
+          "start": 41,
+          "end": 46
+        }
+      ],
+      "policy": {
+        "duplicateWindowDays": 7,
+        "sensitiveRedactionEnabled": true,
+        "contextMaxLength": 500
+      },
+      "expected": {
+        "text": "Identity xxx belongs near alpha.",
+        "ranges": [
+          {
+            "start": 26,
+            "end": 31
+          }
+        ]
+      }
+    },
+    {
+      "id": "long",
+      "input": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa alpha bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "surface": "alpha",
+      "ranges": [
+        {
+          "start": 91,
+          "end": 96
+        }
+      ],
+      "policy": {
+        "duplicateWindowDays": 7,
+        "sensitiveRedactionEnabled": true,
+        "contextMaxLength": 120
+      },
+      "expected": {
+        "text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa alpha bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "ranges": [
+          {
+            "start": 57,
+            "end": 62
+          }
+        ]
+      }
+    },
+    {
+      "id": "surrogate",
+      "input": "😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀 alpha 😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀",
+      "surface": "alpha",
+      "ranges": [
+        {
+          "start": 91,
+          "end": 96
+        }
+      ],
+      "policy": {
+        "duplicateWindowDays": 7,
+        "sensitiveRedactionEnabled": true,
+        "contextMaxLength": 120
+      },
+      "expected": {
+        "text": "😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀 alpha 😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀",
+        "ranges": [
+          {
+            "start": 57,
+            "end": 62
+          }
+        ]
+      }
+    },
+    {
+      "id": "sensitive-target",
+      "input": "password=secretvalue alpha.",
+      "surface": "secretvalue",
+      "ranges": [
+        {
+          "start": 9,
+          "end": 20
+        }
+      ],
+      "policy": {
+        "duplicateWindowDays": 7,
+        "sensitiveRedactionEnabled": true,
+        "contextMaxLength": 500
+      },
+      "error": "SENSITIVE_SELECTION"
+    },
+    {
+      "id": "explicit-disable",
+      "input": "Contact me@example.com about alpha.",
+      "surface": "alpha",
+      "ranges": [
+        {
+          "start": 29,
+          "end": 34
+        }
+      ],
+      "policy": {
+        "duplicateWindowDays": 0,
+        "sensitiveRedactionEnabled": false,
+        "contextMaxLength": 500
+      },
+      "expected": {
+        "text": "Contact me@example.com about alpha.",
+        "ranges": [
+          {
+            "start": 29,
+            "end": 34
+          }
+        ]
+      }
+    },
+    {
+      "id": "unicode-space",
+      "input": " alpha appears. ",
+      "surface": "alpha",
+      "ranges": [
+        {
+          "start": 2,
+          "end": 7
+        }
+      ],
+      "policy": {
+        "duplicateWindowDays": 7,
+        "sensitiveRedactionEnabled": true,
+        "contextMaxLength": 500
+      },
+      "expected": {
+        "text": "alpha appears.",
+        "ranges": [
+          {
+            "start": 0,
+            "end": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "email-end-punctuation",
+      "input": "alpha mail a@example.com.",
+      "surface": "alpha",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 5
+        }
+      ],
+      "policy": {
+        "duplicateWindowDays": 7,
+        "sensitiveRedactionEnabled": true,
+        "contextMaxLength": 500
+      },
+      "expected": {
+        "text": "alpha mail xxx.",
+        "ranges": [
+          {
+            "start": 0,
+            "end": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "sensitive-value-sentence-boundary",
+      "input": "alpha uses password=secret. Next alpha stays.",
+      "surface": "alpha",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 5
+        },
+        {
+          "start": 33,
+          "end": 38
+        }
+      ],
+      "policy": {
+        "duplicateWindowDays": 7,
+        "sensitiveRedactionEnabled": true,
+        "contextMaxLength": 500
+      },
+      "expected": {
+        "text": "alpha uses password=xxx.",
+        "ranges": [
+          {
+            "start": 0,
+            "end": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "sensitive-unicode-whitespace",
+      "input": "password=secret alpha stays.",
+      "surface": "alpha",
+      "ranges": [
+        {
+          "start": 16,
+          "end": 21
+        }
+      ],
+      "policy": {
+        "duplicateWindowDays": 7,
+        "sensitiveRedactionEnabled": true,
+        "contextMaxLength": 500
+      },
+      "expected": {
+        "text": "password=xxx alpha stays.",
+        "ranges": [
+          {
+            "start": 13,
+            "end": 18
+          }
+        ]
+      }
+    }
+  ]
+}

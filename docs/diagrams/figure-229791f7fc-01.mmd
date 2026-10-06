@@ -1,0 +1,11 @@
+sequenceDiagram
+  participant UI as 练习页或通知
+  participant Core
+  participant FSRS as 固定适配器
+  participant DB as SQLite 事务
+  UI->>Core: 冻结题、答案、稳定提交编号
+  Core->>Core: 权威判题与辅助/首次反馈校验
+  Core->>FSRS: 仅有效回忆 + 之前状态 + 本次时间
+  FSRS-->>Core: 新记忆投影与 dueAt
+  Core->>DB: 原事件、分数与调度一起提交
+  Core-->>UI: 已确认回执

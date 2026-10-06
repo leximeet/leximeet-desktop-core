@@ -1,0 +1,9 @@
+flowchart LR
+  UI[桌面 Renderer] --> Main[Electron Main]
+  Browser[Browser 侧栏与采集] --> Native[Native Host：可信来源]
+  Native --> Main
+  Main --> Private[回环 HTTP：本机 token]
+  Private --> Core[Core 授权和业务事务]
+  Core --> DB[(桌面私人资料 B)]
+  Core --> Lexicon[(公共词典：只读)]
+  Browser -.连接期间封存.-> A[(Browser 独立资料 A)]

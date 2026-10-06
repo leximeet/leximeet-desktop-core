@@ -1,0 +1,1493 @@
+{
+  "release": "0.0.3",
+  "edition": "core-text",
+  "source": "leximeet-dictionary",
+  "entries": [
+    {
+      "audio_ids": [],
+      "audit_status": "aligned",
+      "base_entry_schema": "leximeet.entry.v1",
+      "definition_language": "zh-Hans",
+      "ecdict": {
+        "en_fallback": "n. the territory occupied by one of the constituent administrative districts of a nation\\nn. the way something is with respect to its main attributes\\nn. the group of people comprising the government of a sovereign state\\nn. a politically organized body of people under a single government",
+        "exam_tags": [
+          {
+            "code": "zk",
+            "scope": "entry",
+            "source": "ecdict:bc015ed2",
+            "status": "source-asserted"
+          },
+          {
+            "code": "gk",
+            "scope": "entry",
+            "source": "ecdict:bc015ed2",
+            "status": "source-asserted"
+          },
+          {
+            "code": "cet4",
+            "scope": "entry",
+            "source": "ecdict:bc015ed2",
+            "status": "source-asserted"
+          },
+          {
+            "code": "cet6",
+            "scope": "entry",
+            "source": "ecdict:bc015ed2",
+            "status": "source-asserted"
+          },
+          {
+            "code": "ky",
+            "scope": "entry",
+            "source": "ecdict:bc015ed2",
+            "status": "source-asserted"
+          }
+        ],
+        "frequency_ranks": {
+          "bnc": 194,
+          "frq": 137
+        },
+        "legacy_phonetic": "steit",
+        "source_fields": {
+          "collins": "5",
+          "exchange": "s:states/p:stated/d:stated/3:states/i:stating",
+          "oxford": "1"
+        },
+        "zh_fallback": "n. 州, 状态, 情形, 国家, 政府, 领土, 国务, 社会地位\\na. 国家的, 正式的, 礼仪用的, 州的\\nvt. 说明, 陈述, 规定\\n[计] 状态"
+      },
+      "entry_id": "88602776-4385-5b4f-be98-93d27828d354",
+      "forms": [
+        {
+          "source": "open-dictionary:v2.0",
+          "tags": [
+            "comparative"
+          ],
+          "text": "more state"
+        },
+        {
+          "source": "open-dictionary:v2.0",
+          "tags": [
+            "superlative"
+          ],
+          "text": "most state"
+        },
+        {
+          "source": "open-dictionary:v2.0",
+          "tags": [
+            "plural"
+          ],
+          "text": "states"
+        },
+        {
+          "source": "open-dictionary:v2.0",
+          "tags": [
+            "plural"
+          ],
+          "text": "States"
+        },
+        {
+          "source": "open-dictionary:v2.0",
+          "tags": [
+            "present",
+            "singular",
+            "third-person"
+          ],
+          "text": "states"
+        },
+        {
+          "source": "open-dictionary:v2.0",
+          "tags": [
+            "participle",
+            "present"
+          ],
+          "text": "stating"
+        },
+        {
+          "source": "open-dictionary:v2.0",
+          "tags": [
+            "participle",
+            "past"
+          ],
+          "text": "stated"
+        },
+        {
+          "source": "open-dictionary:v2.0",
+          "tags": [
+            "past"
+          ],
+          "text": "stated"
+        }
+      ],
+      "headword": "state",
+      "headword_language": "en",
+      "headword_summary_zh": "state 的核心意思是“处于某种状态”，也可指社会地位、政治实体（国家或州），以及“陈述、说明”。",
+      "learning": {
+        "audio": {
+          "alternate_candidates": [],
+          "offline_index_entry_id": "88602776-4385-5b4f-be98-93d27828d354"
+        },
+        "collections": [
+          {
+            "catalog_id": "book:qwerty:KaoYan_3_T",
+            "category": "exam",
+            "match_method": "exact",
+            "position": 216,
+            "sense_ids": [],
+            "source": "qwerty-learner:122acd9:KaoYan_3_T",
+            "source_payload": {
+              "glosses_zh": [
+                "状态， 情况；国， 州",
+                "陈述， 说明；规定"
+              ],
+              "pronunciations": [
+                {
+                  "raw_text": "stet",
+                  "region": "en-US"
+                },
+                {
+                  "raw_text": "steɪt",
+                  "region": "en-GB"
+                }
+              ],
+              "source_record_id": null,
+              "source_word": "state"
+            }
+          },
+          {
+            "catalog_id": "book:qwerty:TOEFL_3_T",
+            "category": "exam",
+            "match_method": "exact",
+            "position": 266,
+            "sense_ids": [],
+            "source": "qwerty-learner:122acd9:TOEFL_3_T",
+            "source_payload": {
+              "glosses_zh": [
+                "陈述， 说明， 声明； 规定",
+                "情况，状况；国家；州"
+              ],
+              "pronunciations": [
+                {
+                  "raw_text": "stet",
+                  "region": "en-US"
+                },
+                {
+                  "raw_text": "steɪt",
+                  "region": "en-GB"
+                }
+              ],
+              "source_record_id": null,
+              "source_word": "state"
+            }
+          },
+          {
+            "catalog_id": "book:qwerty:itVocabulary",
+            "category": "subject",
+            "match_method": "exact",
+            "position": 660,
+            "sense_ids": [],
+            "source": "qwerty-learner:122acd9:itVocabulary",
+            "source_payload": {
+              "glosses_zh": [
+                "n.&,vt.状态；确定(si,dei,te),"
+              ],
+              "pronunciations": [
+                {
+                  "raw_text": "stet",
+                  "region": "en-US"
+                },
+                {
+                  "raw_text": "steɪt",
+                  "region": "en-GB"
+                }
+              ],
+              "source_record_id": null,
+              "source_word": "state"
+            }
+          },
+          {
+            "catalog_id": "exam:ecdict:cet4",
+            "category": "exam",
+            "match_method": "source-tag",
+            "position": 1,
+            "sense_ids": [],
+            "source": "ecdict:bc015ed2",
+            "source_payload": {}
+          },
+          {
+            "catalog_id": "exam:ecdict:cet6",
+            "category": "exam",
+            "match_method": "source-tag",
+            "position": 1,
+            "sense_ids": [],
+            "source": "ecdict:bc015ed2",
+            "source_payload": {}
+          },
+          {
+            "catalog_id": "exam:ecdict:gk",
+            "category": "exam",
+            "match_method": "source-tag",
+            "position": 123,
+            "sense_ids": [],
+            "source": "ecdict:bc015ed2",
+            "source_payload": {}
+          },
+          {
+            "catalog_id": "exam:ecdict:ky",
+            "category": "exam",
+            "match_method": "source-tag",
+            "position": 1,
+            "sense_ids": [],
+            "source": "ecdict:bc015ed2",
+            "source_payload": {}
+          },
+          {
+            "catalog_id": "exam:ecdict:zk",
+            "category": "exam",
+            "match_method": "source-tag",
+            "position": 125,
+            "sense_ids": [],
+            "source": "ecdict:bc015ed2",
+            "source_payload": {}
+          }
+        ],
+        "illustrations": [],
+        "lexical": {
+          "antonyms": [],
+          "phrases": [],
+          "related_words": [],
+          "synonyms": []
+        },
+        "mnemonics": [
+          {
+            "content": "### 分析词义\n\n  \n\n\"State\" 是一个非常常见的英语词汇，根据上下文的不同，它可以有许多不同的含义。\n\n  \n\n*   名词时，它经常被用来表示一个国家或者政权，如：\"United States\"（美国）。此外，它还用于描述某种状态或者状况，例如：“The state of the economy is not promising.”（经济状况不容乐观）。\n    \n      \n    \n*   动词时， \"state\" 指的是声明或者明确提出，例如：\"Please state your name and occupation.\"（请说出您的姓名和职业）。\n    \n      \n    \n\n  \n\n### 列举例句\n\n  \n\n1.  The state has a responsibility to ensure justice for all its citizens. （国家有责任确保所有公民的正义。）\n2.  The book provides a detailed analysis of the state of the nation. （这本书提供了对国家状况的详细分析。）\n3.  The teacher stated that there would be a test next week. （老师声明下周会有一个测试。）\n\n  \n\n### 词根分析\n\n  \n\n\"State\" 来自于拉丁词根 \"status\"，意为“站立的，位置的，状况的。”\n\n  \n\n### 词缀分析\n\n  \n\n在单词 \"state\" 中，没有词缀，它是一个单根词。\n\n  \n\n### 发展历史和文化背景\n\n  \n\n\"State\" 最初源自拉丁语 \"status\"，最早在 13 世纪的英文中，作为“状况，情况，情形”的意思出现。\n\n  \n\n### 单词变形\n\n  \n\n\"State\" 的复数形式为 \"states\"。作为动词时，其过去式和过去分词形式都是 \"stated\"，进行时是 \"stating\"。\n\n  \n\n### 记忆辅助\n\n  \n\n试着将 \"state\" 联系到你日常生活中常见的环境或活动中去，这样将有助于记忆。\n\n  \n\n### 小故事\n\n  \n\nIn the United States, John stated that he was in a state of complete happiness.  \n（在美国，约翰声称他处于一种完全的幸福状态。）",
+            "format": "markdown",
+            "kind": "learning-article",
+            "provenance": {
+              "source_commit": "8c9b050",
+              "source_file_sha256": "51bc73affec742690d9683f282f8944e7a191e94592ca9c7c2a317e5f92fb5d0",
+              "source_word": "state"
+            },
+            "review_status": "ai-unreviewed",
+            "source": "DictionaryByGPT4:8c9b050"
+          },
+          {
+            "content": "把 state 想成“站着的样子”：一个人或事物“站在什么状态”中，就是某种状态；一个人“站在什么位置”上，就是地位；一群人共同“站在一块土地和制度中”，就是国家或州；把情况明确说出来，则是把它“站出来说明”。",
+            "format": "plain",
+            "kind": "memory-hook",
+            "provenance": {
+              "source_entry_id": "1078df08-706e-5dc6-80d4-67764ba3aab8",
+              "source_field": "memory_hook_zh"
+            },
+            "review_status": "source-published",
+            "source": "open-dictionary:v2.0"
+          }
+        ],
+        "practice": {
+          "attested_examples": [],
+          "questions": []
+        },
+        "schema_version": "leximeet.learning-card.v1",
+        "source_signals": []
+      },
+      "lookup_key": "state",
+      "memory_hook_zh": "把 state 想成“站着的样子”：一个人或事物“站在什么状态”中，就是某种状态；一个人“站在什么位置”上，就是地位；一群人共同“站在一块土地和制度中”，就是国家或州；把情况明确说出来，则是把它“站出来说明”。",
+      "origin": "curated",
+      "pronunciations": [
+        {
+          "etymology_id": "et1",
+          "notation": "IPA",
+          "pos": "adj",
+          "region": "en-US",
+          "source": "open-dictionary:v2.0",
+          "tags": [
+            "US"
+          ],
+          "text": "/steɪt/"
+        },
+        {
+          "etymology_id": "et1",
+          "notation": "IPA",
+          "pos": "adj",
+          "region": "en-GB",
+          "source": "open-dictionary:v2.0",
+          "tags": [
+            "UK"
+          ],
+          "text": "/steɪt/"
+        },
+        {
+          "etymology_id": "et1",
+          "notation": "IPA",
+          "pos": "noun",
+          "region": "en-US",
+          "source": "open-dictionary:v2.0",
+          "tags": [
+            "US"
+          ],
+          "text": "/steɪt/"
+        },
+        {
+          "etymology_id": "et1",
+          "notation": "IPA",
+          "pos": "noun",
+          "region": "en-GB",
+          "source": "open-dictionary:v2.0",
+          "tags": [
+            "UK"
+          ],
+          "text": "/steɪt/"
+        },
+        {
+          "etymology_id": "et1",
+          "notation": "IPA",
+          "pos": "verb",
+          "region": "en-US",
+          "source": "open-dictionary:v2.0",
+          "tags": [
+            "US"
+          ],
+          "text": "/steɪt/"
+        },
+        {
+          "etymology_id": "et1",
+          "notation": "IPA",
+          "pos": "verb",
+          "region": "en-GB",
+          "source": "open-dictionary:v2.0",
+          "tags": [
+            "UK"
+          ],
+          "text": "/steɪt/"
+        },
+        {
+          "etymology_id": null,
+          "notation": "ARPABET",
+          "pos": null,
+          "region": "en-US",
+          "source": "cmudict:74790861",
+          "tags": [],
+          "text": "S T EY1 T"
+        }
+      ],
+      "schema_version": "leximeet.entry.v2",
+      "senses": [
+        {
+          "display_order": 10,
+          "english_gloss": "Stately.",
+          "english_gloss_source": "open-dictionary:v2.0:audit:wiktionary:2025-10-23",
+          "etymology_id": "et1",
+          "examples": [],
+          "labels": [
+            {
+              "code": "obsolete",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            }
+          ],
+          "learner_explanation_zh": "指外表或举止显得庄严、有气派，属于过时用法，可看作“站得很有威仪”。",
+          "pos": "adj",
+          "priority": "rare",
+          "sense_id": "c4d400df-ab36-5770-9a82-bb0f17675f4a",
+          "short_gloss": "庄严的；气派的",
+          "source_ref": {
+            "entry_id": "1078df08-706e-5dc6-80d4-67764ba3aab8",
+            "etymology_id": "et1",
+            "group_index": 0,
+            "pos": "adj",
+            "sense_id": "s1",
+            "source": "open-dictionary:v2.0"
+          },
+          "topics": [],
+          "usage_note_zh": "通常放在名词前或用于文学性的描述中。这个形容词义在现代日常英语里基本不使用，也不要把它和表示“国家的、州的”的复合词混淆。"
+        },
+        {
+          "display_order": 9,
+          "english_gloss": "State University, as the shortened form of a public university name.",
+          "english_gloss_source": "open-dictionary:v2.0:audit:wiktionary:2025-10-23",
+          "etymology_id": "et2",
+          "examples": [
+            {
+              "source": "open-dictionary:v2.0",
+              "text": "State begins fouling late in the game.",
+              "translation": "比赛后段，州立大学队开始不断犯规。"
+            }
+          ],
+          "labels": [],
+          "learner_explanation_zh": "在大学名称中，State 可以指名称里含有该词的公立大学，尤其常见于美国大学或校队语境。",
+          "pos": "name",
+          "priority": "common",
+          "sense_id": "bc46a846-0c05-5f9e-a2e2-cc0b26e42762",
+          "short_gloss": "公立大学简称",
+          "source_ref": {
+            "entry_id": "1078df08-706e-5dc6-80d4-67764ba3aab8",
+            "etymology_id": "et2",
+            "group_index": 1,
+            "pos": "name",
+            "sense_id": "s1",
+            "source": "open-dictionary:v2.0"
+          },
+          "topics": [],
+          "usage_note_zh": "常见模式是直接用 State 指代前文已经明确的大学，或出现在某某 State 这样的校名中。它通常是专名的一部分，首字母大写；阅读体育新闻时要根据上下文确定具体是哪所学校。"
+        },
+        {
+          "display_order": 0,
+          "english_gloss": "A condition; a set of circumstances applying at any given time.",
+          "english_gloss_source": "open-dictionary:v2.0:audit:wiktionary:2025-10-23",
+          "etymology_id": "et1",
+          "examples": [
+            {
+              "source": "open-dictionary:v2.0",
+              "text": "The house was in a terrible state after the storm.",
+              "translation": "暴风雨过后，这所房子的状况糟透了。"
+            },
+            {
+              "source": "open-dictionary:v2.0",
+              "text": "Meditation helped her reach a calm state of mind.",
+              "translation": "冥想帮助她达到平静的心境。"
+            }
+          ],
+          "labels": [],
+          "learner_explanation_zh": "指某人、某物或某件事在某一时刻所处的情况或条件，也就是“站在什么样子里”。",
+          "pos": "noun",
+          "priority": "core",
+          "sense_id": "bc488a4d-395a-5638-a6ba-453305b0b3f4",
+          "short_gloss": "状态；状况",
+          "source_ref": {
+            "entry_id": "1078df08-706e-5dc6-80d4-67764ba3aab8",
+            "etymology_id": "et1",
+            "group_index": 2,
+            "pos": "noun",
+            "sense_id": "s1",
+            "source": "open-dictionary:v2.0"
+          },
+          "topics": [],
+          "usage_note_zh": "常见模式是 a state of + 名词，或直接用 in a state 表示处于某种状况。它可以描述身体、心理、物体或社会情况；不要把所有“情况”都换成 state，具体事件经过通常更常用 situation 或 condition。"
+        },
+        {
+          "display_order": 5,
+          "english_gloss": "A condition; a set of circumstances applying at any given time.",
+          "english_gloss_source": "open-dictionary:v2.0:audit:wiktionary:2025-10-23",
+          "etymology_id": "et1",
+          "examples": [
+            {
+              "source": "open-dictionary:v2.0",
+              "text": "After working all night, I was an absolute state.",
+              "translation": "熬了一整夜后，我整个人狼狈不堪。"
+            }
+          ],
+          "labels": [
+            {
+              "code": "colloquial",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            },
+            {
+              "code": "singular",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            }
+          ],
+          "learner_explanation_zh": "在口语中，尤其是 a state 或 an absolute state，常指某人或某物处于混乱、狼狈或很糟的状态。",
+          "pos": "noun",
+          "priority": "common",
+          "sense_id": "3aee9917-f6f7-53b7-bb9a-5dd0f32bbc8c",
+          "short_gloss": "糟糕的状况",
+          "source_ref": {
+            "entry_id": "1078df08-706e-5dc6-80d4-67764ba3aab8",
+            "etymology_id": "et1",
+            "group_index": 2,
+            "pos": "noun",
+            "sense_id": "s2",
+            "source": "open-dictionary:v2.0"
+          },
+          "topics": [],
+          "usage_note_zh": "常见模式是 be in a state 或 be an absolute state，通常需要冠词。这个用法偏口语，不能机械地把任何 state 都译成“糟糕”；是否有负面含义要看修饰语和上下文。"
+        },
+        {
+          "display_order": 11,
+          "english_gloss": "A condition; a set of circumstances applying at any given time.",
+          "english_gloss_source": "open-dictionary:v2.0:audit:wiktionary:2025-10-23",
+          "etymology_id": "et1",
+          "examples": [],
+          "labels": [
+            {
+              "code": "obsolete",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            }
+          ],
+          "learner_explanation_zh": "这是“状态、处境”的过时用法，与现代普通义相同，主要在古旧文本中出现。",
+          "pos": "noun",
+          "priority": "rare",
+          "sense_id": "8766ec19-173f-5e57-ada7-a0a44c6f7da3",
+          "short_gloss": "状态；处境",
+          "source_ref": {
+            "entry_id": "1078df08-706e-5dc6-80d4-67764ba3aab8",
+            "etymology_id": "et1",
+            "group_index": 2,
+            "pos": "noun",
+            "sense_id": "s3",
+            "source": "open-dictionary:v2.0"
+          },
+          "topics": [],
+          "usage_note_zh": "只需在历史或文学文本中按上下文理解为“状态、处境”。现代写作中应使用普通的 state 搭配，不必专门模仿这种旧用法。"
+        },
+        {
+          "display_order": 6,
+          "english_gloss": "High social standing or circumstance.",
+          "english_gloss_source": "open-dictionary:v2.0:audit:wiktionary:2025-10-23",
+          "etymology_id": "et1",
+          "examples": [
+            {
+              "source": "open-dictionary:v2.0",
+              "text": "She was admired for her kindness, not her state.",
+              "translation": "人们欣赏她的是善良，而不是她的社会地位。"
+            }
+          ],
+          "labels": [],
+          "learner_explanation_zh": "指一个人在社会中的地位、身份或生活排场，也就是他在社会中“站在什么位置”。",
+          "pos": "noun",
+          "priority": "common",
+          "sense_id": "69058379-7ed9-54ee-811e-3b31852123fd",
+          "short_gloss": "社会地位；身份",
+          "source_ref": {
+            "entry_id": "1078df08-706e-5dc6-80d4-67764ba3aab8",
+            "etymology_id": "et1",
+            "group_index": 2,
+            "pos": "noun",
+            "sense_id": "s4",
+            "source": "open-dictionary:v2.0"
+          },
+          "topics": [],
+          "usage_note_zh": "常见模式是 social state、in state 或 state and wealth 等搭配。该义偏正式或文学，现代英语中谈个人社会地位时 status 往往更直接；不要把它和“状态”义混为一谈。"
+        },
+        {
+          "display_order": 12,
+          "english_gloss": "High social standing or circumstance.",
+          "english_gloss_source": "open-dictionary:v2.0:audit:wiktionary:2025-10-23",
+          "etymology_id": "et1",
+          "examples": [],
+          "labels": [
+            {
+              "code": "obsolete",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            }
+          ],
+          "learner_explanation_zh": "这是“社会地位、身份”的过时用法，主要用于古典或历史文本。",
+          "pos": "noun",
+          "priority": "rare",
+          "sense_id": "28b8cd6f-06a7-5243-8231-046583eed2f3",
+          "short_gloss": "身份；地位",
+          "source_ref": {
+            "entry_id": "1078df08-706e-5dc6-80d4-67764ba3aab8",
+            "etymology_id": "et1",
+            "group_index": 2,
+            "pos": "noun",
+            "sense_id": "s5",
+            "source": "open-dictionary:v2.0"
+          },
+          "topics": [],
+          "usage_note_zh": "通常只在旧式表达或历史语境中出现。现代英语一般使用 status、rank 或 position 来清楚表达相关意思。"
+        },
+        {
+          "display_order": 1,
+          "english_gloss": "A polity or community.",
+          "english_gloss_source": "open-dictionary:v2.0:audit:wiktionary:2025-10-23",
+          "etymology_id": "et1",
+          "examples": [
+            {
+              "source": "open-dictionary:v2.0",
+              "text": "The state must protect the rights of its citizens.",
+              "translation": "国家必须保护公民的权利。"
+            },
+            {
+              "source": "open-dictionary:v2.0",
+              "text": "He refused to act against his conscience for the sake of the state.",
+              "translation": "他拒绝为了国家而违背自己的良心。"
+            }
+          ],
+          "labels": [],
+          "learner_explanation_zh": "指由政府、法律和领土组织起来的政治共同体，即国家，也可以泛指一个有独立政治结构的共同体。",
+          "pos": "noun",
+          "priority": "core",
+          "sense_id": "57490e04-c9f1-5e7b-863f-6429d107e19f",
+          "short_gloss": "国家；政治共同体",
+          "source_ref": {
+            "entry_id": "1078df08-706e-5dc6-80d4-67764ba3aab8",
+            "etymology_id": "et1",
+            "group_index": 2,
+            "pos": "noun",
+            "sense_id": "s6",
+            "source": "open-dictionary:v2.0"
+          },
+          "topics": [],
+          "usage_note_zh": "常见模式是 the state、the power of the state 或 state authority。历史、政治和法律语境中常大写或带定冠词；这里不是个人的“状态”，而是共同体的制度性位置。"
+        },
+        {
+          "display_order": 2,
+          "english_gloss": "A polity or community.",
+          "english_gloss_source": "open-dictionary:v2.0:audit:wiktionary:2025-10-23",
+          "etymology_id": "et1",
+          "examples": [
+            {
+              "source": "open-dictionary:v2.0",
+              "text": "Each state sets its own rules for public schools.",
+              "translation": "每个州都会为公立学校制定自己的规定。"
+            }
+          ],
+          "labels": [],
+          "learner_explanation_zh": "在联邦制国家，尤其是美国，state 指组成联邦的州；它有自己的政府和一定的立法权。",
+          "pos": "noun",
+          "priority": "core",
+          "sense_id": "8a608e2d-37da-50ab-b239-055ce34e814d",
+          "short_gloss": "州；地方政治实体",
+          "source_ref": {
+            "entry_id": "1078df08-706e-5dc6-80d4-67764ba3aab8",
+            "etymology_id": "et1",
+            "group_index": 2,
+            "pos": "noun",
+            "sense_id": "s7",
+            "source": "open-dictionary:v2.0"
+          },
+          "topics": [],
+          "usage_note_zh": "常见模式是 a state、the states、state government 或某州名称。专指美国的州时通常译为“州”，不要在看到 the state 时不加判断地译成“国家”，要看它是否与联邦政府相对。"
+        },
+        {
+          "display_order": 13,
+          "english_gloss": "A polity or community.",
+          "english_gloss_source": "open-dictionary:v2.0:audit:wiktionary:2025-10-23",
+          "etymology_id": "et1",
+          "examples": [],
+          "labels": [
+            {
+              "code": "obsolete",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            }
+          ],
+          "learner_explanation_zh": "这是把 state 用作政治实体的过时或历史性表达，与“国家、政体”的核心义相连。",
+          "pos": "noun",
+          "priority": "rare",
+          "sense_id": "4f2b8fbf-1ec8-5cb8-89f5-7bc1559a5612",
+          "short_gloss": "国家；政治实体",
+          "source_ref": {
+            "entry_id": "1078df08-706e-5dc6-80d4-67764ba3aab8",
+            "etymology_id": "et1",
+            "group_index": 2,
+            "pos": "noun",
+            "sense_id": "s8",
+            "source": "open-dictionary:v2.0"
+          },
+          "topics": [],
+          "usage_note_zh": "主要在古典政治论述或旧文学中出现。现代语境中通常根据具体含义使用 state、country、nation 或 government，而不必照搬旧式表达。"
+        },
+        {
+          "display_order": 14,
+          "english_gloss": "An element of the range of the random variables that define a random process.",
+          "english_gloss_source": "open-dictionary:v2.0:audit:wiktionary:2025-10-23",
+          "etymology_id": "et1",
+          "examples": [],
+          "labels": [],
+          "learner_explanation_zh": "在随机过程数学中，state 是系统在某一时刻可能处于的一个状态或取值，用来描述系统“站在哪个位置”。",
+          "pos": "noun",
+          "priority": "rare",
+          "sense_id": "29d7fe27-52c3-5868-aed8-3722339ffc3f",
+          "short_gloss": "随机过程的状态",
+          "source_ref": {
+            "entry_id": "1078df08-706e-5dc6-80d4-67764ba3aab8",
+            "etymology_id": "et1",
+            "group_index": 2,
+            "pos": "noun",
+            "sense_id": "s9",
+            "source": "open-dictionary:v2.0"
+          },
+          "topics": [
+            {
+              "code": "mathematics",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            },
+            {
+              "code": "sciences",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            }
+          ],
+          "usage_note_zh": "常见模式是 state space、state of a process 或 transition between states。它是技术术语，通常与 probability、process、transition 等词连用，不要按日常的“国家”理解。"
+        },
+        {
+          "display_order": 15,
+          "english_gloss": "The lexical aspect (aktionsart) of verbs or predicates that do not change over time.",
+          "english_gloss_source": "open-dictionary:v2.0:audit:wiktionary:2025-10-23",
+          "etymology_id": "et1",
+          "examples": [],
+          "labels": [],
+          "learner_explanation_zh": "在语言学中，state 指一种不随时间发生变化的情状类型，例如“知道”或“拥有”所表达的持续状态。",
+          "pos": "noun",
+          "priority": "rare",
+          "sense_id": "55f9ef26-e427-5404-bb8f-167d9829a2ff",
+          "short_gloss": "静态状态体",
+          "source_ref": {
+            "entry_id": "1078df08-706e-5dc6-80d4-67764ba3aab8",
+            "etymology_id": "et1",
+            "group_index": 2,
+            "pos": "noun",
+            "sense_id": "s10",
+            "source": "open-dictionary:v2.0"
+          },
+          "topics": [
+            {
+              "code": "grammar",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            },
+            {
+              "code": "human-sciences",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            },
+            {
+              "code": "linguistics",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            },
+            {
+              "code": "sciences",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            },
+            {
+              "code": "semantics",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            }
+          ],
+          "usage_note_zh": "常见模式是 state verb、stative state 或 state predicate。它是语言学术语，不是说句子中的主语处于某种普通情绪状态；与表示动作或事件变化的类型相对。"
+        },
+        {
+          "display_order": 3,
+          "english_gloss": "A current governing polity, country, city-state, or community.",
+          "english_gloss_source": "open-dictionary:v2.0:audit:wiktionary:2025-10-23",
+          "etymology_id": "et2",
+          "examples": [
+            {
+              "source": "open-dictionary:v2.0",
+              "text": "A modern state needs clear laws and effective institutions.",
+              "translation": "现代国家需要明确的法律和有效的制度。"
+            }
+          ],
+          "labels": [],
+          "learner_explanation_zh": "指一个现实中正在运作的国家、州、城市国家或其他政治共同体，重点是它作为治理机构和公共权力实体的存在。",
+          "pos": "noun",
+          "priority": "core",
+          "sense_id": "2545e497-f445-539f-b675-47fb178a9077",
+          "short_gloss": "国家；州；政治实体",
+          "source_ref": {
+            "entry_id": "1078df08-706e-5dc6-80d4-67764ba3aab8",
+            "etymology_id": "et2",
+            "group_index": 3,
+            "pos": "noun",
+            "sense_id": "s1",
+            "source": "open-dictionary:v2.0"
+          },
+          "topics": [],
+          "usage_note_zh": "常见模式是 a sovereign state、the modern state 或 state institutions。它可指国家整体，也可指联邦成员州；不要自动把它理解成某一届政府，除非上下文明确谈的是执政机构。"
+        },
+        {
+          "display_order": 7,
+          "english_gloss": "The current governing polity, country, city-state, or community under which the speaker lives.",
+          "english_gloss_source": "open-dictionary:v2.0:audit:wiktionary:2025-10-23",
+          "etymology_id": "et2",
+          "examples": [
+            {
+              "source": "open-dictionary:v2.0",
+              "text": "Many people expect the state to provide basic healthcare.",
+              "translation": "许多人希望国家提供基本医疗服务。"
+            }
+          ],
+          "labels": [
+            {
+              "code": "often",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            },
+            {
+              "code": "with-definite-article",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            }
+          ],
+          "learner_explanation_zh": "带定冠词时，the state 有时特指说话人所生活或所属的那个国家、州或政治共同体。",
+          "pos": "noun",
+          "priority": "common",
+          "sense_id": "d852c23b-e383-586a-858c-eab54275c2dd",
+          "short_gloss": "本国；本州",
+          "source_ref": {
+            "entry_id": "1078df08-706e-5dc6-80d4-67764ba3aab8",
+            "etymology_id": "et2",
+            "group_index": 3,
+            "pos": "noun",
+            "sense_id": "s2",
+            "source": "open-dictionary:v2.0"
+          },
+          "topics": [],
+          "usage_note_zh": "常见模式是 live under the state 或 serve the state，但具体所指高度依赖上下文。这个用法常见于政治、法律或正式讨论中，不要把 the state 在所有句子里都固定译成“本国”；也可能是“本州”或“国家机器”。"
+        },
+        {
+          "display_order": 4,
+          "english_gloss": "To declare to be a fact.",
+          "english_gloss_source": "open-dictionary:v2.0:audit:wiktionary:2025-10-23",
+          "etymology_id": "et1",
+          "examples": [
+            {
+              "source": "open-dictionary:v2.0",
+              "text": "The report states that the bridge is unsafe.",
+              "translation": "报告称这座桥不安全。"
+            },
+            {
+              "source": "open-dictionary:v2.0",
+              "text": "She clearly stated her reasons for leaving.",
+              "translation": "她清楚地说明了自己离开的原因。"
+            }
+          ],
+          "labels": [
+            {
+              "code": "transitive",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            }
+          ],
+          "learner_explanation_zh": "指明确地说某件事是事实，常用于报告、声明或正式表达中，带有把信息清楚摆出来的感觉。",
+          "pos": "verb",
+          "priority": "core",
+          "sense_id": "102a1f3a-c63d-5069-8c62-c9de52eb65b1",
+          "short_gloss": "陈述为事实",
+          "source_ref": {
+            "entry_id": "1078df08-706e-5dc6-80d4-67764ba3aab8",
+            "etymology_id": "et1",
+            "group_index": 4,
+            "pos": "verb",
+            "sense_id": "s1",
+            "source": "open-dictionary:v2.0"
+          },
+          "topics": [],
+          "usage_note_zh": "常见模式是 state that + 从句、state a fact 或 state one’s position。它通常不接表示“说话对象”的人作直接宾语；若要表达“告诉某人”，应使用 tell 或 state something to someone。"
+        },
+        {
+          "display_order": 8,
+          "english_gloss": "To make known.",
+          "english_gloss_source": "open-dictionary:v2.0:audit:wiktionary:2025-10-23",
+          "etymology_id": "et1",
+          "examples": [
+            {
+              "source": "open-dictionary:v2.0",
+              "text": "Please state your name and purpose clearly.",
+              "translation": "请清楚地说明你的姓名和来意。"
+            }
+          ],
+          "labels": [
+            {
+              "code": "transitive",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            }
+          ],
+          "learner_explanation_zh": "指把意图、要求、立场或信息公开说清楚，让别人知道自己要表达的内容。",
+          "pos": "verb",
+          "priority": "common",
+          "sense_id": "79ae7d6a-a7f5-5177-99b5-92347e1a3da8",
+          "short_gloss": "说明；表明",
+          "source_ref": {
+            "entry_id": "1078df08-706e-5dc6-80d4-67764ba3aab8",
+            "etymology_id": "et1",
+            "group_index": 4,
+            "pos": "verb",
+            "sense_id": "s2",
+            "source": "open-dictionary:v2.0"
+          },
+          "topics": [],
+          "usage_note_zh": "常见模式是 state one’s intentions、state a preference 或 state what + 从句。语气通常比 say 正式、明确；中文母语者容易把它当成“陈述句”的固定对应词，但实际使用中它也可表示公开表明态度或要求。"
+        }
+      ],
+      "source_entry_id": "1078df08-706e-5dc6-80d4-67764ba3aab8",
+      "study_notes_zh": [
+        "不要把 state 一律译成“状态”：在政治语境中常译为“国家”或“州”，在动词中则是“陈述、说明”。",
+        "先掌握“状态”和“国家、州”这两个名词核心义，再学习动词和技术义；state 与 status、estate 同源，但三者不能互换。"
+      ]
+    },
+    {
+      "audio_ids": [],
+      "audit_status": "aligned",
+      "base_entry_schema": "leximeet.entry.v1",
+      "definition_language": "zh-Hans",
+      "ecdict": {
+        "en_fallback": "n. manner of acting or controlling yourself\\nn. the action or reaction of something (as a machine or substance) under specified circumstances\\nn. (psychology) the aggregate of the responses or reactions or movements made by an organism in any situation",
+        "exam_tags": [
+          {
+            "code": "cet4",
+            "scope": "entry",
+            "source": "ecdict:bc015ed2",
+            "status": "source-asserted"
+          },
+          {
+            "code": "cet6",
+            "scope": "entry",
+            "source": "ecdict:bc015ed2",
+            "status": "source-asserted"
+          },
+          {
+            "code": "ky",
+            "scope": "entry",
+            "source": "ecdict:bc015ed2",
+            "status": "source-asserted"
+          },
+          {
+            "code": "toefl",
+            "scope": "entry",
+            "source": "ecdict:bc015ed2",
+            "status": "source-asserted"
+          },
+          {
+            "code": "ielts",
+            "scope": "entry",
+            "source": "ecdict:bc015ed2",
+            "status": "source-asserted"
+          }
+        ],
+        "frequency_ranks": {
+          "bnc": 28403,
+          "frq": 658
+        },
+        "legacy_phonetic": "bi'heivjә",
+        "source_fields": {
+          "exchange": "s:behaviors"
+        },
+        "zh_fallback": "n. 行为, 举止\\n[医] 行为"
+      },
+      "entry_id": "abe43468-a2ec-56e2-b58d-3674cd4c1ed4",
+      "forms": [
+        {
+          "source": "open-dictionary:v2.0",
+          "tags": [
+            "plural"
+          ],
+          "text": "behaviors"
+        }
+      ],
+      "headword": "behavior",
+      "headword_language": "en",
+      "headword_summary_zh": "名词：人的行为举止或生物的活动方式，也可指某种反应，以及设备或系统的运行表现。",
+      "learning": {
+        "audio": {
+          "alternate_candidates": [],
+          "offline_index_entry_id": "abe43468-a2ec-56e2-b58d-3674cd4c1ed4"
+        },
+        "collections": [
+          {
+            "catalog_id": "book:qwerty:CET4_T",
+            "category": "exam",
+            "match_method": "exact",
+            "position": 1358,
+            "sense_ids": [],
+            "source": "qwerty-learner:122acd9:CET4_T",
+            "source_payload": {
+              "glosses_zh": [
+                "行为， 举止， 表现"
+              ],
+              "pronunciations": [
+                {
+                  "raw_text": "bɪ'hevjɚ",
+                  "region": "en-US"
+                },
+                {
+                  "raw_text": "bɪ'heɪvjə",
+                  "region": "en-GB"
+                }
+              ],
+              "source_record_id": null,
+              "source_word": "behavior"
+            }
+          },
+          {
+            "catalog_id": "book:qwerty:CET6_T",
+            "category": "exam",
+            "match_method": "exact",
+            "position": 1224,
+            "sense_ids": [],
+            "source": "qwerty-learner:122acd9:CET6_T",
+            "source_payload": {
+              "glosses_zh": [
+                "行为， 举止， 表现 (n.)"
+              ],
+              "pronunciations": [
+                {
+                  "raw_text": "bɪ'hevjɚ",
+                  "region": "en-US"
+                },
+                {
+                  "raw_text": "bɪ'heɪvjə",
+                  "region": "en-GB"
+                }
+              ],
+              "source_record_id": null,
+              "source_word": "behavior"
+            }
+          },
+          {
+            "catalog_id": "book:qwerty:KaoYan_3_T",
+            "category": "exam",
+            "match_method": "exact",
+            "position": 937,
+            "sense_ids": [],
+            "source": "qwerty-learner:122acd9:KaoYan_3_T",
+            "source_payload": {
+              "glosses_zh": [
+                "行为， 举止；特性； 运转情况 A"
+              ],
+              "pronunciations": [
+                {
+                  "raw_text": "bɪ'hevjɚ",
+                  "region": "en-US"
+                },
+                {
+                  "raw_text": "bɪ'heɪvjə",
+                  "region": "en-GB"
+                }
+              ],
+              "source_record_id": null,
+              "source_word": "behavior"
+            }
+          },
+          {
+            "catalog_id": "exam:ecdict:cet4",
+            "category": "exam",
+            "match_method": "source-tag",
+            "position": 168,
+            "sense_ids": [],
+            "source": "ecdict:bc015ed2",
+            "source_payload": {}
+          },
+          {
+            "catalog_id": "exam:ecdict:cet6",
+            "category": "exam",
+            "match_method": "source-tag",
+            "position": 127,
+            "sense_ids": [],
+            "source": "ecdict:bc015ed2",
+            "source_payload": {}
+          },
+          {
+            "catalog_id": "exam:ecdict:ielts",
+            "category": "exam",
+            "match_method": "source-tag",
+            "position": 254,
+            "sense_ids": [],
+            "source": "ecdict:bc015ed2",
+            "source_payload": {}
+          },
+          {
+            "catalog_id": "exam:ecdict:ky",
+            "category": "exam",
+            "match_method": "source-tag",
+            "position": 163,
+            "sense_ids": [],
+            "source": "ecdict:bc015ed2",
+            "source_payload": {}
+          },
+          {
+            "catalog_id": "exam:ecdict:toefl",
+            "category": "exam",
+            "match_method": "source-tag",
+            "position": 89,
+            "sense_ids": [],
+            "source": "ecdict:bc015ed2",
+            "source_payload": {}
+          },
+          {
+            "catalog_id": "subject:topic:biology",
+            "category": "subject",
+            "match_method": "sense-topic",
+            "position": 429,
+            "sense_ids": [
+              "9e1d0e7f-c631-5742-8685-5a7b63e421b9"
+            ],
+            "source": "open-dictionary:v2.0",
+            "source_payload": {}
+          }
+        ],
+        "illustrations": [],
+        "lexical": {
+          "antonyms": [],
+          "phrases": [],
+          "related_words": [],
+          "synonyms": []
+        },
+        "mnemonics": [
+          {
+            "content": "## 分析词义\n\n  \n\n\"Behavior\"是英语里的一个名词，表示\"行为\"或\"举止\"，描述一个人或事物所展示出来的动作或反应。\n\n  \n\n## 列举例句\n\n  \n\n1.  His behavior at the party was unacceptable. (他在派对上的行为不可接受。)\n2.  The behavior of these animals changes with the seasons. (这些动物的行为随季节的变化而变化。)\n3.  She is studying the behavior of elephants in the wild. (她正在研究野生大象的行为。)\n\n  \n\n## 词根分析\n\n  \n\n\"Behavior\"的词根是动词 \"behave\"，意为\"行为\"。而'behave'是由'be'(做为、存在)和 'have'(有，持有)两个词拼接而来，一起表示有某种行为或态度。\n\n  \n\n## 词缀分析\n\n  \n\n\"Behavior\"的后缀\"-ior\"用于形成名词，从行为或动词的意义。像\"exterior\", \"interior\"等词也有同样的后缀。\n\n  \n\n## 发展历史和文化背景\n\n  \n\n\"Behavior\"这个词源于中世纪的拉丁语，描述人类或其他生物的公开举止或态度，后来逐渐被延伸到描述对象或系统的功能或特性。\n\n  \n\n## 单词变形\n\n  \n\n\"Behavior\"作为名词，没有不同形态的变化，但是其对应的动词 \"behave\"有不同时态的变化，如下：\n\n  \n\n*   过去式: behaved\n*   进行式: behaving\n*   过去分词: behaved\n\n  \n\n## 记忆辅助\n\n  \n\n可以挂钩\"be\"和\"have\"两个词来记忆\"behave\"，由此延伸出\"behavior\"。\n\n  \n\n## 小故事\n\n  \n\nOnce upon a time, a man named Bob, known for his good behavior, helped an old lady cross the street. (从前，有一个名叫Bob的男人，因为他的好行为而出名，他帮助一个老太太过马路。)  \nThere was once a man named Bob who was known for his good behavior, he helped an old lady cross the street. （有一个叫Bob的男人，他以他的良好行为而闻名，他帮助一个老太太过马路。）",
+            "format": "markdown",
+            "kind": "learning-article",
+            "provenance": {
+              "source_commit": "8c9b050",
+              "source_file_sha256": "51bc73affec742690d9683f282f8944e7a191e94592ca9c7c2a317e5f92fb5d0",
+              "source_word": "behavior"
+            },
+            "review_status": "ai-unreviewed",
+            "source": "DictionaryByGPT4:8c9b050"
+          },
+          {
+            "content": "把behavior想成“从外面看得见的做法”：人怎样待人接物，是行为举止；动物或其他生物怎样活动，是行为方式；受到刺激后表现出的变化，是反应；机器或系统怎样运转，也可以看作它的“行为”。",
+            "format": "plain",
+            "kind": "memory-hook",
+            "provenance": {
+              "source_entry_id": "f98a21a3-dd06-53cf-967d-df18a9ea0dcb",
+              "source_field": "memory_hook_zh"
+            },
+            "review_status": "source-published",
+            "source": "open-dictionary:v2.0"
+          }
+        ],
+        "practice": {
+          "attested_examples": [],
+          "questions": []
+        },
+        "schema_version": "leximeet.learning-card.v1",
+        "source_signals": []
+      },
+      "lookup_key": "behavior",
+      "memory_hook_zh": "把behavior想成“从外面看得见的做法”：人怎样待人接物，是行为举止；动物或其他生物怎样活动，是行为方式；受到刺激后表现出的变化，是反应；机器或系统怎样运转，也可以看作它的“行为”。",
+      "origin": "curated",
+      "pronunciations": [
+        {
+          "etymology_id": "et1",
+          "notation": "IPA",
+          "pos": "noun",
+          "region": "en-US",
+          "source": "open-dictionary:v2.0",
+          "tags": [
+            "US"
+          ],
+          "text": "/bɪˈheɪvjɚ/"
+        },
+        {
+          "etymology_id": "et1",
+          "notation": "IPA",
+          "pos": "noun",
+          "region": "en-GB",
+          "source": "open-dictionary:v2.0",
+          "tags": [
+            "UK"
+          ],
+          "text": "/bɪˈheɪvjə(ɹ)/"
+        },
+        {
+          "etymology_id": "et1",
+          "notation": "IPA",
+          "pos": "noun",
+          "region": null,
+          "source": "open-dictionary:v2.0:audit:wiktionary:2025-10-23",
+          "tags": [
+            "General-Australian"
+          ],
+          "text": "/bɪˈhæɪvjə(ɹ)/"
+        },
+        {
+          "etymology_id": "et1",
+          "notation": "IPA",
+          "pos": "noun",
+          "region": null,
+          "source": "open-dictionary:v2.0:audit:wiktionary:2025-10-23",
+          "tags": [],
+          "text": "/bɪˈheːvɪjɚ/"
+        },
+        {
+          "etymology_id": null,
+          "notation": "ARPABET",
+          "pos": null,
+          "region": "en-US",
+          "source": "cmudict:74790861",
+          "tags": [],
+          "text": "B IH0 HH EY1 V Y ER0"
+        }
+      ],
+      "schema_version": "leximeet.entry.v2",
+      "senses": [
+        {
+          "display_order": 0,
+          "english_gloss": "Human conduct relative to social norms.",
+          "english_gloss_source": "open-dictionary:v2.0:audit:wiktionary:2025-10-23",
+          "etymology_id": "et1",
+          "examples": [
+            {
+              "source": "open-dictionary:v2.0",
+              "text": "The teacher praised the student's behavior in class.",
+              "translation": "老师表扬了这名学生在课堂上的表现。"
+            },
+            {
+              "source": "open-dictionary:v2.0",
+              "text": "Parents often worry about their children's behavior online.",
+              "translation": "父母常常担心孩子在网上的行为。"
+            }
+          ],
+          "labels": [
+            {
+              "code": "US",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            },
+            {
+              "code": "uncountable",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            },
+            {
+              "code": "usually",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            }
+          ],
+          "learner_explanation_zh": "指人在社会中表现出来的做法和举止，通常会联系到他人对礼貌、规矩或得体的期待。它是“从外面看得见的做法”这一核心概念最典型的用法。",
+          "pos": "noun",
+          "priority": "core",
+          "sense_id": "79f5c4cd-1e72-528e-bb6c-53f092682a28",
+          "short_gloss": "人的行为举止",
+          "source_ref": {
+            "entry_id": "f98a21a3-dd06-53cf-967d-df18a9ea0dcb",
+            "etymology_id": "et1",
+            "group_index": 0,
+            "pos": "noun",
+            "sense_id": "s1",
+            "source": "open-dictionary:v2.0"
+          },
+          "topics": [],
+          "usage_note_zh": "常见结构是“某人的 behavior”以及“改变、控制、观察 + behavior”。在谈一个人的总体表现时通常用不可数形式；不要把它直接当作某一次动作来使用，具体一次行为可换用表示动作的词。"
+        },
+        {
+          "display_order": 1,
+          "english_gloss": "The way a living creature behaves or acts generally.",
+          "english_gloss_source": "open-dictionary:v2.0:audit:wiktionary:2025-10-23",
+          "etymology_id": "et1",
+          "examples": [
+            {
+              "source": "open-dictionary:v2.0",
+              "text": "The researchers observed the behavior of the birds at night.",
+              "translation": "研究人员观察了这些鸟在夜间的行为。"
+            }
+          ],
+          "labels": [
+            {
+              "code": "US",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            },
+            {
+              "code": "countable",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            },
+            {
+              "code": "uncountable",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            },
+            {
+              "code": "usually",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            }
+          ],
+          "learner_explanation_zh": "指人以外的动物或其他生物通常怎样活动、反应和生活；重点不在“好”或“坏”，而在于它表现出的方式。",
+          "pos": "noun",
+          "priority": "core",
+          "sense_id": "09fba6f3-629e-5057-bd58-e5a01593c453",
+          "short_gloss": "生物的行为方式",
+          "source_ref": {
+            "entry_id": "f98a21a3-dd06-53cf-967d-df18a9ea0dcb",
+            "etymology_id": "et1",
+            "group_index": 0,
+            "pos": "noun",
+            "sense_id": "s2",
+            "source": "open-dictionary:v2.0"
+          },
+          "topics": [],
+          "usage_note_zh": "常见结构是“动物/生物 + behavior”或“研究、观察 + behavior”，可用来说明某一物种的总体活动方式。这个义项可以是不可数的总体概念，也可以用复数表示几种不同的行为。不要因为看到动物就只译成“动作”，它往往涵盖更长期、可观察的活动模式。"
+        },
+        {
+          "display_order": 2,
+          "english_gloss": "A state of probation about one's conduct.",
+          "english_gloss_source": "open-dictionary:v2.0:audit:wiktionary:2025-10-23",
+          "etymology_id": "et1",
+          "examples": [
+            {
+              "source": "open-dictionary:v2.0",
+              "text": "He was on his best behavior when he met her parents.",
+              "translation": "他见她父母时表现得特别规矩。"
+            }
+          ],
+          "labels": [
+            {
+              "code": "US",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            },
+            {
+              "code": "informal",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            },
+            {
+              "code": "uncountable",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            },
+            {
+              "code": "usually",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            }
+          ],
+          "learner_explanation_zh": "特指一个人在受到关注、考察或等待评价时表现得很规矩，常带有“暂时收敛、刻意表现得体”的意味，是“可见的做法”在特定场合中的延伸。",
+          "pos": "noun",
+          "priority": "common",
+          "sense_id": "8ea59d3b-2a21-5c9e-9ecf-a5db6c89e0a7",
+          "short_gloss": "在别人面前守规矩的表现",
+          "source_ref": {
+            "entry_id": "f98a21a3-dd06-53cf-967d-df18a9ea0dcb",
+            "etymology_id": "et1",
+            "group_index": 0,
+            "pos": "noun",
+            "sense_id": "s3",
+            "source": "open-dictionary:v2.0"
+          },
+          "topics": [],
+          "usage_note_zh": "常见固定结构是“be on one’s best behavior”，表示在某人面前特别守规矩、表现最好。这里的best不是说行为永远如此，而是说当时有意控制自己的表现；不要把这个短语误解成正式的法律术语。"
+        },
+        {
+          "display_order": 3,
+          "english_gloss": "Observable response produced by an organism.",
+          "english_gloss_source": "open-dictionary:v2.0:audit:wiktionary:2025-10-23",
+          "etymology_id": "et1",
+          "examples": [
+            {
+              "source": "open-dictionary:v2.0",
+              "text": "The study examined how stress affects human behavior.",
+              "translation": "这项研究考察了压力如何影响人类行为。"
+            }
+          ],
+          "labels": [
+            {
+              "code": "US",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            },
+            {
+              "code": "countable",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            },
+            {
+              "code": "uncountable",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            },
+            {
+              "code": "usually",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            }
+          ],
+          "learner_explanation_zh": "在生物学和心理学等领域，指有机体受到环境、刺激或条件影响后表现出来的、能够观察或测量的反应。它仍然是“从外面看得见的表现”，但重点从一般活动转为对刺激的回应。",
+          "pos": "noun",
+          "priority": "common",
+          "sense_id": "9e1d0e7f-c631-5742-8685-5a7b63e421b9",
+          "short_gloss": "生物受到刺激后的可观察反应",
+          "source_ref": {
+            "entry_id": "f98a21a3-dd06-53cf-967d-df18a9ea0dcb",
+            "etymology_id": "et1",
+            "group_index": 0,
+            "pos": "noun",
+            "sense_id": "s4",
+            "source": "open-dictionary:v2.0"
+          },
+          "topics": [
+            {
+              "code": "biology",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            },
+            {
+              "code": "human-sciences",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            },
+            {
+              "code": "natural-sciences",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            },
+            {
+              "code": "psychology",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            },
+            {
+              "code": "sciences",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            }
+          ],
+          "usage_note_zh": "常见结构是“对某种刺激的 behavior”或“测量、记录 + behavior”，多出现在实验、研究和报告中。此处是中性、专业的术语，不表示行为有礼貌或不礼貌。需要说明具体反应时，通常要在前面补出刺激、环境或实验条件。"
+        },
+        {
+          "display_order": 4,
+          "english_gloss": "The way a device or system operates.",
+          "english_gloss_source": "open-dictionary:v2.0:audit:wiktionary:2025-10-23",
+          "etymology_id": "et1",
+          "examples": [
+            {
+              "source": "open-dictionary:v2.0",
+              "text": "The software's behavior changed after the update.",
+              "translation": "更新后，这款软件的运行表现发生了变化。"
+            }
+          ],
+          "labels": [
+            {
+              "code": "US",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            },
+            {
+              "code": "uncountable",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            },
+            {
+              "code": "usually",
+              "scope": "sense",
+              "source": "open-dictionary:v2.0"
+            }
+          ],
+          "learner_explanation_zh": "指机器、软件或其他系统在运行时呈现出来的方式，例如它如何响应输入、处理任务或在不同条件下工作；这里把系统拟人化为“也有自己的做法”。",
+          "pos": "noun",
+          "priority": "common",
+          "sense_id": "8e0df651-e520-52bf-853d-b0bce48c47e1",
+          "short_gloss": "设备或系统的运行表现",
+          "source_ref": {
+            "entry_id": "f98a21a3-dd06-53cf-967d-df18a9ea0dcb",
+            "etymology_id": "et1",
+            "group_index": 0,
+            "pos": "noun",
+            "sense_id": "s5",
+            "source": "open-dictionary:v2.0"
+          },
+          "topics": [],
+          "usage_note_zh": "常见结构是“系统/设备 + behavior”或“分析、预测 + behavior”，技术语境中常译为“运行方式”或“运行表现”。它通常是不可数名词，描述系统整体如何工作，而不是某个单独零件。不要看到这个义项就译成有意志的“行为”，应结合上下文选择“表现”或“运行”。"
+        }
+      ],
+      "source_entry_id": "f98a21a3-dd06-53cf-967d-df18a9ea0dcb",
+      "study_notes_zh": [
+        "先掌握“行为、表现”这一核心概念，再延伸到生物反应和设备运行。不要把它一律理解成带有道德评价的“品行”；在科学或技术语境中，它常常只是对可观察表现的中性描述。"
+      ]
+    }
+  ]
+}

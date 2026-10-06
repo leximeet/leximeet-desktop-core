@@ -1,0 +1,76 @@
+{
+  "manifestVersion": 1,
+  "algorithm": "sha256-jcs-manifest/1",
+  "contractVersion": "1.0.0",
+  "configurationSha256": "ad00bf25b7cd6b419091d91a17579869f5544565927b4fad6caf8a4376005fe8",
+  "files": [
+    {
+      "path": "docs/extensions/browser.md",
+      "sha256": "d3405fdfb28963d66d01e754cf1a6fd8904367d7338533bccd035ebc97754674"
+    },
+    {
+      "path": "docs/共享数据模型.md",
+      "sha256": "85fc7199915729a549a551e264ab486d2f9bea2e13c66dbfcc7b3dc23de6ba0e"
+    },
+    {
+      "path": "docs/兼容与迭代.md",
+      "sha256": "583c862240e2adabd61fa9246dd6ae3ef984e332af348e78f417dfc984baf87e"
+    },
+    {
+      "path": "docs/双向宿主能力.md",
+      "sha256": "01b8e71a52050bd3dbba856a2718520f6e4fc93f35c525e865ef5f37dff0071b"
+    },
+    {
+      "path": "docs/实现与验收.md",
+      "sha256": "c6e2688891683588406affcf7083d0b96120b5da6c1711bb66424a5b2049bec6"
+    },
+    {
+      "path": "docs/接口规范.md",
+      "sha256": "9010f58a8890d31596c1ab546857b054359cc6d5067fc6f3673700f08b52dd7d"
+    },
+    {
+      "path": "docs/架构与接入.md",
+      "sha256": "3c6b7a1a79df48f55eccfdd99688255e7b1d0599fa2ce9991d752e304edc9863"
+    },
+    {
+      "path": "docs/自动发现与连接邀请.md",
+      "sha256": "756ddb5be82f558796e8c446a023f996fcf1dca7d56db200539652618502c5c5"
+    },
+    {
+      "path": "docs/连接与恢复.md",
+      "sha256": "8511de199bb4f28f37838bab7c99e047cd93b48c961383b473b1043085091cd0"
+    },
+    {
+      "path": "docs/配对与契约身份.md",
+      "sha256": "40077db6a72f1cfa4c19c3de990d62710d52bef033f63e7e27ec2637aab43ddf"
+    },
+    {
+      "path": "extensions.json",
+      "sha256": "0b351678726ef19868b39e986a85fe6ce90dc3e409d6b0bd6906d59c5cdc8e57"
+    },
+    {
+      "path": "host-methods.json",
+      "sha256": "950c00d0cb5f98104f35a88b9a44314e0b5f7d32c750c96bc73f602e94f541cd"
+    },
+    {
+      "path": "methods.json",
+      "sha256": "da68a8c6a3c55bf539d0dcf8dab32e00fed8321044b3f3520ec8d714d4080450"
+    },
+    {
+      "path": "schemas/browser-host.v1.schema.json",
+      "sha256": "10c3620fed95bbfc0addbf7950e99cd33819c890950f21e121ae2071cb7d07c5"
+    },
+    {
+      "path": "schemas/desktop-api.v1.schema.json",
+      "sha256": "736a1b4a183f894b92d4e007c49e8d78f18513b8697a16d88e93e715561cc1bf"
+    },
+    {
+      "path": "schemas/dictionary-entry.v2.schema.json",
+      "sha256": "cb6704a83588ceaa6e16e63ff1936bc0d3ae3137572ba623e13e81cc9ae339d1"
+    },
+    {
+      "path": "schemas/reading-domain.v1.schema.json",
+      "sha256": "01094e7b4ad13ca36e755b68c23ea8dfe4f32425f2c27b802b25e7de7d4222cf"
+    }
+  ]
+}

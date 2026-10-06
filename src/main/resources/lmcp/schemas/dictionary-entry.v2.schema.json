@@ -1,0 +1,559 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/leximeet/leximeet-dictionary/schemas/leximeet.entry.v2.schema.json",
+  "title": "LexiMeet 词条 v2",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "base_entry_schema",
+    "entry_id",
+    "headword",
+    "learning"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "leximeet.entry.v2"
+    },
+    "base_entry_schema": {
+      "const": "leximeet.entry.v1"
+    },
+    "entry_id": {
+      "type": "string"
+    },
+    "headword": {
+      "type": "string"
+    },
+    "learning": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "collections",
+        "mnemonics",
+        "lexical",
+        "practice",
+        "illustrations",
+        "source_signals",
+        "audio"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "leximeet.learning-card.v1"
+        },
+        "collections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "catalog_id",
+              "category",
+              "position",
+              "sense_ids",
+              "source",
+              "source_payload"
+            ],
+            "properties": {
+              "catalog_id": {
+                "type": "string"
+              },
+              "category": {
+                "enum": [
+                  "exam",
+                  "subject"
+                ]
+              },
+              "position": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "match_method": {
+                "type": "string",
+                "description": "0.0.3 起导出匹配方法；用于还原词书成员索引，旧版词卡可缺省。"
+              },
+              "sense_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "source": {
+                "type": "string"
+              },
+              "source_payload": {
+                "type": "object",
+                "required": [],
+                "properties": {
+                  "source_word": {
+                    "type": "string"
+                  },
+                  "source_record_id": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "glosses_zh": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "pronunciations": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "region",
+                        "raw_text"
+                      ],
+                      "properties": {
+                        "region": {
+                          "type": "string"
+                        },
+                        "raw_text": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "mnemonics": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "source",
+              "kind",
+              "format",
+              "content",
+              "review_status",
+              "provenance"
+            ],
+            "properties": {
+              "source": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "format": {
+                "enum": [
+                  "plain",
+                  "markdown"
+                ]
+              },
+              "content": {
+                "type": "string"
+              },
+              "review_status": {
+                "type": "string"
+              },
+              "provenance": {
+                "type": "object",
+                "required": [],
+                "properties": {}
+              }
+            }
+          }
+        },
+        "lexical": {
+          "type": "object",
+          "required": [
+            "synonyms",
+            "antonyms",
+            "related_words",
+            "phrases"
+          ],
+          "properties": {
+            "synonyms": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "text",
+                  "source"
+                ],
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  },
+                  "target_entry_id": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "sense_id": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "pos": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "gloss_zh": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "source": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "antonyms": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "text",
+                  "source"
+                ],
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  },
+                  "target_entry_id": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "sense_id": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "pos": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "gloss_zh": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "source": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "related_words": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "text",
+                  "relation",
+                  "source"
+                ],
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  },
+                  "relation": {
+                    "type": "string"
+                  },
+                  "target_entry_id": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "pos": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "gloss_zh": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "source": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "phrases": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "text",
+                  "source"
+                ],
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  },
+                  "translation_zh": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "sense_id": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "source": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "practice": {
+          "type": "object",
+          "required": [
+            "questions",
+            "attested_examples"
+          ],
+          "properties": {
+            "questions": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "question_id",
+                  "kind",
+                  "prompt",
+                  "choices",
+                  "answer",
+                  "source",
+                  "review_status"
+                ],
+                "properties": {
+                  "question_id": {
+                    "type": "string"
+                  },
+                  "kind": {
+                    "type": "string"
+                  },
+                  "prompt": {
+                    "type": "string"
+                  },
+                  "choices": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "id",
+                        "text"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "text": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "answer": {
+                    "type": "object",
+                    "required": [
+                      "choice_ids",
+                      "text",
+                      "explanation_zh"
+                    ],
+                    "properties": {
+                      "choice_ids": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "text": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "explanation_zh": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
+                  },
+                  "source": {
+                    "type": "string"
+                  },
+                  "review_status": {
+                    "type": "string"
+                  },
+                  "provenance": {
+                    "type": "object",
+                    "required": [],
+                    "properties": {}
+                  }
+                }
+              }
+            },
+            "attested_examples": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "text",
+                  "source",
+                  "source_info"
+                ],
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  },
+                  "translation_zh": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "sense_id": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "source": {
+                    "type": "string"
+                  },
+                  "source_info": {
+                    "type": "object",
+                    "required": [],
+                    "properties": {}
+                  }
+                }
+              }
+            }
+          }
+        },
+        "illustrations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "url",
+              "alt",
+              "source"
+            ],
+            "properties": {
+              "url": {
+                "type": "string"
+              },
+              "alt": {
+                "type": "string"
+              },
+              "source": {
+                "type": "string"
+              },
+              "license": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "source_signals": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "code",
+              "value",
+              "source"
+            ],
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "value": {
+                "type": [
+                  "string",
+                  "number",
+                  "boolean"
+                ]
+              },
+              "source": {
+                "type": "string"
+              },
+              "meaning": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "audio": {
+          "type": "object",
+          "required": [
+            "offline_index_entry_id",
+            "alternate_candidates"
+          ],
+          "properties": {
+            "offline_index_entry_id": {
+              "type": "string"
+            },
+            "alternate_candidates": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "source",
+                  "region",
+                  "format",
+                  "reference"
+                ],
+                "properties": {
+                  "source": {
+                    "type": "string"
+                  },
+                  "region": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "format": {
+                    "type": "string"
+                  },
+                  "reference": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

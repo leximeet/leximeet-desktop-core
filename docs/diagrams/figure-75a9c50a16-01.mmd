@@ -1,0 +1,11 @@
+flowchart LR
+  UI[桌面页面] --> Main[Electron Main]
+  Browser[浏览器采集] --> Host[Native Host]
+  Host --> Main
+  Main --> HTTP[Core 回环 HTTP]
+  HTTP --> Local[本机业务用例]
+  HTTP --> LMCP[LMCP 授权与业务适配]
+  Local --> DB[(个人 SQLite)]
+  LMCP --> DB
+  Local --> Dictionary[(只读词典)]
+  LMCP --> Dictionary

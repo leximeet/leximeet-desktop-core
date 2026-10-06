@@ -1,0 +1,13 @@
+sequenceDiagram
+  participant UI as 桌面页面
+  participant Core as 冻结题与判题
+  participant DB as SQLite
+  UI->>Core: scope、模式、词条、attemptId
+  Core->>DB: 固定题目、选项与答案
+  Core-->>UI: 公共题目 DTO
+  UI->>Core: 原 attemptId、submissionId、实际答案
+  Core->>DB: 校验与首次反馈事件
+  Core->>DB: 重放积分和记忆投影
+  Core-->>UI: 同一 submissionId 的回执
+  UI->>Core: 保存确认后的页面草稿
+  Note over UI: 保存结束显示正确反馈<br/>停留一秒再请求下一题
