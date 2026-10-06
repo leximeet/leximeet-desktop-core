@@ -3,6 +3,7 @@ package app.leximeet.core;
 import static app.leximeet.core.DesktopWorkspaceTest.*;
 import static app.leximeet.core.LmcpServiceTest.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,15 +19,21 @@ class FileBusinessClockTest {
 
   void setTime(Path profile, String instant, String zone) throws Exception {
     Files.createDirectories(profile);
-    Files.setPosixFilePermissions(profile, PosixFilePermissions.fromString("rwx------"));
+    securePosixPermissions(profile, "rwx------");
     Path staged = profile.resolve("test-clock.next");
     Files.writeString(staged, object().put("instant", instant).put("zone", zone).toString());
-    Files.setPosixFilePermissions(staged, PosixFilePermissions.fromString("rw-------"));
+    securePosixPermissions(staged, "rw-------");
     Files.move(
         staged,
         profile.resolve("test-clock.json"),
         StandardCopyOption.ATOMIC_MOVE,
         StandardCopyOption.REPLACE_EXISTING);
+  }
+
+  // Windows 沿用 JUnit 专属临时目录的 ACL；POSIX 文件系统显式收紧目录和文件权限。
+  void securePosixPermissions(Path path, String permissions) throws Exception {
+    if (Files.getFileStore(path).supportsFileAttributeView("posix"))
+      Files.setPosixFilePermissions(path, PosixFilePermissions.fromString(permissions));
   }
 
   @Test
@@ -85,7 +92,7 @@ class FileBusinessClockTest {
   }
 
   @Test
-  void malformedTimeZonePermissionsAndSymlinksNeverFallbackToSystemTime() throws Exception {
+  void malformedTimeZoneAndExternalPathNeverFallbackToSystemTime() throws Exception {
     Path profile = directory.resolve("profile");
     setTime(profile, "2026-10-01T00:00:00Z", "Asia/Shanghai");
     var file = profile.resolve("test-clock.json");
@@ -94,14 +101,32 @@ class FileBusinessClockTest {
     assertThrows(IllegalStateException.class, clock::instant);
     setTime(profile, "2026-10-01T00:00:00Z", "UTC");
     assertThrows(IllegalStateException.class, clock::instant);
-    Files.setPosixFilePermissions(file, PosixFilePermissions.fromString("rw-r--r--"));
-    assertThrows(IllegalStateException.class, () -> new FileBusinessClock(profile, file));
-    Files.delete(file);
-    Files.createSymbolicLink(file, directory.resolve("external.json"));
-    assertThrows(IllegalStateException.class, () -> new FileBusinessClock(profile, file));
     assertThrows(
         IllegalArgumentException.class,
         () -> new FileBusinessClock(profile, directory.resolve("external.json")));
+  }
+
+  @Test
+  void publiclyReadablePosixClockIsRejected() throws Exception {
+    assumeTrue(
+        Files.getFileStore(directory).supportsFileAttributeView("posix"),
+        "文件系统使用 ACL，不支持 POSIX 权限位");
+    Path profile = directory.resolve("profile");
+    setTime(profile, "2026-10-01T00:00:00Z", "UTC");
+    var file = profile.resolve("test-clock.json");
+    Files.setPosixFilePermissions(file, PosixFilePermissions.fromString("rw-r--r--"));
+    assertThrows(IllegalStateException.class, () -> new FileBusinessClock(profile, file));
+  }
+
+  // 三平台都校验符号链接拒绝；不因权限位模型不同而跳过路径保护。
+  @Test
+  void symbolicClockIsRejected() throws Exception {
+    Path profile = directory.resolve("profile");
+    setTime(profile, "2026-10-01T00:00:00Z", "UTC");
+    var file = profile.resolve("test-clock.json");
+    Files.delete(file);
+    Files.createSymbolicLink(file, directory.resolve("external.json"));
+    assertThrows(IllegalStateException.class, () -> new FileBusinessClock(profile, file));
   }
 
   @Test

@@ -77,15 +77,17 @@ class DesktopWorkspaceTest {
   }
 
   void mount(LeximeetService service, Path file) throws Exception {
+    // 路径由 JSON 节点保存，避免 Windows 反斜杠被当成 JSON 转义符。
     service
         .desktop()
         .mount(
-            json(
-                "{\"file\":\""
-                    + file
-                    + "\",\"edition\":\"core-text\",\"version\":\"0.0.3\",\"manifestSha\":\""
-                    + SHA
-                    + "\",\"entryCount\":2}"));
+            Json.MAPPER
+                .createObjectNode()
+                .put("file", file.toString())
+                .put("edition", "core-text")
+                .put("version", "0.0.3")
+                .put("manifestSha", SHA)
+                .put("entryCount", 2));
   }
 
   void goal(LeximeetService service, String value) throws Exception {

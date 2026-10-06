@@ -1,7 +1,8 @@
-fix(ci): 修复 Windows Maven 本地仓库参数解析
+fix(test): 修复 Windows 路径与权限测试夹具
 
-- 对 Maven 本地仓库系统属性整体加引号，避免 PowerShell 将点号后内容误作生命周期
-- 同步 README、快速开始和开发测试命令，保留三平台现有验证范围
-- 不修改 Java 业务、冻结协议、版本或标签
+- 使用结构化 JSON 构造词典挂载请求，避免 Windows 路径反斜杠导致批量测试失败
+- 时钟夹具按文件系统设置 POSIX 权限，保留三平台核心时间与路径验证
+- 仅按能力限制 POSIX 权限位专项，符号链接拒绝仍在三平台验证
+- 不修改生产业务、冻结协议、版本及标签
 
-验证：actionlint、公开文档路径检查和 git diff --check 通过；Windows 执行结果以本提交的 GitHub Actions 为准。
+验证：隔离 Maven 离线 clean verify 完成 176 项测试、0 失败/错误/跳过，Spotless 和公开文档检查通过；离线模式跳过 SBOM，本轮未声称完成产物验收。Windows 结果等待该提交的远端 CI。
