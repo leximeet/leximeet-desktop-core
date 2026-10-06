@@ -40,7 +40,7 @@ flowchart LR
 
 | 能力         | 实现                                                                              |
 | ------------ | --------------------------------------------------------------------------------- |
-| 本机资料     | 稳定词条身份、个人笔记、多词本归属、真实词性筛选、遇见、逻辑回收站                        |
+| 本机资料     | 稳定词条身份、个人笔记、多词本归属、真实词性筛选、遇见、逻辑回收站                |
 | 学习闭环     | 可选目标与计划、默认新学 10 / 复习 20、六种冻结练习、0–30 分状态、FSRS 与提醒题目 |
 | 安全采集     | 默认七天同词同语境查重、敏感内容替换 `xxx`、目标所在句最多 500 UTF-16             |
 | 本地插件连接 | 发现、用户确认、配对与短会话、只读词卡、原子采集、明确断开与撤权                  |
@@ -74,3 +74,7 @@ python3 scripts/verify-release.py
 ## 许可与致谢
 
 本项目沿用 [GNU AGPL v3](LICENSE)。运行时依赖和词典资源各自保留许可，见[依赖与许可证](docs/依赖与许可证.md)。感谢 Spring、Xerial SQLite JDBC、Jackson、SLF4J、[java-fsrs](https://github.com/open-spaced-repetition/java-fsrs) 和 LexiMeet Dictionary。公共词典内容不因被应用使用而变成应用原创数据。
+
+## 正式下载
+
+[1.0.0 Release](https://github.com/leximeet/leximeet-desktop-core/releases/tag/1.0.0)提供 Jar、源码、SBOM 与校验文件；[本版说明](docs/版本/1.0.0.md)解释交付与三平台验证边界。

@@ -25,15 +25,17 @@ jobs:
       - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6
         with:
           distribution: temurin
-          java-version: '21'
+          java-version: "21"
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
-          python-version: '3.13'
+          python-version: "3.13"
       # PowerShell 也必须把 Maven 的点号属性作为一个完整参数传入。
       - name: 统一排版、全部单元与真实 SQLite/HTTP/子进程回归、源码与 SBOM
         run: mvn -B -ntp -gs maven-settings.xml -s maven-settings.xml "-Dmaven.repo.local=.runtime/m2" clean verify
       - name: 本地文档路径检查
         run: python scripts/verify-docs.py
+      - name: 发行门禁负向回归
+        run: python scripts/test-github-release.py
       - name: 真正以 java -jar 启动本轮产物并检查许可与隔离清理
         run: python scripts/verify-release.py
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
@@ -53,4 +55,31 @@ jobs:
             target/leximeet-core-sources.jar
             target/bom.json
             target/bom.xml
+            target/release-verification.json
           retention-days: 14
+
+  release:
+    name: Publish verified Core and complete source
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+    needs: core
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        with:
+          name: core-candidate-ubuntu-24.04
+          path: target/
+      # needs 等待整个矩阵成功；只复用已启动验证的原样 Jar，不重建同名包。
+      - name: 核对真实 Jar 证据并归档完整对应源码
+        run: python3 scripts/prepare-github-release.py
+      - name: 完整附件上传后公开正式 Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" .runtime/github-release/* --verify-tag --draft --title "LexiMeet Desktop Core $GITHUB_REF_NAME" --notes-file "docs/版本/$GITHUB_REF_NAME.md"
+          gh release edit "$GITHUB_REF_NAME" --draft=false --latest

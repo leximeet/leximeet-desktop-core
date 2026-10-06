@@ -22,7 +22,7 @@
     <maven.compiler.release>21</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- 固定归档时间；随正式版本更新，避免机器时间改变同源重建结果。 -->
-    <project.build.outputTimestamp>2026-10-04T00:00:00Z</project.build.outputTimestamp>
+    <project.build.outputTimestamp>2026-10-07T00:00:00Z</project.build.outputTimestamp>
     <spring-boot.version>3.5.16</spring-boot.version>
     <spotless.version>3.10.3</spotless.version>
     <google-java-format.version>1.27.0</google-java-format.version>
