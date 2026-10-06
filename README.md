@@ -53,7 +53,7 @@ flowchart LR
 安装 JDK 21 和 Maven 3.9+；检查完整产物还需要 Python 3.10+。在仓库根目录运行：
 
 ```bash
-mvn -B -ntp -gs maven-settings.xml -s maven-settings.xml -Dmaven.repo.local=.runtime/m2 clean verify
+mvn -B -ntp -gs maven-settings.xml -s maven-settings.xml "-Dmaven.repo.local=.runtime/m2" clean verify
 python3 scripts/verify-docs.py
 python3 scripts/verify-release.py
 ```

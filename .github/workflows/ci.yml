@@ -29,8 +29,9 @@ jobs:
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: '3.13'
+      # PowerShell 也必须把 Maven 的点号属性作为一个完整参数传入。
       - name: 统一排版、全部单元与真实 SQLite/HTTP/子进程回归、源码与 SBOM
-        run: mvn -B -ntp -gs maven-settings.xml -s maven-settings.xml -Dmaven.repo.local=.runtime/m2 clean verify
+        run: mvn -B -ntp -gs maven-settings.xml -s maven-settings.xml "-Dmaven.repo.local=.runtime/m2" clean verify
       - name: 本地文档路径检查
         run: python scripts/verify-docs.py
       - name: 真正以 java -jar 启动本轮产物并检查许可与隔离清理
