@@ -642,12 +642,13 @@ class DesktopWorkspaceTest {
               service
                   .desktop()
                   .mount(
-                      json(
-                          "{\"file\":\""
-                              + file
-                              + "\",\"edition\":\"full-text\",\"version\":\"0.0.3\",\"manifestSha\":\""
-                              + SHA
-                              + "\",\"entryCount\":2}")));
+                      Json.MAPPER
+                          .createObjectNode()
+                          .put("file", file.toString())
+                          .put("edition", "full-text")
+                          .put("version", "0.0.3")
+                          .put("manifestSha", SHA)
+                          .put("entryCount", 2)));
       assertFalse(service.desktop().state().path("dictionary").path("ready").asBoolean());
       mount(service, file);
       assertEquals(
