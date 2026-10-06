@@ -1,10 +1,14 @@
 # LexiMeet Desktop Core
 
+[GitHub](https://github.com/leximeet/leximeet-desktop-core) · [Gitee](https://gitee.com/leximeet/leximeet-desktop-core)
+
+GitHub 与 Gitee 是平级的代码、问题反馈和贡献入口。正式版本使用相同提交与附件校验和，下载前按[发布与验收](docs/发布与验收.md)核对来源；仓库已有源码不表示已经发布安装物。
+
 **Core 负责词遇桌面的本机学习和资料事务。** 公共词典只读，个人资料保存在 SQLite；练习、遇见、学习规划和插件连接共用同一个权威工作区。
 
 `Java 21` · `Spring Boot 3.5.16` · `SQLite` · `FSRS-6` · `1.0.0 本地正式版本`
 
-本地正式版本已完成对应源码与测试准备，远端发布尚未执行。已验证 macOS arm64 / JDK 21；其他平台与签名安装的实际结果另见[发布与验收](docs/发布与验收.md)。
+本地正式版本已完成对应源码与测试准备，正式标签与发行附件仍待发布。已验证 macOS arm64 / JDK 21；其他平台与签名安装的实际结果另见[发布与验收](docs/发布与验收.md)。
 
 [快速开始](docs/快速开始.md) · [架构设计](docs/架构设计.md) · [功能设计](docs/功能设计.md) · [职责与接口](docs/1.0.0核心职责.md) · [学习规则](docs/统一学习规则.md) · [完整文档](docs/README.md)
 
@@ -42,7 +46,7 @@ flowchart LR
 | 本地插件连接 | 发现、用户确认、配对与短会话、只读词卡、原子采集、明确断开与撤权                  |
 | 数据可靠性   | 同一 SQLite 事务、稳定操作回执、并发修订、撤销重算、当前格式备份                  |
 
-窗口、声音、剪贴板监听、系统通知投递、Native Messaging 注册由 [LexiMeet Desktop](https://github.com/leximeet/leximeet-desktop) 完成。Core 没有桌面 UI，也没有云登录或 LMSP 同步入口；这些属于 [2.0.0 路线](docs/路线与任务.md)。
+窗口、声音、剪贴板监听、系统通知投递、Native Messaging 注册由 LexiMeet Desktop（[GitHub](https://github.com/leximeet/leximeet-desktop) / [Gitee](https://gitee.com/leximeet/leximeet-desktop)）完成。Core 没有桌面 UI，也没有云登录或 LMSP 同步入口；这些属于 [2.0.0 路线](docs/路线与任务.md)。
 
 ## 构建与验证
 
