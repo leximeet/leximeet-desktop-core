@@ -1,7 +1,8 @@
-fix(test): 补全词典挂载负向夹具的 Windows 路径编码
+fix(ci): 保证 Windows 验证脚本中文输出使用 UTF-8
 
-- 非法词典版本用例改为结构化 JSON 请求，避免 Windows 反斜杠触发解析错误
-- 保留 ApiException 拒绝断言、词典状态及恢复后词库数量验证
-- 不修改生产逻辑、冻结协议和版本标签
+- 文档与产物验证脚本显式配置标准输出和错误流编码
+- 避免 Windows 重定向到 cp1252 时在成功结果输出阶段报 UnicodeEncodeError
+- 异常资料夹具提交事务后关闭 SQLite 连接，避免 Windows 清理临时库失败
+- 不修改测试断言、生产业务、冻结协议或标签
 
-验证：DesktopWorkspaceTest 15 项测试、Spotless、24 篇公开文档/102 个相对链接及 git diff --check 通过；已检查全部测试中的动态文件路径 JSON 拼接。Windows 完整结果以新提交的远端 CI 为准。
+验证：改前 cp1252 环境复现 UnicodeEncodeError；改后文档检查及真实 java-jar 产物检查在相同重定向编码下通过，覆盖 17 项运行依赖、四种异常资料拒绝和临时资料清理。actionlint、Python 语法及 git diff --check 通过；最终三平台结果等待远端 CI。

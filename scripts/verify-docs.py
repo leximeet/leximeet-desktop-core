@@ -2,8 +2,13 @@
 """公开 Markdown 的相对文件链接检查；不访问网络、不读取外部讨论。"""
 
 import re
+import sys
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
+
+# Windows runner 的重定向输出可能默认使用 cp1252，显式保留中文验证结果。
+sys.stdout.reconfigure(encoding="utf-8")
+sys.stderr.reconfigure(encoding="utf-8")
 
 ROOT = Path(__file__).resolve().parents[1]
 files = sorted(list(ROOT.glob("*.md")) + list((ROOT / "docs").rglob("*.md")))

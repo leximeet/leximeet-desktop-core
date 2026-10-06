@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """检查本轮本地构建产物，并在独占临时资料中启动真实可执行 Jar；不发布文件。"""
 
+from contextlib import closing
 import hashlib
 import io
 import json
@@ -10,11 +11,16 @@ import queue
 import secrets
 import sqlite3
 import subprocess
+import sys
 import tempfile
 import threading
 import urllib.error
 import urllib.request
 import zipfile
+
+# Windows runner 的重定向输出可能默认使用 cp1252，显式保留中文验证结果。
+sys.stdout.reconfigure(encoding="utf-8")
+sys.stderr.reconfigure(encoding="utf-8")
 
 ROOT = Path(__file__).resolve().parents[1]
 JAR = ROOT / "target/leximeet-core.jar"
@@ -166,10 +172,12 @@ def reject_invalid_data(java):
             if version is None:
                 file.write_bytes(b"private-test-marker: damaged SQLite content")
             else:
-                with sqlite3.connect(file) as db:
-                    db.execute("CREATE TABLE private_old_shape(marker TEXT)")
-                    db.execute("INSERT INTO private_old_shape VALUES('private-test-marker')")
-                    db.execute(f"PRAGMA user_version={version}")
+                # sqlite3 的上下文只提交事务；显式关闭，Windows 才能清理临时数据库。
+                with closing(sqlite3.connect(file)) as db:
+                    with db:
+                        db.execute("CREATE TABLE private_old_shape(marker TEXT)")
+                        db.execute("INSERT INTO private_old_shape VALUES('private-test-marker')")
+                        db.execute(f"PRAGMA user_version={version}")
             original = hashlib.sha256(file.read_bytes()).digest()
             token = secrets.token_urlsafe(36)
             result = subprocess.run(
