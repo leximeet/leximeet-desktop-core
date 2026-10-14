@@ -33,9 +33,13 @@ class McpServiceTest {
   }
 
   private static ObjectNode call(String name, ObjectNode arguments) {
+    return call("cursor", name, arguments);
+  }
+
+  private static ObjectNode call(String clientId, String name, ObjectNode arguments) {
     ObjectNode params = Json.MAPPER.createObjectNode().put("name", name);
     params.set("arguments", arguments);
-    return rpc("tools/call", params);
+    return rpc(clientId, "tools/call", params, true);
   }
 
   private static JsonNode result(LeximeetService service, ObjectNode envelope) {
@@ -542,6 +546,115 @@ class McpServiceTest {
             page.path("encounters").get(0).path("id").asText(),
             next.path("encounters").get(0).path("id").asText());
       }
+    }
+  }
+
+  @Test
+  void invalidEncounterDatesAreClientErrors() throws Exception {
+    try (var service = service()) {
+      JsonNode february =
+          result(
+              service,
+              call(
+                  "leximeet_query",
+                  Json.MAPPER
+                      .createObjectNode()
+                      .put("action", "list_encounters")
+                      .set("args", Json.MAPPER.createObjectNode().put("from", "2026-02-30"))));
+      assertTrue(february.path("isError").asBoolean(), () -> february.toString());
+      assertEquals("INVALID_ARGUMENT", february.path("structuredContent").path("code").asText());
+      assertFalse(february.toString().contains("INTERNAL_ERROR"), () -> february.toString());
+      JsonNode until =
+          result(
+              service,
+              call(
+                  "leximeet_query",
+                  Json.MAPPER
+                      .createObjectNode()
+                      .put("action", "list_encounters")
+                      .set("args", Json.MAPPER.createObjectNode().put("to", "not-a-date"))));
+      assertEquals("INVALID_ARGUMENT", until.path("structuredContent").path("code").asText());
+      JsonNode ok =
+          structured(
+              service,
+              call(
+                  "leximeet_query",
+                  Json.MAPPER
+                      .createObjectNode()
+                      .put("action", "list_encounters")
+                      .set(
+                          "args",
+                          Json.MAPPER
+                              .createObjectNode()
+                              .put("from", "2026-10-01")
+                              .put("to", "2026-10-01"))));
+      assertTrue(ok.path("encounters").isArray());
+    }
+  }
+
+  @Test
+  void mutationReceiptsAreScopedToClientAndRequest() throws Exception {
+    try (var service = service()) {
+      service.mcpManage(
+          Json.MAPPER.createObjectNode().put("action", "setWriteEnabled").put("enabled", true));
+      ObjectNode firstArgs =
+          Json.MAPPER.createObjectNode().put("word", "gamma").put("mutationId", "mut-shared-1");
+      JsonNode first =
+          structured(
+              service,
+              call(
+                  "alpha-bot",
+                  "leximeet_write",
+                  Json.MAPPER
+                      .createObjectNode()
+                      .put("action", "add_to_vocab")
+                      .set("args", firstArgs)));
+      assertEquals("gamma", first.path("word").asText());
+      JsonNode otherClient =
+          structured(
+              service,
+              call(
+                  "beta-bot",
+                  "leximeet_write",
+                  Json.MAPPER
+                      .createObjectNode()
+                      .put("action", "add_to_vocab")
+                      .set(
+                          "args",
+                          Json.MAPPER
+                              .createObjectNode()
+                              .put("word", "delta")
+                              .put("mutationId", "mut-shared-1"))));
+      assertEquals("delta", otherClient.path("word").asText());
+      JsonNode replay =
+          structured(
+              service,
+              call(
+                  "alpha-bot",
+                  "leximeet_write",
+                  Json.MAPPER
+                      .createObjectNode()
+                      .put("action", "add_to_vocab")
+                      .set("args", firstArgs.deepCopy())));
+      assertEquals(first, replay);
+      JsonNode reused =
+          result(
+              service,
+              call(
+                  "alpha-bot",
+                  "leximeet_write",
+                  Json.MAPPER
+                      .createObjectNode()
+                      .put("action", "add_to_vocab")
+                      .set(
+                          "args",
+                          Json.MAPPER
+                              .createObjectNode()
+                              .put("word", "epsilon")
+                              .put("mutationId", "mut-shared-1"))));
+      assertTrue(reused.path("isError").asBoolean(), () -> reused.toString());
+      assertEquals(
+          "IDEMPOTENCY_KEY_REUSED", reused.path("structuredContent").path("code").asText());
     }
   }
 }

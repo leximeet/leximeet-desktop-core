@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.sql.Connection;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
 /** 将路由式 action 转到既有桌面查询与收藏命令，不另开一套学习写入。 */
@@ -29,9 +31,9 @@ final class McpRouter {
     };
   }
 
-  ObjectNode write(String action, JsonNode args) throws Exception {
+  ObjectNode write(String clientId, String action, JsonNode args) throws Exception {
     McpCatalog.requireWrite(action);
-    return addToVocab(args);
+    return addToVocab(clientId, args);
   }
 
   private ObjectNode lookup(Connection db, JsonNode args, boolean detail) throws Exception {
@@ -212,8 +214,8 @@ final class McpRouter {
     query.put("search", optional(args, "q", 100));
     String wordId = optional(args, "wordId", 120);
     if (!wordId.isEmpty()) query.put("wordId", wordId);
-    query.put("from", optional(args, "from", 10));
-    query.put("to", optional(args, "to", 10));
+    query.put("from", date(args, "from"));
+    query.put("to", date(args, "to"));
     query.put("limit", page.limit);
     query.put("offset", page.offset);
     ObjectNode raw = desktop.query(query);
@@ -234,19 +236,20 @@ final class McpRouter {
     return out;
   }
 
-  private ObjectNode addToVocab(JsonNode args) throws Exception {
+  private ObjectNode addToVocab(String clientId, JsonNode args) throws Exception {
     String word = text(args, "word", 120, true);
+    String note = optional(args, "note", 20000);
+    String notebook = optional(args, "notebookId", 80);
+    String context = optional(args, "context", 20000);
     String mutation = optional(args, "mutationId", 80);
+    String fingerprint = fingerprint(word, note, notebook, context);
     if (!mutation.isEmpty()) {
-      ObjectNode replayed = replay(mutation);
+      ObjectNode replayed = replay(clientId, mutation, fingerprint);
       if (replayed != null) return replayed;
     }
     ObjectNode command = Json.MAPPER.createObjectNode().put("word", word);
-    String note = optional(args, "note", 20000);
     if (!note.isEmpty()) command.put("note", note);
-    String notebook = optional(args, "notebookId", 80);
     if (!notebook.isEmpty()) command.putArray("bookIds").add(notebook);
-    String context = optional(args, "context", 20000);
     if (context.isEmpty()) command.put("action", "collect");
     else {
       command
@@ -268,38 +271,58 @@ final class McpRouter {
                       .put(
                           "captureStatus",
                           result.path("captureResult").path("captureStatus").asText("collected"));
-              if (!mutation.isEmpty()) remember(db, mutation, out);
+              if (!mutation.isEmpty()) remember(db, clientId, mutation, fingerprint, out);
               return out;
             });
   }
 
-  private ObjectNode replay(String mutationId) throws Exception {
+  private ObjectNode replay(String clientId, String mutationId, String fingerprint)
+      throws Exception {
     return desktop
         .database()
         .read(
             db -> {
               var row =
                   Sql.first(
-                      db, "SELECT value FROM personal_meta WHERE key=?", mutationKey(mutationId));
-              return row == null
-                  ? null
-                  : Json.object(Json.MAPPER.readTree(row.path("value").asText()));
+                      db,
+                      "SELECT value FROM personal_meta WHERE key=?",
+                      mutationKey(clientId, mutationId));
+              if (row == null) return null;
+              JsonNode stored = Json.MAPPER.readTree(row.path("value").asText());
+              if (!fingerprint.equals(stored.path("hash").asText()))
+                throw new ApiException(409, "IDEMPOTENCY_KEY_REUSED", "mutationId 已用于不同请求");
+              return Json.object(stored.path("result"));
             });
   }
 
-  private static void remember(Connection db, String mutationId, ObjectNode result)
+  private static void remember(
+      Connection db, String clientId, String mutationId, String fingerprint, ObjectNode result)
       throws Exception {
+    ObjectNode stored = Json.MAPPER.createObjectNode().put("hash", fingerprint);
+    stored.set("result", result);
     Sql.execute(
         db,
         "INSERT OR REPLACE INTO personal_meta(key,value) VALUES(?,?)",
-        mutationKey(mutationId),
-        result.toString());
+        mutationKey(clientId, mutationId),
+        stored.toString());
   }
 
-  private static String mutationKey(String mutationId) {
+  private static String mutationKey(String clientId, String mutationId) {
     if (!mutationId.matches("[A-Za-z0-9_-]{8,80}"))
       throw McpService.invalidArgument("mutationId 格式无效");
-    return "mcp.mutation." + mutationId;
+    return "mcp.mutation." + clientId + "." + mutationId;
+  }
+
+  // 指纹只存 SHA-256，不含原文；同键不同词/词本/笔记/语境视为冲突。
+  private static String fingerprint(String word, String note, String notebook, String context) {
+    return LmcpContract.digest(
+        Json.MAPPER
+            .createObjectNode()
+            .put("action", "add_to_vocab")
+            .put("word", word)
+            .put("note", note)
+            .put("notebookId", notebook)
+            .put("context", context));
   }
 
   private static ObjectNode compactWord(ObjectNode card, boolean includeMeaning) {
@@ -336,6 +359,19 @@ final class McpRouter {
     String value = args.get(key).asText().strip();
     if (value.length() > max) throw McpService.invalidArgument(key + " 过长");
     return value;
+  }
+
+  // 日期在转给桌面查询前校验，避免 DateTimeParseException 被当成核心内部错误。
+  private static String date(JsonNode args, String key) {
+    String value = optional(args, key, 10);
+    if (value.isEmpty()) return "";
+    try {
+      if (!value.equals(LocalDate.parse(value).toString()))
+        throw McpService.invalidArgument(key + " 必须是 YYYY-MM-DD");
+      return value;
+    } catch (DateTimeParseException error) {
+      throw McpService.invalidArgument(key + " 必须是有效日期");
+    }
   }
 
   private static int bounded(JsonNode args, String key, int fallback, int min, int max) {

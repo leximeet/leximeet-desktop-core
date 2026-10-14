@@ -106,7 +106,7 @@ final class McpService {
           case "leximeet_describe" ->
               McpCatalog.describe(Json.text(Json.object(arguments), "group", 40, true));
           case "leximeet_query" -> query(arguments);
-          case "leximeet_write" -> write(arguments);
+          case "leximeet_write" -> write(clientId, arguments);
           default -> throw new ApiException(400, "INVALID_PARAMS", "未知工具：" + name);
         };
     return toolOk(bound(result, name, arguments), protocolOf(clientId));
@@ -122,7 +122,7 @@ final class McpService {
     return database.read(db -> router.query(db, action, args, detail));
   }
 
-  private ObjectNode write(JsonNode arguments) throws Exception {
+  private ObjectNode write(String clientId, JsonNode arguments) throws Exception {
     Json.fields(arguments, "action", "args");
     String action = Json.text(arguments, "action", 40, true);
     if (!McpCatalog.WRITE_ACTIONS.contains(action))
@@ -133,7 +133,7 @@ final class McpService {
           McpPermissions.requireWrite(db);
           return null;
         });
-    return router.write(action, args);
+    return router.write(clientId, action, args);
   }
 
   private static ObjectNode bound(ObjectNode result, String tool, JsonNode arguments)

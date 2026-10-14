@@ -287,7 +287,7 @@ final class McpCatalog {
             "notebooks",
             false,
             "遇见记录，可按词或日期过滤",
-            List.of("q 或 wordId：可选", "from/to：可选日期", "limit、cursor")));
+            List.of("q 或 wordId：可选", "from/to：可选 YYYY-MM-DD，非法日期拒绝", "limit、cursor")));
     ACTION_SPECS.put(
         "add_to_vocab",
         new ActionSpec(
@@ -295,7 +295,12 @@ final class McpCatalog {
             "notebooks",
             true,
             "加入单词本；需设置授权。可用 mutationId 幂等",
-            List.of("word：词头", "notebookId：可选", "note：可选笔记", "context：可选语境", "mutationId：可选幂等键")));
+            List.of(
+                "word：词头",
+                "notebookId：可选",
+                "note：可选笔记",
+                "context：可选语境",
+                "mutationId：按 clientId 隔离；同键不同请求拒绝")));
   }
 
   static ObjectNode snapshot() {

@@ -1,6 +1,4 @@
-修复：MCP 通知静默、协议 2025-06-18 与列表缩页
+修复：MCP 遇见日期校验与 mutation 回执隔离
 
-- 不带 id 的通知一律忽略，不回 id:null 错误
-- 优先协商 2025-06-18，旧版本省略 title / annotations / structuredContent
-- 未知工具回 JSON-RPC -32602；限流只统计 tools/call
-- 列表结果超长时缩小本页并返回 nextCursor
+- list_encounters 的 from/to 非法日期回 INVALID_ARGUMENT
+- mutationId 按 clientId 命名，指纹冲突回 IDEMPOTENCY_KEY_REUSED
