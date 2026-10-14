@@ -8,7 +8,7 @@ GitHub 与 Gitee 是平级的代码、问题反馈和贡献入口。正式版本
 
 `Java 21` · `Spring Boot 3.5.16` · `SQLite` · `FSRS-6` · `1.0.1 含 AI 助手连接`
 
-正式 **[1.0.0](https://github.com/leximeet/leximeet-desktop-core/releases/tag/1.0.0)** 已在 GitHub 发布，提供可执行 Jar、完整源码、SBOM 与校验文件。JDK 21 的 Linux、macOS 和 Windows 测试与真实 Jar 启动均已通过；Desktop 安装与签名范围另见[发布与验收](docs/发布与验收.md)。
+正式 **[1.0.1](https://github.com/leximeet/leximeet-desktop-core/releases/tag/1.0.1)** 已在 GitHub 发布，在 1.0.0 之上增加 AI 助手连接，提供可执行 Jar、完整源码、SBOM 与校验文件。JDK 21 的 Linux、macOS 和 Windows 测试与真实 Jar 启动均已通过；配套 Desktop 见 [1.0.1](https://github.com/leximeet/leximeet-desktop/releases/tag/1.0.1)。Desktop 安装与签名范围另见[发布与验收](docs/发布与验收.md)。
 
 [快速开始](docs/快速开始.md) · [架构设计](docs/架构设计.md) · [功能设计](docs/功能设计.md) · [职责与接口](docs/1.0.0核心职责.md) · [学习规则](docs/统一学习规则.md) · [完整文档](docs/README.md)
 

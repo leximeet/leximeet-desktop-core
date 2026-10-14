@@ -1,4 +1,4 @@
-修复：MCP mutation 指纹冲突改为 INVALID_ARGUMENT
+文档：准备 Core 1.0.1 发行说明与变更日志
 
-- 同一 mutationId 请求指纹不同回 INVALID_ARGUMENT
-- list_encounters 非法日期仍回 INVALID_ARGUMENT
+- 新增 docs/版本/1.0.1.md，供标签流水线作为 Release 说明
+- CHANGELOG 将 AI 助手连接记入 1.0.1
