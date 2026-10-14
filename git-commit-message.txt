@@ -1,5 +1,4 @@
-文档：更新 Core 1.0.0 正式发布状态与验收入口
+修复：MCP mutation 指纹冲突改为 INVALID_ARGUMENT
 
-- 首页指向已公开的正式 Release，删除待发布的过期说明
-- 分别记录三平台 Jar、固定三仓连接与 Desktop 安装的实际结果
-- 保留历史候选范围、原标签来源和签名平台边界，不改生产代码
+- 同一 mutationId 请求指纹不同回 INVALID_ARGUMENT
+- list_encounters 非法日期仍回 INVALID_ARGUMENT

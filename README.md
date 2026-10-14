@@ -6,7 +6,7 @@ GitHub 与 Gitee 是平级的代码、问题反馈和贡献入口。正式版本
 
 **Core 负责词遇桌面的本机学习和资料事务。** 公共词典只读，个人资料保存在 SQLite；练习、遇见、学习规划和插件连接共用同一个权威工作区。
 
-`Java 21` · `Spring Boot 3.5.16` · `SQLite` · `FSRS-6` · `1.0.0 本地正式版本`
+`Java 21` · `Spring Boot 3.5.16` · `SQLite` · `FSRS-6` · `1.0.1 含 AI 助手连接`
 
 正式 **[1.0.0](https://github.com/leximeet/leximeet-desktop-core/releases/tag/1.0.0)** 已在 GitHub 发布，提供可执行 Jar、完整源码、SBOM 与校验文件。JDK 21 的 Linux、macOS 和 Windows 测试与真实 Jar 启动均已通过；Desktop 安装与签名范围另见[发布与验收](docs/发布与验收.md)。
 

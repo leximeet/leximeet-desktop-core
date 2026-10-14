@@ -11,7 +11,7 @@ final class SettingsSupport {
           + "\"qualityMetricsEnabled\":true,\"pluginCaptureNotificationsEnabled\":true,\"captureDuplicateWindowDays\":7,\"captureSensitiveRedactionEnabled\":true,\"captureContextMaxLength\":500,\"clipboardCaptureEnabled\":false,\"clipboardAutoCollect\":true,\"globalShortcutEnabled\":false,"
           + "\"practiceSpeakEnabled\":true,\"practiceKeySoundEnabled\":true,\"practiceResultSoundEnabled\":true,"
           + "\"practiceVolume\":60,\"encounterNewLimit\":10,\"plannedNewLimit\":20,"
-          + "\"reviewInterleaveEvery\":3,\"reviewsAfterNew\":false}";
+          + "\"reviewInterleaveEvery\":3,\"reviewsAfterNew\":false,\"assistantWriteEnabled\":false}";
   private static final String[] REQUIRED_BACKUP = {
     "theme", "translationEnabled", "reviewStrictness",
     "developerMonitoringEnabled", "closeBehavior", "launchAtLogin"
@@ -41,6 +41,7 @@ final class SettingsSupport {
     if (!settings.has("plannedNewLimit")) settings.put("plannedNewLimit", 20);
     if (!settings.has("reviewInterleaveEvery")) settings.put("reviewInterleaveEvery", 3);
     if (!settings.has("reviewsAfterNew")) settings.put("reviewsAfterNew", false);
+    if (!settings.has("assistantWriteEnabled")) settings.put("assistantWriteEnabled", false);
     if (!settings.has("cardLayout")) settings.set("cardLayout", CardLayoutSupport.defaults());
     return settings;
   }
@@ -70,7 +71,8 @@ final class SettingsSupport {
         "encounterNewLimit",
         "plannedNewLimit",
         "reviewInterleaveEvery",
-        "reviewsAfterNew");
+        "reviewsAfterNew",
+        "assistantWriteEnabled");
     Json.choice(input, "clipboardReminderMode", "system", "system", "popup");
     Json.choice(input, "theme", "system", "system", "light", "dark");
     Json.choice(input, "reviewStrictness", "normal", "normal", "lenient", "strict");
@@ -88,7 +90,8 @@ final class SettingsSupport {
           "globalShortcutEnabled",
           "practiceSpeakEnabled",
           "practiceKeySoundEnabled",
-          "practiceResultSoundEnabled"
+          "practiceResultSoundEnabled",
+          "assistantWriteEnabled"
         })
       if (input.has(key) && !input.get(key).isBoolean())
         throw ApiException.badRequest(key + " 必须为布尔值");
@@ -144,6 +147,7 @@ final class SettingsSupport {
         "plannedNewLimit",
         "reviewInterleaveEvery",
         "reviewsAfterNew",
+        "assistantWriteEnabled",
         "cardLayout");
     if (settings.has("cardLayout")) CardLayoutSupport.validateStored(settings.get("cardLayout"));
     ObjectNode ordinary = ((ObjectNode) settings).deepCopy();

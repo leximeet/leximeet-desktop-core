@@ -189,6 +189,8 @@ final class PortableBackup {
         settings.put("launchAtLogin", false);
         settings.put("clipboardCaptureEnabled", false);
         settings.put("globalShortcutEnabled", false);
+        // 助手写入是本机授权，不是可携带偏好；恢复后保持默认拒绝。
+        settings.put("assistantWriteEnabled", false);
         Sql.execute(
             copy,
             "UPDATE settings SET payload=? WHERE id=1",
