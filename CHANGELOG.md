@@ -9,7 +9,7 @@
 - 未引入官方 MCP Java SDK：该 SDK 2.x 依赖 Jackson 3，与本仓 Jackson 2.21.4 冲突；协议形状按官方 JSON-RPC / tools 对齐。
 - 审查修复：备份清除 `assistantWriteEnabled`；合并搜索按总偏移分页；例句读取 `text`/`sentence`；`list_encounters` 尊重 `wordId`；超长结果预览改为文本；`mutationId` 回执与加词同事务。
 - MCP 通知一律静默忽略；协议优先协商 `2025-06-18`，旧版本不回新字段；未知工具回 JSON-RPC `-32602`；限流只计 `tools/call`；列表超长时缩小 limit 并给 `nextCursor`。
-- 审查修复：`list_encounters` 非法日期回 `INVALID_ARGUMENT`；`mutationId` 按 `clientId` 隔离，同键不同请求回 `IDEMPOTENCY_KEY_REUSED`。
+- 审查修复：`list_encounters` 非法日期回 `INVALID_ARGUMENT`；`mutationId` 按 `clientId` 隔离，同键不同请求回 `INVALID_ARGUMENT`。
 
 ### 维护
 

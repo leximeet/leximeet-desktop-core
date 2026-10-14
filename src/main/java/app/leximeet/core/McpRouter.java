@@ -290,7 +290,7 @@ final class McpRouter {
               if (row == null) return null;
               JsonNode stored = Json.MAPPER.readTree(row.path("value").asText());
               if (!fingerprint.equals(stored.path("hash").asText()))
-                throw new ApiException(409, "IDEMPOTENCY_KEY_REUSED", "mutationId 已用于不同请求");
+                throw McpService.invalidArgument("mutationId 已用于不同请求");
               return Json.object(stored.path("result"));
             });
   }

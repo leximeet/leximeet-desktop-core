@@ -1,4 +1,4 @@
-修复：MCP 遇见日期校验与 mutation 回执隔离
+修复：MCP mutation 指纹冲突改为 INVALID_ARGUMENT
 
-- list_encounters 的 from/to 非法日期回 INVALID_ARGUMENT
-- mutationId 按 clientId 命名，指纹冲突回 IDEMPOTENCY_KEY_REUSED
+- 同一 mutationId 请求指纹不同回 INVALID_ARGUMENT
+- list_encounters 非法日期仍回 INVALID_ARGUMENT

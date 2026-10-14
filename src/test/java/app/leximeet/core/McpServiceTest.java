@@ -653,8 +653,7 @@ class McpServiceTest {
                               .put("word", "epsilon")
                               .put("mutationId", "mut-shared-1"))));
       assertTrue(reused.path("isError").asBoolean(), () -> reused.toString());
-      assertEquals(
-          "IDEMPOTENCY_KEY_REUSED", reused.path("structuredContent").path("code").asText());
+      assertEquals("INVALID_ARGUMENT", reused.path("structuredContent").path("code").asText());
     }
   }
 }
