@@ -18,10 +18,18 @@ class McpServiceTest {
   }
 
   private static ObjectNode rpc(String method, JsonNode params) {
-    ObjectNode message = Json.MAPPER.createObjectNode().put("jsonrpc", "2.0").put("id", 1);
-    message.put("method", method);
+    return rpc("cursor", method, params, true);
+  }
+
+  private static ObjectNode rpc(String clientId, String method, JsonNode params, boolean withId) {
+    ObjectNode message = Json.MAPPER.createObjectNode().put("jsonrpc", "2.0").put("method", method);
+    if (withId) message.put("id", 1);
     if (params != null) message.set("params", params);
-    return Json.MAPPER.createObjectNode().put("clientId", "cursor").set("message", message);
+    return Json.MAPPER.createObjectNode().put("clientId", clientId).set("message", message);
+  }
+
+  private static ObjectNode notify(String method) {
+    return rpc("cursor", method, Json.MAPPER.createObjectNode(), false);
   }
 
   private static ObjectNode call(String name, ObjectNode arguments) {
@@ -62,8 +70,9 @@ class McpServiceTest {
           Json.MAPPER.createObjectNode().put("protocolVersion", McpCatalog.PROTOCOL_2025);
       initParams.set("capabilities", Json.MAPPER.createObjectNode());
       JsonNode init = result(service, rpc("initialize", initParams));
-      assertEquals(McpCatalog.PROTOCOL_2025, init.path("protocolVersion").asText());
+      assertEquals(McpCatalog.PROTOCOL_2025_06, init.path("protocolVersion").asText());
       assertEquals("leximeet", init.path("serverInfo").path("name").asText());
+      assertEquals("词遇", init.path("serverInfo").path("title").asText());
       assertEquals("1.0.1", init.path("serverInfo").path("version").asText());
       JsonNode listed = result(service, rpc("tools/list", Json.MAPPER.createObjectNode()));
       assertEquals(McpCatalog.toolsList().path("tools"), listed.path("tools"));
@@ -270,19 +279,101 @@ class McpServiceTest {
   }
 
   @Test
-  void rejectsMalformedRpcAndDoesNotEchoSecrets() throws Exception {
+  void notificationsWithoutIdAreSilentlyIgnored() throws Exception {
     try (var service = service()) {
-      JsonNode bad =
-          service
-              .mcpRpc(
-                  Json.MAPPER
-                      .createObjectNode()
-                      .put("clientId", "cursor")
-                      .set("message", Json.MAPPER.createObjectNode().put("method", "tools/list")))
-              .path("message");
-      assertEquals("INVALID_REQUEST", bad.path("error").path("data").path("code").asText());
-      assertFalse(bad.toString().contains("Bearer"));
+      for (String method :
+          new String[] {
+            "notifications/roots/list_changed",
+            "notifications/progress",
+            "notifications/initialized",
+            "tools/list"
+          }) {
+        JsonNode body = service.mcpRpc(notify(method));
+        assertTrue(body.path("message").isNull(), () -> method + " " + body);
+        assertFalse(body.toString().contains("\"id\":null"), () -> method + " " + body);
+      }
       assertFalse(service.snapshot().toString().contains("record_review"));
+    }
+  }
+
+  @Test
+  void negotiatesProtocolVersionsAndOmitsNewerFields() throws Exception {
+    assertEquals(McpCatalog.PROTOCOL_2025_06, McpCatalog.negotiateProtocol(""));
+    assertEquals(McpCatalog.PROTOCOL_2025_06, McpCatalog.negotiateProtocol("2025-06-18"));
+    assertEquals(McpCatalog.PROTOCOL_2025_03, McpCatalog.negotiateProtocol("2025-03-26"));
+    assertEquals(McpCatalog.PROTOCOL_2024, McpCatalog.negotiateProtocol("2024-11-05"));
+    assertEquals(McpCatalog.PROTOCOL_2025_06, McpCatalog.negotiateProtocol("1999-01-01"));
+    JsonNode latest = McpCatalog.initializeResult(McpCatalog.PROTOCOL_2025_06);
+    assertTrue(latest.path("serverInfo").has("title"));
+    JsonNode march = McpCatalog.initializeResult(McpCatalog.PROTOCOL_2025_03);
+    assertFalse(march.path("serverInfo").has("title"));
+    JsonNode first = McpCatalog.initializeResult(McpCatalog.PROTOCOL_2024);
+    assertFalse(first.path("serverInfo").has("title"));
+    JsonNode latestTool = McpCatalog.toolsList(McpCatalog.PROTOCOL_2025_06).path("tools").get(0);
+    assertTrue(latestTool.has("title"));
+    assertTrue(latestTool.has("annotations"));
+    JsonNode marchTool = McpCatalog.toolsList(McpCatalog.PROTOCOL_2025_03).path("tools").get(0);
+    assertFalse(marchTool.has("title"));
+    assertTrue(marchTool.has("annotations"));
+    JsonNode oldTool = McpCatalog.toolsList(McpCatalog.PROTOCOL_2024).path("tools").get(0);
+    assertFalse(oldTool.has("title"));
+    assertFalse(oldTool.has("annotations"));
+    try (var service = service()) {
+      ObjectNode oldParams =
+          Json.MAPPER.createObjectNode().put("protocolVersion", McpCatalog.PROTOCOL_2024);
+      oldParams.set("capabilities", Json.MAPPER.createObjectNode());
+      JsonNode init = result(service, rpc("old", "initialize", oldParams, true));
+      assertEquals(McpCatalog.PROTOCOL_2024, init.path("protocolVersion").asText());
+      assertFalse(init.path("serverInfo").has("title"));
+      JsonNode listed =
+          result(service, rpc("old", "tools/list", Json.MAPPER.createObjectNode(), true));
+      assertFalse(listed.path("tools").get(0).has("title"));
+      assertFalse(listed.path("tools").get(0).has("annotations"));
+      JsonNode help =
+          result(
+              service,
+              rpc(
+                  "old",
+                  "tools/call",
+                  call("leximeet_help", Json.MAPPER.createObjectNode())
+                      .path("message")
+                      .path("params"),
+                  true));
+      assertFalse(help.has("structuredContent"));
+      assertTrue(help.path("content").get(0).path("text").asText().contains("dictionary"));
+    }
+  }
+
+  @Test
+  void unknownToolReturnsJsonRpcInvalidParams() throws Exception {
+    try (var service = service()) {
+      JsonNode message =
+          service.mcpRpc(call("leximeet_nope", Json.MAPPER.createObjectNode())).path("message");
+      assertEquals(-32602, message.path("error").path("code").asInt(), () -> message.toString());
+      assertEquals("INVALID_PARAMS", message.path("error").path("data").path("code").asText());
+      assertFalse(message.has("result"));
+    }
+  }
+
+  @Test
+  void rateLimitCountsOnlyToolsCall() throws Exception {
+    try (var service = service()) {
+      ObjectNode initParams =
+          Json.MAPPER.createObjectNode().put("protocolVersion", McpCatalog.PROTOCOL_2025_06);
+      initParams.set("capabilities", Json.MAPPER.createObjectNode());
+      for (int i = 0; i < 80; i++) {
+        JsonNode listed =
+            service.mcpRpc(rpc("tools/list", Json.MAPPER.createObjectNode())).path("message");
+        assertFalse(listed.has("error"), () -> listed.toString());
+      }
+      JsonNode help = result(service, rpc("initialize", initParams));
+      assertEquals(McpCatalog.PROTOCOL_2025_06, help.path("protocolVersion").asText());
+      JsonNode last = null;
+      for (int i = 0; i < 61; i++) {
+        last =
+            service.mcpRpc(call("leximeet_help", Json.MAPPER.createObjectNode())).path("message");
+      }
+      assertEquals("RATE_LIMITED", last.path("error").path("data").path("code").asText());
     }
   }
 
@@ -397,6 +488,60 @@ class McpServiceTest {
                       .set("args", Json.MAPPER.createObjectNode().put("word", "omega"))));
       assertTrue(clipped.path("truncated").asBoolean(), () -> clipped.toString());
       assertTrue(clipped.path("preview").isTextual(), () -> clipped.toString());
+    }
+  }
+
+  @Test
+  void oversizedListShrinksLimitAndKeepsNextCursor() throws Exception {
+    try (var service = service()) {
+      for (int i = 0; i < 50; i++) {
+        String word = "item" + String.format("%02d", i);
+        service
+            .desktop()
+            .command(
+                Json.MAPPER
+                    .createObjectNode()
+                    .put("action", "capture")
+                    .put("word", word)
+                    .put("context", word + " appears in this long sentence " + "pad".repeat(80))
+                    .put("sourceTitle", "测试列表超长")
+                    .put("sourceUrl", ""));
+      }
+      JsonNode page =
+          structured(
+              service,
+              call(
+                  "leximeet_query",
+                  Json.MAPPER
+                      .createObjectNode()
+                      .put("action", "list_encounters")
+                      .set("args", Json.MAPPER.createObjectNode().put("limit", 50))));
+      assertFalse(page.path("truncated").asBoolean(false), () -> page.toString());
+      assertTrue(page.path("encounters").isArray());
+      assertTrue(page.path("encounters").size() >= 1);
+      assertTrue(page.path("encounters").size() < 50, () -> page.toString());
+      assertTrue(page.has("nextCursor"), () -> page.toString());
+      assertTrue(Json.MAPPER.writeValueAsString(page).length() <= McpCatalog.MAX_RESULT_CHARS);
+      JsonNode next =
+          structured(
+              service,
+              call(
+                  "leximeet_query",
+                  Json.MAPPER
+                      .createObjectNode()
+                      .put("action", "list_encounters")
+                      .set(
+                          "args",
+                          Json.MAPPER
+                              .createObjectNode()
+                              .put("limit", 50)
+                              .put("cursor", page.path("nextCursor").asText()))));
+      assertTrue(next.path("encounters").isArray());
+      if (next.path("encounters").size() > 0) {
+        assertNotEquals(
+            page.path("encounters").get(0).path("id").asText(),
+            next.path("encounters").get(0).path("id").asText());
+      }
     }
   }
 }

@@ -14,7 +14,9 @@ import java.util.Set;
  */
 final class McpCatalog {
   static final String PROTOCOL_2024 = "2024-11-05";
-  static final String PROTOCOL_2025 = "2025-03-26";
+  static final String PROTOCOL_2025_03 = "2025-03-26";
+  static final String PROTOCOL_2025_06 = "2025-06-18";
+  static final String PROTOCOL_2025 = PROTOCOL_2025_06;
   static final String SERVER_NAME = "leximeet";
   static final String SERVER_TITLE = "词遇";
   static final String SERVER_VERSION = "1.0.1";
@@ -40,18 +42,34 @@ final class McpCatalog {
 
   private McpCatalog() {}
 
+  static boolean knownProtocol(String protocol) {
+    return PROTOCOL_2025_06.equals(protocol)
+        || PROTOCOL_2025_03.equals(protocol)
+        || PROTOCOL_2024.equals(protocol);
+  }
+
   static String negotiateProtocol(String requested) {
-    if (PROTOCOL_2025.equals(requested) || PROTOCOL_2024.equals(requested)) return requested;
-    return PROTOCOL_2025;
+    if (knownProtocol(requested)) return requested;
+    return PROTOCOL_2025_06;
+  }
+
+  static boolean supportsTitle(String protocol) {
+    return PROTOCOL_2025_06.equals(protocol);
+  }
+
+  static boolean supportsAnnotations(String protocol) {
+    return PROTOCOL_2025_06.equals(protocol) || PROTOCOL_2025_03.equals(protocol);
+  }
+
+  static boolean supportsStructuredContent(String protocol) {
+    return PROTOCOL_2025_06.equals(protocol);
   }
 
   static ObjectNode initializeResult(String protocol) {
-    ObjectNode info =
-        Json.MAPPER
-            .createObjectNode()
-            .put("name", SERVER_NAME)
-            .put("title", SERVER_TITLE)
-            .put("version", SERVER_VERSION);
+    ObjectNode info = Json.MAPPER.createObjectNode().put("name", SERVER_NAME);
+    // title 是 2025-06-18 才有的 Implementation 字段。
+    if (supportsTitle(protocol)) info.put("title", SERVER_TITLE);
+    info.put("version", SERVER_VERSION);
     ObjectNode capabilities = Json.MAPPER.createObjectNode();
     capabilities.set("tools", Json.MAPPER.createObjectNode().put("listChanged", false));
     ObjectNode result =
@@ -101,11 +119,17 @@ final class McpCatalog {
   }
 
   static ObjectNode toolsList() {
+    return toolsList(PROTOCOL_2025_06);
+  }
+
+  static ObjectNode toolsList(String protocol) {
     ObjectNode out = Json.MAPPER.createObjectNode();
     ArrayNode tools = out.putArray("tools");
-    tools.add(tool("leximeet_help", "列出词典、单词本、复习查询与统计四组能力。", objectSchema(Map.of()), true));
+    tools.add(
+        tool(protocol, "leximeet_help", "列出词典、单词本、复习查询与统计四组能力。", objectSchema(Map.of()), true));
     tools.add(
         tool(
+            protocol,
             "leximeet_describe",
             "按分组返回该组各个 action 的参数说明。group 取 dictionary / notebooks / reviews / stats。",
             objectSchema(
@@ -115,6 +139,7 @@ final class McpCatalog {
             true));
     tools.add(
         tool(
+            protocol,
             "leximeet_query",
             "只读统一入口。action 为 lookup_word、search_words、get_examples、get_word_status、"
                 + "list_due_reviews、get_learning_stats、list_notebooks、list_encounters。",
@@ -129,6 +154,7 @@ final class McpCatalog {
             true));
     tools.add(
         tool(
+            protocol,
             WRITE_TOOL,
             "唯一写入入口，目前只有 add_to_vocab。默认关闭，需用户在桌面「AI 助手连接」中授权。",
             objectSchema(
@@ -142,22 +168,21 @@ final class McpCatalog {
   }
 
   private static ObjectNode tool(
-      String name, String description, ObjectNode inputSchema, boolean readOnly) {
-    ObjectNode annotations =
-        Json.MAPPER
-            .createObjectNode()
-            .put("readOnlyHint", readOnly)
-            .put("destructiveHint", false)
-            .put("openWorldHint", false)
-            .put("idempotentHint", readOnly);
-    ObjectNode tool =
-        Json.MAPPER
-            .createObjectNode()
-            .put("name", name)
-            .put("title", name)
-            .put("description", description);
+      String protocol, String name, String description, ObjectNode inputSchema, boolean readOnly) {
+    ObjectNode tool = Json.MAPPER.createObjectNode().put("name", name);
+    if (supportsTitle(protocol)) tool.put("title", name);
+    tool.put("description", description);
     tool.set("inputSchema", inputSchema);
-    tool.set("annotations", annotations);
+    if (supportsAnnotations(protocol)) {
+      ObjectNode annotations =
+          Json.MAPPER
+              .createObjectNode()
+              .put("readOnlyHint", readOnly)
+              .put("destructiveHint", false)
+              .put("openWorldHint", false)
+              .put("idempotentHint", readOnly);
+      tool.set("annotations", annotations);
+    }
     return tool;
   }
 
@@ -274,8 +299,8 @@ final class McpCatalog {
   }
 
   static ObjectNode snapshot() {
-    ObjectNode out = Json.MAPPER.createObjectNode().put("protocol", PROTOCOL_2025);
-    out.set("initialize", initializeResult(PROTOCOL_2025));
+    ObjectNode out = Json.MAPPER.createObjectNode().put("protocol", PROTOCOL_2025_06);
+    out.set("initialize", initializeResult(PROTOCOL_2025_06));
     out.set("tools", toolsList().path("tools"));
     out.set("help", help());
     ArrayNode actions = out.putArray("actions");

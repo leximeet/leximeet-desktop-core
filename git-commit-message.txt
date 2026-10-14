@@ -1,6 +1,6 @@
-修复：按审查补齐 MCP 分页、例句、授权备份与幂等回执
+修复：MCP 通知静默、协议 2025-06-18 与列表缩页
 
-- 备份消毒清除助手写入授权，恢复后保持默认拒绝
-- 合并检索按总偏移分页；遇见记录尊重 wordId
-- 例句读取词典 text/sentence；超长结果预览改为文本
-- mutationId 回执与加词写入同一 SQLite 事务
+- 不带 id 的通知一律忽略，不回 id:null 错误
+- 优先协商 2025-06-18，旧版本省略 title / annotations / structuredContent
+- 未知工具回 JSON-RPC -32602；限流只统计 tools/call
+- 列表结果超长时缩小本页并返回 nextCursor

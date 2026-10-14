@@ -1,6 +1,7 @@
 package app.leximeet.core;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -14,6 +15,8 @@ final class McpService {
   private final DesktopWorkspace desktop;
   private final McpRouter router;
   private final Map<String, RateWindow> rates = new ConcurrentHashMap<>();
+  private final Map<String, String> protocols = new ConcurrentHashMap<>();
+  private static final String[] LIST_KEYS = {"words", "notebooks", "reviews", "encounters"};
 
   McpService(Database database, DesktopWorkspace desktop) {
     this.database = database;
@@ -31,15 +34,13 @@ final class McpService {
     JsonNode message = request.get("message");
     if (message == null || !message.isObject()) throw invalidArgument("message 必须是 JSON-RPC 对象");
     ObjectNode rpc = Json.object(message);
+    // JSON-RPC 通知没有 id，一律静默忽略，不回 id:null 错误。
+    if (!rpc.has("id") || rpc.get("id").isNull())
+      return Json.MAPPER.createObjectNode().putNull("message");
     if (!JSONRPC.equals(rpc.path("jsonrpc").asText()))
       return wrap(error(rpc, -32600, "INVALID_REQUEST", "jsonrpc 必须是 2.0"));
-    if (!rpc.has("id") || rpc.get("id").isNull()) {
-      if ("notifications/initialized".equals(rpc.path("method").asText())
-          || "notifications/cancelled".equals(rpc.path("method").asText()))
-        return Json.MAPPER.createObjectNode().putNull("message");
-      return wrap(error(rpc, -32600, "INVALID_REQUEST", "通知以外的请求必须带 id"));
-    }
-    if (!allow(clientId)) return wrap(error(rpc, -32000, "RATE_LIMITED", "请求过于频繁，请稍后再试"));
+    if ("tools/call".equals(rpc.path("method").asText()) && !allow(clientId))
+      return wrap(error(rpc, -32000, "RATE_LIMITED", "请求过于频繁，请稍后再试"));
     return wrap(dispatch(clientId, rpc));
   }
 
@@ -63,16 +64,19 @@ final class McpService {
     JsonNode params = rpc.path("params");
     try {
       return switch (method) {
-        case "initialize" -> ok(rpc, initialize(params));
+        case "initialize" -> ok(rpc, initialize(clientId, params));
         case "ping" -> ok(rpc, Json.MAPPER.createObjectNode());
-        case "tools/list" -> ok(rpc, McpCatalog.toolsList());
+        case "tools/list" -> ok(rpc, McpCatalog.toolsList(protocolOf(clientId)));
         case "tools/call" -> ok(rpc, call(clientId, params));
         default -> error(rpc, -32601, "METHOD_NOT_FOUND", "不支持的 MCP 方法：" + method);
       };
     } catch (ApiException error) {
+      if ("INVALID_PARAMS".equals(error.code()))
+        return error(rpc, -32602, error.code(), error.getMessage());
       if ("WRITE_NOT_AUTHORIZED".equals(error.code()) || "READ_ONLY".equals(error.code()))
-        return ok(rpc, toolError(error.code(), error.getMessage()));
-      if (error.status() < 500) return ok(rpc, toolError(error.code(), error.getMessage()));
+        return ok(rpc, toolError(error.code(), error.getMessage(), protocolOf(clientId)));
+      if (error.status() < 500)
+        return ok(rpc, toolError(error.code(), error.getMessage(), protocolOf(clientId)));
       return error(rpc, -32000, error.code(), error.getMessage());
     } catch (Exception error) {
       System.err.println("[mcp] " + error.getClass().getSimpleName());
@@ -80,9 +84,14 @@ final class McpService {
     }
   }
 
-  private ObjectNode initialize(JsonNode params) {
-    String requested = params.path("protocolVersion").asText("");
-    return McpCatalog.initializeResult(McpCatalog.negotiateProtocol(requested));
+  private ObjectNode initialize(String clientId, JsonNode params) {
+    String protocol = McpCatalog.negotiateProtocol(params.path("protocolVersion").asText(""));
+    protocols.put(clientId, protocol);
+    return McpCatalog.initializeResult(protocol);
+  }
+
+  private String protocolOf(String clientId) {
+    return protocols.getOrDefault(clientId, McpCatalog.PROTOCOL_2025_06);
   }
 
   private ObjectNode call(String clientId, JsonNode params) throws Exception {
@@ -98,9 +107,9 @@ final class McpService {
               McpCatalog.describe(Json.text(Json.object(arguments), "group", 40, true));
           case "leximeet_query" -> query(arguments);
           case "leximeet_write" -> write(arguments);
-          default -> throw invalidArgument("未知工具：" + name);
+          default -> throw new ApiException(400, "INVALID_PARAMS", "未知工具：" + name);
         };
-    return toolOk(bound(result));
+    return toolOk(bound(result, name, arguments), protocolOf(clientId));
   }
 
   private ObjectNode query(JsonNode arguments) throws Exception {
@@ -127,9 +136,14 @@ final class McpService {
     return router.write(action, args);
   }
 
-  private static ObjectNode bound(ObjectNode result) throws Exception {
+  private static ObjectNode bound(ObjectNode result, String tool, JsonNode arguments)
+      throws Exception {
+    if (fits(result)) return result;
+    if ("leximeet_query".equals(tool)) {
+      ObjectNode page = shrinkList(result, arguments);
+      if (page != null && fits(page)) return page;
+    }
     String text = Json.MAPPER.writeValueAsString(result);
-    if (text.length() <= McpCatalog.MAX_RESULT_CHARS) return result;
     ObjectNode clipped =
         Json.MAPPER
             .createObjectNode()
@@ -140,16 +154,46 @@ final class McpService {
     return clipped;
   }
 
-  private static ObjectNode toolOk(ObjectNode result) throws Exception {
+  private static boolean fits(ObjectNode result) throws Exception {
+    return Json.MAPPER.writeValueAsString(result).length() <= McpCatalog.MAX_RESULT_CHARS;
+  }
+
+  private static ObjectNode shrinkList(ObjectNode result, JsonNode arguments) throws Exception {
+    String key = null;
+    for (String candidate : LIST_KEYS) {
+      if (result.has(candidate)
+          && result.get(candidate).isArray()
+          && result.get(candidate).size() > 1) {
+        key = candidate;
+        break;
+      }
+    }
+    if (key == null) return null;
+    int offset = 0;
+    JsonNode args = arguments == null ? null : arguments.get("args");
+    if (args != null && args.isObject()) offset = McpRouter.Page.read(args).offset();
+    ObjectNode copy = result.deepCopy();
+    ArrayNode items = (ArrayNode) copy.get(key);
+    while (items.size() > 1 && !fits(copy)) items.remove(items.size() - 1);
+    if (!fits(copy)) return null;
+    copy.put("nextCursor", Integer.toString(offset + items.size()));
+    return copy;
+  }
+
+  private static ObjectNode toolOk(ObjectNode result, String protocol) throws Exception {
     ObjectNode content = Json.MAPPER.createObjectNode().put("type", "text");
     content.put("text", Json.MAPPER.writeValueAsString(result));
     ObjectNode out = Json.MAPPER.createObjectNode().put("isError", false);
     out.putArray("content").add(content);
-    out.set("structuredContent", result);
+    if (McpCatalog.supportsStructuredContent(protocol)) out.set("structuredContent", result);
     return out;
   }
 
   static ObjectNode toolError(String code, String message) {
+    return toolError(code, message, McpCatalog.PROTOCOL_2025_06);
+  }
+
+  static ObjectNode toolError(String code, String message, String protocol) {
     ObjectNode payload = Json.MAPPER.createObjectNode().put("code", code).put("message", message);
     ObjectNode content = Json.MAPPER.createObjectNode().put("type", "text");
     try {
@@ -159,7 +203,7 @@ final class McpService {
     }
     ObjectNode out = Json.MAPPER.createObjectNode().put("isError", true);
     out.putArray("content").add(content);
-    out.set("structuredContent", payload);
+    if (McpCatalog.supportsStructuredContent(protocol)) out.set("structuredContent", payload);
     return out;
   }
 
