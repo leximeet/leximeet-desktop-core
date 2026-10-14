@@ -162,8 +162,9 @@ final class DesktopWorkspace {
             return words.detail(db, Json.text(input, "wordId", 120, true));
           }
           if (kind.equals("encounters")) {
-            Json.fields(input, "kind", "search", "from", "to", "offset", "limit");
+            Json.fields(input, "kind", "search", "from", "to", "offset", "limit", "wordId");
             String search = Json.text(input, "search", 100, false);
+            String wordId = Json.text(input, "wordId", 120, false);
             String from = Json.text(input, "from", 10, false),
                 to = Json.text(input, "to", 10, false);
             // 按本机时区的日期转成时间边界，避免 UTC 截断凌晨遇见记录。
@@ -183,13 +184,34 @@ final class DesktopWorkspace {
                 " FROM encounters e JOIN words w ON w.id=e.word_id WHERE e.created_at>=? AND"
                     + " e.created_at<? AND (w.word LIKE ? OR e.context LIKE ?) AND e.id NOT"
                     + " IN(SELECT encounter_id FROM encounter_details WHERE undone_at IS NOT NULL)";
+            if (!wordId.isEmpty()) clause += " AND e.word_id=?";
             ObjectNode result = Json.MAPPER.createObjectNode();
             String like = "%" + search + "%";
+            Object[] filter =
+                wordId.isEmpty()
+                    ? new Object[] {start, end, like, like}
+                    : new Object[] {start, end, like, like, wordId};
             result.put(
-                "total",
-                Sql.first(db, "SELECT COUNT(*) AS n" + clause, start, end, like, like)
-                    .path("n")
-                    .asLong());
+                "total", Sql.first(db, "SELECT COUNT(*) AS n" + clause, filter).path("n").asLong());
+            Object[] page =
+                wordId.isEmpty()
+                    ? new Object[] {
+                      start,
+                      end,
+                      like,
+                      like,
+                      DesktopWords.integer(input, "limit", 50, 1, 100),
+                      DesktopWords.integer(input, "offset", 0, 0, 1000000)
+                    }
+                    : new Object[] {
+                      start,
+                      end,
+                      like,
+                      like,
+                      wordId,
+                      DesktopWords.integer(input, "limit", 50, 1, 100),
+                      DesktopWords.integer(input, "offset", 0, 0, 1000000)
+                    };
             result.set(
                 "encounters",
                 Sql.rows(
@@ -198,12 +220,7 @@ final class DesktopWorkspace {
                         + " sourceTitle,e.source_url AS sourceUrl,e.created_at AS createdAt"
                         + clause
                         + " ORDER BY e.created_at DESC,e.id LIMIT ? OFFSET ?",
-                    start,
-                    end,
-                    like,
-                    like,
-                    DesktopWords.integer(input, "limit", 50, 1, 100),
-                    DesktopWords.integer(input, "offset", 0, 0, 1000000)));
+                    page));
             return result;
           }
           var result = words.query(db, input);

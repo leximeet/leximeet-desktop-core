@@ -285,4 +285,118 @@ class McpServiceTest {
       assertFalse(service.snapshot().toString().contains("record_review"));
     }
   }
+
+  @Test
+  void searchPaginatesMergedSourcesAndExamplesReadObjectText() throws Exception {
+    var fixture = new DesktopWorkspaceTest();
+    try (var service = service()) {
+      fixture.mount(service, fixture.index(directory.resolve("mcp")));
+      CoreTestData.collect(service, Json.MAPPER.createObjectNode().put("word", "alpine"));
+      CoreTestData.collect(service, Json.MAPPER.createObjectNode().put("word", "alphabet"));
+      JsonNode first =
+          structured(
+              service,
+              call(
+                  "leximeet_query",
+                  Json.MAPPER
+                      .createObjectNode()
+                      .put("action", "search_words")
+                      .set(
+                          "args", Json.MAPPER.createObjectNode().put("q", "alp").put("limit", 1))));
+      assertEquals(1, first.path("words").size());
+      assertEquals("alpha", first.path("words").get(0).path("word").asText());
+      assertTrue(first.has("nextCursor"));
+      JsonNode second =
+          structured(
+              service,
+              call(
+                  "leximeet_query",
+                  Json.MAPPER
+                      .createObjectNode()
+                      .put("action", "search_words")
+                      .set(
+                          "args",
+                          Json.MAPPER
+                              .createObjectNode()
+                              .put("q", "alp")
+                              .put("limit", 1)
+                              .put("cursor", first.path("nextCursor").asText()))));
+      assertEquals(1, second.path("words").size());
+      assertEquals("alphabet", second.path("words").get(0).path("word").asText());
+      JsonNode examples =
+          structured(
+              service,
+              call(
+                  "leximeet_query",
+                  Json.MAPPER
+                      .createObjectNode()
+                      .put("action", "get_examples")
+                      .set("args", Json.MAPPER.createObjectNode().put("word", "alpha"))));
+      assertTrue(examples.toString().contains("alpha appears here"), () -> examples.toString());
+    }
+  }
+
+  @Test
+  void encountersHonorWordIdAndOversizePreviewStaysText() throws Exception {
+    try (var service = service()) {
+      service
+          .desktop()
+          .command(
+              Json.MAPPER
+                  .createObjectNode()
+                  .put("action", "capture")
+                  .put("word", "alpha")
+                  .put("context", "alpha appears in this first sentence.")
+                  .put("sourceTitle", "测试")
+                  .put("sourceUrl", ""));
+      service
+          .desktop()
+          .command(
+              Json.MAPPER
+                  .createObjectNode()
+                  .put("action", "capture")
+                  .put("word", "gamma")
+                  .put("context", "gamma appears in this second sentence.")
+                  .put("sourceTitle", "测试")
+                  .put("sourceUrl", ""));
+      String wordId =
+          structured(
+                  service,
+                  call(
+                      "leximeet_query",
+                      Json.MAPPER
+                          .createObjectNode()
+                          .put("action", "lookup_word")
+                          .set("args", Json.MAPPER.createObjectNode().put("word", "alpha"))))
+              .path("wordId")
+              .asText();
+      JsonNode filtered =
+          structured(
+              service,
+              call(
+                  "leximeet_query",
+                  Json.MAPPER
+                      .createObjectNode()
+                      .put("action", "list_encounters")
+                      .set("args", Json.MAPPER.createObjectNode().put("wordId", wordId))));
+      assertEquals(1, filtered.path("total").asLong());
+      assertEquals(1, filtered.path("encounters").size());
+      assertEquals("alpha", filtered.path("encounters").get(0).path("word").asText());
+      CoreTestData.collect(
+          service,
+          Json.MAPPER.createObjectNode().put("word", "omega").put("note", "n".repeat(15000)));
+      JsonNode clipped =
+          structured(
+              service,
+              call(
+                  "leximeet_query",
+                  Json.MAPPER
+                      .createObjectNode()
+                      .put("action", "lookup_word")
+                      .put("detail", true)
+                      .set("args", Json.MAPPER.createObjectNode().put("word", "omega"))));
+      assertTrue(clipped.path("truncated").asBoolean(), () -> clipped.toString());
+      assertTrue(clipped.path("preview").isTextual(), () -> clipped.toString());
+    }
+  }
 }

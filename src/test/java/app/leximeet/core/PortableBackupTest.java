@@ -262,6 +262,7 @@ class PortableBackupTest {
                             .asText()));
             settings.put("translationEnabled", true);
             settings.put("globalShortcutEnabled", true);
+            settings.put("assistantWriteEnabled", true);
             Sql.execute(db, "UPDATE settings SET payload=? WHERE id=1", settings.toString());
             return null;
           });
@@ -292,6 +293,7 @@ class PortableBackupTest {
               Sql.first(copy, "SELECT payload FROM settings WHERE id=1").path("payload").asText());
       assertFalse(settings.path("translationEnabled").asBoolean());
       assertFalse(settings.path("globalShortcutEnabled").asBoolean());
+      assertFalse(settings.path("assistantWriteEnabled").asBoolean());
     }
     assertFalse(
         new String(Files.readAllBytes(file), java.nio.charset.StandardCharsets.ISO_8859_1)

@@ -135,7 +135,8 @@ final class McpService {
             .createObjectNode()
             .put("truncated", true)
             .put("message", "结果超过大小上限，请缩小 limit 或关闭 detail");
-    clipped.set("preview", Json.MAPPER.readTree(text.substring(0, Math.min(800, text.length()))));
+    // 截断后通常不是完整 JSON，只能作为文本预览，避免 readTree 抛成 INTERNAL_ERROR。
+    clipped.put("preview", text.substring(0, Math.min(800, text.length())));
     return clipped;
   }
 

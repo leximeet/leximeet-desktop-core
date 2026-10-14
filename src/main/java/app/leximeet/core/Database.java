@@ -289,17 +289,19 @@ final class Database implements AutoCloseable {
     }
   }
 
+  // 同一连接上的嵌套调用加入当前事务，避免内层提前提交导致外层无法与写入同进同退。
   synchronized <T> T transaction(Work<T> work) throws Exception {
-    connection.setAutoCommit(false);
+    boolean outer = connection.getAutoCommit();
+    if (outer) connection.setAutoCommit(false);
     try {
       T value = work.execute(connection);
-      connection.commit();
+      if (outer) connection.commit();
       return value;
     } catch (Exception error) {
-      connection.rollback();
+      if (outer) connection.rollback();
       throw error;
     } finally {
-      connection.setAutoCommit(true);
+      if (outer) connection.setAutoCommit(true);
     }
   }
 

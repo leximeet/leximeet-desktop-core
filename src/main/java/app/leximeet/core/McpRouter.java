@@ -45,41 +45,53 @@ final class McpRouter {
     Page page = Page.read(args);
     ArrayNode items = Json.MAPPER.createArrayNode();
     String like = q.toLowerCase(Locale.ROOT) + "%";
+    String prefix = PublicLexicon.normalize(q) + "%";
     String contains = "%" + q.toLowerCase(Locale.ROOT) + "%";
+    long lexiconCount = 0;
     if (desktop.lexicon().mounted()) {
-      for (JsonNode row :
-          Sql.rows(
-              db,
-              "SELECT id,headword FROM lexicon.entries WHERE lower(headword) LIKE ? OR normalized"
-                  + " LIKE ? ORDER BY headword,id LIMIT ? OFFSET ?",
-              like,
-              PublicLexicon.normalize(q) + "%",
-              page.limit + 1,
-              page.offset)) {
-        ObjectNode item =
-            Json.MAPPER
-                .createObjectNode()
-                .put("word", row.path("headword").asText())
-                .put("entryId", row.path("id").asText());
-        items.add(item);
+      lexiconCount =
+          Sql.first(
+                  db,
+                  "SELECT COUNT(*) AS n FROM lexicon.entries WHERE lower(headword) LIKE ? OR"
+                      + " normalized LIKE ?",
+                  like,
+                  prefix)
+              .path("n")
+              .asLong();
+      if (page.offset < lexiconCount) {
+        for (JsonNode row :
+            Sql.rows(
+                db,
+                "SELECT id,headword FROM lexicon.entries WHERE lower(headword) LIKE ? OR normalized"
+                    + " LIKE ? ORDER BY headword,id LIMIT ? OFFSET ?",
+                like,
+                prefix,
+                page.limit + 1,
+                page.offset)) {
+          items.add(
+              Json.MAPPER
+                  .createObjectNode()
+                  .put("word", row.path("headword").asText())
+                  .put("entryId", row.path("id").asText()));
+        }
       }
     }
     if (items.size() <= page.limit) {
+      long personalOffset = Math.max(0L, page.offset - lexiconCount);
       for (JsonNode row :
           Sql.rows(
               db,
               "SELECT id,word FROM words WHERE deleted_at IS NULL AND (lower(word) LIKE ? OR"
                   + " normalized LIKE ?) ORDER BY word,id LIMIT ? OFFSET ?",
               contains,
-              PublicLexicon.normalize(q) + "%",
+              prefix,
               page.limit + 1 - items.size(),
-              items.size() >= page.limit ? 0 : page.offset)) {
-        ObjectNode item =
+              personalOffset)) {
+        items.add(
             Json.MAPPER
                 .createObjectNode()
                 .put("word", row.path("word").asText())
-                .put("wordId", row.path("id").asText());
-        items.add(item);
+                .put("wordId", row.path("id").asText()));
       }
     }
     return page.result(items, "words");
@@ -108,9 +120,7 @@ final class McpRouter {
   private static void collectExamples(JsonNode node, ArrayNode sink, int limit) {
     if (node == null || node.isMissingNode() || node.isNull() || sink.size() >= limit) return;
     if (node.isTextual()) {
-      String text = node.asText().strip();
-      if (text.length() > 8 && text.contains(" "))
-        sink.add(text.length() > 240 ? text.substring(0, 240) : text);
+      addExample(node.asText(), sink, limit);
       return;
     }
     if (node.isArray()) {
@@ -118,9 +128,20 @@ final class McpRouter {
       return;
     }
     if (!node.isObject()) return;
-    for (String key : new String[] {"examples", "example", "sentences", "sample"})
+    // 词典例句是 {text, translation}；测试夹具用 {sentence}。
+    if (node.has("text")) addExample(node.path("text").asText(), sink, limit);
+    else if (node.has("sentence")) addExample(node.path("sentence").asText(), sink, limit);
+    for (String key :
+        new String[] {"examples", "example", "sentences", "sample", "attested_examples"})
       if (node.has(key)) collectExamples(node.get(key), sink, limit);
     if (sink.size() < limit && node.has("senses")) collectExamples(node.get("senses"), sink, limit);
+  }
+
+  private static void addExample(String raw, ArrayNode sink, int limit) {
+    if (sink.size() >= limit) return;
+    String text = raw == null ? "" : raw.strip();
+    if (text.length() > 8 && text.contains(" "))
+      sink.add(text.length() > 240 ? text.substring(0, 240) : text);
   }
 
   private ObjectNode status(Connection db, JsonNode args) throws Exception {
@@ -189,6 +210,8 @@ final class McpRouter {
     Page page = Page.read(args);
     ObjectNode query = Json.MAPPER.createObjectNode().put("kind", "encounters");
     query.put("search", optional(args, "q", 100));
+    String wordId = optional(args, "wordId", 120);
+    if (!wordId.isEmpty()) query.put("wordId", wordId);
     query.put("from", optional(args, "from", 10));
     query.put("to", optional(args, "to", 10));
     query.put("limit", page.limit);
@@ -232,17 +255,22 @@ final class McpRouter {
           .put("sourceTitle", "AI 助手")
           .put("sourceUrl", "");
     }
-    ObjectNode result = desktop.command(command);
-    ObjectNode out =
-        Json.MAPPER
-            .createObjectNode()
-            .put("ok", true)
-            .put("word", word)
-            .put(
-                "captureStatus",
-                result.path("captureResult").path("captureStatus").asText("collected"));
-    if (!mutation.isEmpty()) remember(mutation, out);
-    return out;
+    return desktop
+        .database()
+        .transaction(
+            db -> {
+              ObjectNode result = desktop.command(command);
+              ObjectNode out =
+                  Json.MAPPER
+                      .createObjectNode()
+                      .put("ok", true)
+                      .put("word", word)
+                      .put(
+                          "captureStatus",
+                          result.path("captureResult").path("captureStatus").asText("collected"));
+              if (!mutation.isEmpty()) remember(db, mutation, out);
+              return out;
+            });
   }
 
   private ObjectNode replay(String mutationId) throws Exception {
@@ -259,18 +287,13 @@ final class McpRouter {
             });
   }
 
-  private void remember(String mutationId, ObjectNode result) throws Exception {
-    desktop
-        .database()
-        .transaction(
-            db -> {
-              Sql.execute(
-                  db,
-                  "INSERT OR REPLACE INTO personal_meta(key,value) VALUES(?,?)",
-                  mutationKey(mutationId),
-                  result.toString());
-              return null;
-            });
+  private static void remember(Connection db, String mutationId, ObjectNode result)
+      throws Exception {
+    Sql.execute(
+        db,
+        "INSERT OR REPLACE INTO personal_meta(key,value) VALUES(?,?)",
+        mutationKey(mutationId),
+        result.toString());
   }
 
   private static String mutationKey(String mutationId) {
