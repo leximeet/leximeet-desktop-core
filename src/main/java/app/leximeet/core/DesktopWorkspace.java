@@ -62,6 +62,10 @@ final class DesktopWorkspace {
     return words;
   }
 
+  Database database() {
+    return database;
+  }
+
   DesktopPractice practice() {
     return practice;
   }

@@ -93,6 +93,8 @@ class SettingsProjectionTest {
     try (var service = new LeximeetService(directory, CLOCK)) {
       store(service, payload);
       verify(service, stored, 7, true, 500);
+      assertFalse(
+          service.desktop().state().path("settings").path("assistantWriteEnabled").asBoolean());
       assertEquals(payload, raw(service));
     }
     try (var service = new LeximeetService(directory, CLOCK)) {

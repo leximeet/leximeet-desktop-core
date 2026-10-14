@@ -19,6 +19,7 @@ public final class LeximeetService implements AutoCloseable {
   private final Clock clock;
   private final RuntimeDiagnostics diagnostics;
   private final LmcpService lmcp;
+  private final McpService mcp;
   private final boolean ownsDatabase;
   private final DesktopWorkspace desktop;
   private static final String WORD_COLUMNS =
@@ -65,6 +66,7 @@ public final class LeximeetService implements AutoCloseable {
     this.ownsDatabase = ownsDatabase;
     this.desktop = new DesktopWorkspace(database, clock);
     this.lmcp = new LmcpService(database, connectionClock, clock, desktop);
+    this.mcp = new McpService(database, desktop);
     try {
       database.transaction(
           db -> {
@@ -87,8 +89,30 @@ public final class LeximeetService implements AutoCloseable {
     return lmcp;
   }
 
+  McpService mcp() {
+    return mcp;
+  }
+
   DesktopWorkspace desktop() {
     return desktop;
+  }
+
+  public ObjectNode mcpRpc(JsonNode input) {
+    return mcp.handle(input);
+  }
+
+  public ObjectNode mcpManage(JsonNode input) throws Exception {
+    String action = Json.choice(input, "action", "state", "state", "setWriteEnabled");
+    if (action.equals("setWriteEnabled")) {
+      Json.fields(input, "action", "enabled");
+      if (!input.has("enabled") || !input.get("enabled").isBoolean())
+        throw ApiException.badRequest("enabled 必须为布尔值");
+      return updateSettings(
+          Json.MAPPER
+              .createObjectNode()
+              .put(McpPermissions.WRITE_SETTING, input.get("enabled").asBoolean()));
+    }
+    return mcp.manage(Json.MAPPER.createObjectNode().put("action", "state"));
   }
 
   public ObjectNode snapshot() throws Exception {

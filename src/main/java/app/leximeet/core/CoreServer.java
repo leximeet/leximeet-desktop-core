@@ -202,6 +202,14 @@ public final class CoreServer implements AutoCloseable {
       method(method, "POST");
       return service.lmcp().manage(body(exchange));
     }
+    if (path.equals("/api/mcp")) {
+      method(method, "POST");
+      return service.mcpRpc(body(exchange));
+    }
+    if (path.equals("/api/mcp/manage")) {
+      method(method, "POST");
+      return service.mcpManage(body(exchange));
+    }
     if (path.equals("/api/snapshot")) {
       method(method, "GET");
       return service.snapshot();

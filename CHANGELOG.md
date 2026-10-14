@@ -2,6 +2,14 @@
 
 ## 未发布
 
+### 新增
+
+- 1.0.1 AI 助手连接：新增 `/api/mcp` 与 `/api/mcp/manage`。路由式工具 `leximeet_help` / `describe` / `query` / `write`，参数校验与结果上限在 Core。
+- 设置键 `assistantWriteEnabled` 默认 false。唯一写入 `add_to_vocab` 复用 collect/capture，可用 mutationId 幂等。`record_review` 一律拒绝。
+- 未引入官方 MCP Java SDK：该 SDK 2.x 依赖 Jackson 3，与本仓 Jackson 2.21.4 冲突；协议形状按官方 JSON-RPC / tools 对齐。
+
+### 维护
+
 - 首页与发布指南更新为实际已公开的 1.0.0 状态，记录三平台 Jar、固定三仓连接和 Desktop 安装的独立验收入口；保留原标签及发行附件来源。
 - 正式发行说明使用固定 `1.0.0` 标签的完整文档链接，修复粘贴到 GitHub Release 后的相对路径解析错误。
 

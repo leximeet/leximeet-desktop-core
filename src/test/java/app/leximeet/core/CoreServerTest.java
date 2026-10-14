@@ -357,4 +357,32 @@ class CoreServerTest {
             .path("requests")
             .isEmpty());
   }
+
+  @Test
+  void mcpEndpointStaysPrivateAndDoesNotLeakToken() throws Exception {
+    var list =
+        Json.MAPPER
+            .createObjectNode()
+            .put("clientId", "cursor")
+            .set(
+                "message",
+                Json.MAPPER
+                    .createObjectNode()
+                    .put("jsonrpc", "2.0")
+                    .put("id", 1)
+                    .put("method", "tools/list"));
+    assertEquals(
+        401,
+        send(request("/api/mcp").POST(HttpRequest.BodyPublishers.ofString(list.toString())))
+            .statusCode());
+    var response = json("POST", "/api/mcp", list.toString());
+    assertEquals(200, response.statusCode());
+    JsonNode body = Json.MAPPER.readTree(response.body());
+    assertEquals(4, body.path("message").path("result").path("tools").size());
+    assertFalse(response.body().contains(TOKEN));
+    assertFalse(response.body().contains("record_review"));
+    var state = json("POST", "/api/mcp/manage", "{\"action\":\"state\"}");
+    assertEquals(200, state.statusCode());
+    assertFalse(Json.MAPPER.readTree(state.body()).path("writeEnabled").asBoolean());
+  }
 }

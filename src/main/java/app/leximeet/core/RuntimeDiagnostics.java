@@ -22,7 +22,9 @@ final class RuntimeDiagnostics {
           "/api/desktop/query",
           "/api/desktop/command",
           "/api/lmcp/rpc",
-          "/api/lmcp/manage");
+          "/api/lmcp/manage",
+          "/api/mcp",
+          "/api/mcp/manage");
   private final StartupTiming startup;
   private final Map<String, RequestMetrics> requests = new LinkedHashMap<>();
   private boolean enabled;
