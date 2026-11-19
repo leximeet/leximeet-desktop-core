@@ -15,6 +15,23 @@ import java.util.UUID;
 // 本机连接边界：Native 提供可信来源，Core 独占授权、资料事务和持久业务回执。
 final class LmcpService {
   static final int MAX_FRAME_BYTES = 262144;
+  static final String IDEA_ORIGIN = "jetbrains://com.github.weilhuang.leximeetidea";
+  // 与 Main 的 IDEA 绑定共同限制权限；浏览器仍按原合同使用完整方法。
+  static final Set<String> IDEA_METHODS =
+      Set.of(
+          "hello",
+          "requestConnection",
+          "getConnectionStatus",
+          "pair",
+          "resumeSession",
+          "renewSession",
+          "disconnect",
+          "getWorkspace",
+          "getChanges",
+          "matchWords",
+          "getWord",
+          "getPublicEntry");
+  static final List<String> IDEA_CAPABILITIES = List.of("lmcp.connection/1", "desktop.reading/1");
   static final List<String> SCOPES =
       List.of("library:read", "capture:write", "navigation:open", "host:register");
   static final List<String> CAPABILITIES =
@@ -91,11 +108,13 @@ final class LmcpService {
         throw error("PAYLOAD_TOO_LARGE", "请求超过 256 KiB");
       contract.request(envelope);
       String origin = Json.text(input, "extensionOrigin", 200, true);
-      if (!origin.matches("chrome-extension://[a-p]{32}/?"))
+      if (!origin.matches("chrome-extension://[a-p]{32}/?") && !origin.equals(IDEA_ORIGIN))
         throw error("ORIGIN_REJECTED", "宿主来源无效");
       origin = origin.replaceAll("/$", "");
       String connection = input.path("connectionId").asText(),
           method = envelope.path("method").asText();
+      if (origin.equals(IDEA_ORIGIN) && !IDEA_METHODS.contains(method))
+        throw error("FORBIDDEN", "IDEA 连接仅授权查词");
       if (!connection.equals(envelope.path("connectionId").asText()))
         throw error("STALE_CONNECTION", "请求不属于当前连接");
 
@@ -365,7 +384,11 @@ final class LmcpService {
       throws Exception {
     if (!params.path("connectionId").asText().equals(connection))
       throw error("STALE_CONNECTION", "握手连接身份不同");
-    checkCompatibility(params, contract.metadata);
+    boolean idea = origin.equals(IDEA_ORIGIN);
+    if (idea && !params.path("clientKind").asText().equals("ide"))
+      throw error("ORIGIN_REJECTED", "IDEA 通道的客户端类型无效");
+    List<String> capabilities = idea ? IDEA_CAPABILITIES : CAPABILITIES;
+    checkCompatibility(params, contract.metadata, capabilities);
     connections.observe(origin, connection, params);
     var out =
         Json.MAPPER
@@ -377,8 +400,13 @@ final class LmcpService {
             .put("maxFrameBytes", MAX_FRAME_BYTES)
             .put("contractVersion", contract.metadata.path("packageVersion").asText())
             .put("contractDigest", contract.metadata.path("contractDigest").asText());
-    out.set("methods", Json.MAPPER.valueToTree(contract.methods.keySet()));
-    out.set("capabilities", Json.MAPPER.valueToTree(CAPABILITIES));
+    out.set(
+        "methods",
+        Json.MAPPER.valueToTree(
+            idea
+                ? contract.methods.keySet().stream().filter(IDEA_METHODS::contains).toList()
+                : contract.methods.keySet()));
+    out.set("capabilities", Json.MAPPER.valueToTree(capabilities));
     return out;
   }
 
@@ -387,13 +415,18 @@ final class LmcpService {
    * 不能代替最低 API 和必需能力检查；任一端为预发布时仍须候选版本与摘要都相同。
    */
   static void checkCompatibility(JsonNode params, JsonNode metadata) {
+    checkCompatibility(params, metadata, CAPABILITIES);
+  }
+
+  private static void checkCompatibility(
+      JsonNode params, JsonNode metadata, List<String> capabilities) {
     String minimum = params.path("minApiVersion").asText();
     String actual = metadata.path("apiVersion").asText();
     if (!minimum.split("\\.")[0].equals(actual.split("\\.")[0])
         || versionCompare(minimum, actual) > 0)
       throw error("UNSUPPORTED_VERSION", "桌面 API 主版本不同或低于客户端最低要求");
     for (JsonNode requested : params.path("requiredCapabilities"))
-      if (!CAPABILITIES.contains(requested.asText()))
+      if (!capabilities.contains(requested.asText()))
         throw error("CAPABILITY_UNAVAILABLE", "桌面未实现必需能力");
     String clientVersion = params.path("contractVersion").asText();
     String serverVersion = metadata.path("packageVersion").asText();
@@ -522,7 +555,12 @@ final class LmcpService {
             .put("readLeaseUntil", timestamp(clock.instant().plusSeconds(30)))
             .put("pairingId", pairing.path("pairing_id").asText());
     out.set("authorization", authorization);
-    out.set("scopes", Json.MAPPER.valueToTree(SCOPES));
+    out.set(
+        "scopes",
+        Json.MAPPER.valueToTree(
+            pairing.path("origin").asText().equals(IDEA_ORIGIN)
+                ? List.of("library:read")
+                : SCOPES));
     out.set(
         "owner",
         owner(
